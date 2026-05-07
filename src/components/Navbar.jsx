@@ -6,6 +6,7 @@ const links = [
   { to: '/how-we-work', label: 'How We Work' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
+  { to: '/docs', label: 'Docs' },
 ]
 
 export default function Navbar() {

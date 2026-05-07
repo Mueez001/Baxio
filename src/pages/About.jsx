@@ -94,12 +94,34 @@ export default function About() {
           </div>
           <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              ['A. Khan', 'Co-founder & CEO', 'Former VP Operations at a US logistics company. Built and ran a 60-person offshore team for six years.'],
-              ['R. Iyer', 'Co-founder & COO', 'Ex-controller at two PE-backed SaaS companies. Designed Baxio’s finance delivery model.'],
-              ['S. Patel', 'Head of Delivery', 'Twelve years building managed support teams. Owns SOP, QA, and reporting standards across accounts.'],
+              [
+                'Shahid Latif Khan',
+                'Chairman of Board of Directors',
+                "Currently President and CEO of Metropolitan Warehouse & Delivery, a US-based logistics and final-mile delivery company serving the furniture industry. His leadership background adds strong operational credibility to Baxio, connecting the company's BPO, finance, accounting, analytics, and customer support services with real-world logistics execution at scale.",
+              ],
+              [
+                'Peet Van Der Schyff',
+                'Chief Executive Officer',
+                "Also the Chief Finance Officer of MWD, Peet brings senior finance leadership and logistics finance experience to Metropolitan Warehouse & Delivery. As CFO, he oversees financial operations, supports disciplined growth, and strengthens the financial governance behind the company's nationwide logistics platform. His background adds credibility to Baxio's finance, accounting, FP&A, reporting, and back-office support services.",
+              ],
+              [
+                'Mueez Ur Rehman',
+                'Head of Offshore Operations',
+                "Mueez leads FP&A, pricing, financial reporting, and data analytics functions, with a strong focus on operational finance, process improvement, and automation. His work connects financial planning with real business operations, helping Baxio deliver practical support across accounting, reporting, analytics, and back-office processes for US-based clients.",
+              ],
+              [
+                'Mohsin Abbasi',
+                'Operations & Client Support Leader',
+                "Mohsin supports Baxio's service delivery through strong coordination, operational follow-up, and client-focused execution. His role helps ensure that day-to-day processes remain organized, responsive, and aligned with client expectations across back-office and support functions.",
+              ],
+              [
+                'Zeeshan Ali',
+                'IT Support',
+                "Zeeshan Ali provides IT support services to Baxio's clients, helping businesses maintain reliable technology systems and day-to-day technical operations. His hands-on technical expertise extends Baxio's service offering beyond finance and back-office functions, ensuring clients receive dependable IT assistance as part of a fully integrated support model.",
+              ],
             ].map(([n, r, b]) => (
               <div key={n} className="card p-7">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 grid place-items-center text-white font-display font-bold">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 grid place-items-center text-white font-display font-bold text-sm">
                   {n.split(' ').map(s => s[0]).join('')}
                 </div>
                 <div className="mt-5 font-display text-lg font-semibold">{n}</div>

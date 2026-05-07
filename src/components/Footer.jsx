@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container-x py-16 grid gap-12 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Link to="/" className="flex items-center">
-            <img src="/Baxio.jfif" alt="Baxio logo" className="h-10 w-auto rounded-sm" />
+            <img src="Baxio.jfif" alt="Baxio logo" className="h-10 w-auto rounded-sm" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-300">
             Offshore execution for US businesses. Finance, operations, customer service, and analytics — delivered with reporting discipline and process ownership.

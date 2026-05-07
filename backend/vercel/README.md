@@ -12,6 +12,7 @@ This is a ready-to-deploy backend receiver for chatbot intake payloads.
 - Validates required fields.
 - Handles CORS for GitHub Pages and local dev.
 - Returns a success response with id and timestamp.
+- Forwards intake summary + transcript to mueez.rehman@gomwd.com.
 - Logs intake metadata in Vercel runtime logs.
 
 ## Deploy steps
@@ -24,6 +25,11 @@ This is a ready-to-deploy backend receiver for chatbot intake payloads.
 
 Live endpoint URL:
 https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes
+
+Optional backend env var:
+CHATBOT_EMAIL_ENDPOINT=https://formsubmit.co/ajax/mueez.rehman@gomwd.com
+
+If omitted, the endpoint above is used by default.
 
 ## Connect website
 

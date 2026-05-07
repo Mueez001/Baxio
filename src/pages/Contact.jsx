@@ -1,13 +1,10 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-export default function Contact() {
-  const [params] = useSearchParams()
-  const intent = params.get('intent') === 'proposal' ? 'Request a proposal' : 'Book a consultation'
-  const tier = params.get('tier')
+const DEFAULT_CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/mueez.rehman@gomwd.com'
 
-  const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({
+function getInitialForm(tier) {
+  return {
     name: '',
     email: '',
     company: '',
@@ -17,14 +14,62 @@ export default function Contact() {
       : tier === 'dedicated' ? 'Dedicated Resource'
       : 'Dedicated Resource',
     message: '',
-  })
+  }
+}
+
+export default function Contact() {
+  const [params] = useSearchParams()
+  const intent = params.get('intent') === 'proposal' ? 'Request a proposal' : 'Book a consultation'
+  const tier = params.get('tier')
+  const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || DEFAULT_CONTACT_ENDPOINT
+
+  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [form, setForm] = useState(() => getInitialForm(tier))
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    // Replace with real endpoint integration
-    setSubmitted(true)
+
+    setSubmitError('')
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch(contactEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `Baxio Contact - ${intent}`,
+          _template: 'table',
+          _captcha: 'false',
+          fullName: form.name,
+          workEmail: form.email,
+          company: form.company || 'N/A',
+          role: form.role || 'N/A',
+          engagementInterest: form.interest,
+          scope: form.message,
+          source: 'website-contact-form',
+          submittedAt: new Date().toISOString(),
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Submission failed with status ${response.status}`)
+      }
+
+      setSubmitted(true)
+      setForm(getInitialForm(tier))
+    } catch (error) {
+      console.error('Contact form submit error:', error)
+      setSubmitError('Unable to send your message right now. Please email us directly at mueez.rehman@gomwd.com.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -90,11 +135,14 @@ export default function Contact() {
                   </Field>
 
                   <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between pt-2">
-                    <p className="text-xs text-ink-400">
-                      We’ll never share your details. By submitting you agree to our privacy policy.
-                    </p>
-                    <button type="submit" className="btn-accent">
-                      Send message
+                    <div>
+                      <p className="text-xs text-ink-400">
+                        We’ll never share your details. By submitting you agree to our privacy policy.
+                      </p>
+                      {submitError && <p className="mt-2 text-xs text-red-600">{submitError}</p>}
+                    </div>
+                    <button type="submit" className="btn-accent" disabled={isSubmitting}>
+                      {isSubmitting ? 'Sending...' : 'Send message'}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </button>
                   </div>
@@ -126,8 +174,8 @@ export default function Contact() {
             <div className="card p-7">
               <h3 className="font-display text-lg font-semibold">Direct contact</h3>
               <ul className="mt-5 space-y-3 text-sm text-ink-700">
-                <li><span className="text-ink-400">Email:</span> hello@baxio.co</li>
-                <li><span className="text-ink-400">Phone:</span> +1 (302) 555-0148</li>
+                  <li><span className="text-ink-400">Email:</span> peet@go2baxio.com</li>
+                  <li><span className="text-ink-400">Phone:</span> +1 800 300 7417</li>
                 <li><span className="text-ink-400">Hours:</span> Mon–Fri · 8am–8pm ET</li>
               </ul>
             </div>

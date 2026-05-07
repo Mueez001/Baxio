@@ -6,7 +6,6 @@ const links = [
   { to: '/how-we-work', label: 'How We Work' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
-  { to: '/docs', label: 'Docs' },
 ]
 
 export default function Navbar() {
@@ -15,9 +14,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-ink-100/80 bg-white/85 backdrop-blur-md">
-      <div className="container-x flex h-16 items-center justify-between">
+      <div className="container-x flex h-[4.5rem] items-center justify-between sm:h-20">
         <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
-          <img src={logoSrc} alt="Baxio logo" className="h-9 w-auto rounded-sm" />
+          <img src={logoSrc} alt="Baxio logo" className="h-11 w-auto rounded-sm sm:h-12" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

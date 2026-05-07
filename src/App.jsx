@@ -6,7 +6,6 @@ import HowWeWork from './pages/HowWeWork.jsx'
 import Pricing from './pages/Pricing.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
-import Docs from './pages/Docs.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/docs" element={<Docs />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

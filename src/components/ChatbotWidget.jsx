@@ -1,6 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useChatbot } from '../context/ChatbotContext.jsx'
 
 const discoveryQuestions = [
   { key: 'fullName', label: 'Full name', prompt: 'What is your full name?', required: true },
@@ -26,7 +24,7 @@ const botKnowledge = [
   {
     keywords: ['pricing', 'cost', 'price', 'budget'],
     answer:
-      'Pricing depends on role mix, coverage hours, and reporting scope. If you want, I can collect your requirements and compile a scoped summary for the docs page.',
+      'Pricing depends on role mix, coverage hours, and reporting scope. If you want, I can collect your requirements and email a discovery summary privately to our team.',
   },
   {
     keywords: ['timeline', 'onboarding', 'start', 'go live'],
@@ -41,7 +39,7 @@ const botKnowledge = [
   {
     keywords: ['contact', 'consultation', 'book'],
     answer:
-      'You can use the Contact page for a consultation, or I can gather your scope right now and save it into the docs page.',
+      'You can use the Contact page for a consultation, or I can gather your scope right now and send it privately to our team.',
   },
 ]
 
@@ -56,7 +54,6 @@ function isValidEmail(value) {
 }
 
 export default function ChatbotWidget() {
-  const { addEntry, updateEntry } = useChatbot()
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState(() => [
@@ -64,7 +61,7 @@ export default function ChatbotWidget() {
       id: makeId(),
       role: 'bot',
       text:
-        'Hi, I am the Baxio assistant. I can answer basic questions and collect your project details for a compiled docs summary.',
+        'Hi, I am the Baxio assistant. I can answer basic questions and collect your project details for a private discovery summary sent to our team.',
     },
   ])
   const [stepIndex, setStepIndex] = useState(-1)
@@ -97,7 +94,7 @@ export default function ChatbotWidget() {
   function startDiscovery() {
     setDraft({})
     setStepIndex(0)
-    pushBot('Perfect. I will ask a few focused questions and compile the result to the docs page.')
+    pushBot('Perfect. I will ask a few focused questions and send the result privately to our team.')
     pushBot(discoveryQuestions[0].prompt)
   }
 
@@ -139,42 +136,30 @@ export default function ChatbotWidget() {
     }
   }
 
-  async function finalizeDiscovery(finalDraft) {
+  async function finalizeDiscovery(finalDraft, transcript) {
     const createdAt = new Date().toISOString()
     const summaryLines = discoveryQuestions.map((q) => `- ${q.label}: ${finalDraft[q.key] || 'Not provided'}`)
     const summary = ['# Discovery Intake', '', ...summaryLines].join('\n')
-    const entryId = makeId()
 
     const compiledEntry = {
-      id: entryId,
+      id: makeId(),
       createdAt,
       source: 'chatbot',
       fields: finalDraft,
       summary,
-      transcript: messages,
-      syncStatus: endpoint ? 'pending' : 'local-only',
+      transcript,
+      syncStatus: endpoint ? 'pending' : 'failed',
     }
-
-    addEntry(compiledEntry)
 
     const syncResult = await syncToBackend(compiledEntry)
-    updateEntry(entryId, {
-      syncStatus: syncResult.status,
-      syncError: syncResult.error || null,
-      remoteId: syncResult.remoteId || null,
-      syncedAt: syncResult.status === 'synced' ? new Date().toISOString() : null,
-    })
 
     if (syncResult.status === 'synced') {
-      pushBot('Done. I compiled your intake, saved it to docs, and sent it to our backend.')
+      pushBot('Done. I sent your discovery summary and transcript privately to our team.')
     } else if (syncResult.status === 'failed') {
-      pushBot('I saved your intake to docs, but backend sync failed. You can still review everything on the Docs page.')
+      pushBot('I could not send your discovery summary right now. Please use the Contact page or try again shortly.')
     } else {
-      pushBot('Done. I compiled your intake and saved it to docs locally.')
-      pushBot('To enable server sync, set VITE_CHATBOT_WEBHOOK_URL in your environment.')
+      pushBot('Done. I sent your discovery summary privately to our team.')
     }
-
-    pushBot('Open Docs from the navigation to review or copy the compiled notes.')
 
     setStepIndex(-1)
     setDraft({})
@@ -224,7 +209,8 @@ export default function ChatbotWidget() {
       if (normalized === 'skip' && !current.required) {
         const nextIndex = stepIndex + 1
         if (nextIndex >= discoveryQuestions.length) {
-          void finalizeDiscovery({ ...draft, [current.key]: '' })
+          const transcript = [...messages, { id: makeId(), role: 'user', text }]
+          void finalizeDiscovery({ ...draft, [current.key]: '' }, transcript)
           return
         }
         setDraft((prev) => ({ ...prev, [current.key]: '' }))
@@ -247,12 +233,13 @@ export default function ChatbotWidget() {
       const nextIndex = stepIndex + 1
 
       if (nextIndex >= discoveryQuestions.length) {
-        void finalizeDiscovery(nextDraft)
+        const transcript = [...messages, { id: makeId(), role: 'user', text }]
+        void finalizeDiscovery(nextDraft, transcript)
         return
       }
 
       setDraft(nextDraft)
-      setStepIndex(nextIndex)
+    pushBot('I can help with services, pricing, onboarding, timeline, and contact details. I can also gather your full project intake and send it privately to our team. Type start to begin.')
       pushBot(discoveryQuestions[nextIndex].prompt)
       return
     }
@@ -300,12 +287,7 @@ export default function ChatbotWidget() {
 
           <div className="border-t border-ink-100 bg-white px-4 py-3">
             <form onSubmit={handleSend} className="space-y-2">
-              <p className="text-xs text-ink-400">
-                {helperLabel} {' '}
-                <Link to="/docs" className="font-semibold text-brand-700 hover:text-brand-800">
-                  View docs
-                </Link>
-              </p>
+              <p className="text-xs text-ink-400">{helperLabel}</p>
               <div className="flex items-center gap-2">
                 <input
                   value={input}

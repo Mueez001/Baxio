@@ -45,6 +45,8 @@ const botKnowledge = [
   },
 ]
 
+const DEFAULT_WEBHOOK_URL = 'https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes'
+
 function makeId() {
   return `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
 }
@@ -77,7 +79,7 @@ export default function ChatbotWidget() {
   }, [messages, isOpen])
 
   const inDiscovery = stepIndex >= 0
-  const endpoint = (import.meta.env.VITE_CHATBOT_WEBHOOK_URL || '').trim()
+  const endpoint = (import.meta.env.VITE_CHATBOT_WEBHOOK_URL || DEFAULT_WEBHOOK_URL).trim()
 
   const helperLabel = useMemo(() => {
     if (!inDiscovery) {

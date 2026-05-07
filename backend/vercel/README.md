@@ -22,13 +22,13 @@ This is a ready-to-deploy backend receiver for chatbot intake payloads.
 4. Run vercel for first deployment.
 5. After deployment, copy the production URL.
 
-Example endpoint URL:
-https://your-vercel-project.vercel.app/api/chatbot-intakes
+Live endpoint URL:
+https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes
 
 ## Connect website
 
 In your website repo, set environment variable:
-VITE_CHATBOT_WEBHOOK_URL=https://your-vercel-project.vercel.app/api/chatbot-intakes
+VITE_CHATBOT_WEBHOOK_URL=https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes
 
 Then rebuild and redeploy the site.
 

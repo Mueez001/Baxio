@@ -6,7 +6,7 @@ const tiers = [
   {
     id: 'starter',
     name: 'Starter Support',
-    price: '$800 – $1,500',
+    price: '$1,500 – $2,500',
     cadence: '/ month',
     bestFor: 'Small businesses testing offshore execution before scaling.',
     description: 'Shared resources for low-volume, repeatable work. Ideal for clearing backlogs and validating fit.',
@@ -25,7 +25,7 @@ const tiers = [
   {
     id: 'dedicated',
     name: 'Dedicated Resource',
-    price: '$1,800 – $3,500',
+    price: '$2,800 – $4,500',
     cadence: '/ month',
     badge: 'Most Popular',
     highlight: true,

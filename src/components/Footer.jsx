@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
+  const logoSrc = `${import.meta.env.BASE_URL}Baxio.jfif`
+
   return (
     <footer className="border-t border-ink-100 bg-ink-950 text-ink-200">
       <div className="container-x py-16 grid gap-12 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-ink-900 font-display font-bold">B</span>
-            <span className="font-display text-lg font-bold text-white">Baxio</span>
+          <Link to="/" className="flex items-center">
+            <img src={logoSrc} alt="Baxio logo" className="h-10 w-auto rounded-sm" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-300">
             Offshore execution for US businesses. Finance, operations, customer service, and analytics — delivered with reporting discipline and process ownership.

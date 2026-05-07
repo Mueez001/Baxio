@@ -68,6 +68,20 @@ When configured, each completed discovery intake is POSTed as JSON.
 
 The Docs page displays sync status per entry: `Local only`, `Backend synced`, or `Sync failed`.
 
+## Deployable webhook backend
+
+A ready-to-deploy Vercel receiver is included at:
+
+- backend/vercel
+
+Deploy it and use this endpoint in your website env:
+
+- https://your-vercel-project.vercel.app/api/chatbot-intakes
+
+Backend deployment instructions are in:
+
+- backend/vercel/README.md
+
 ## Project structure
 
 ```

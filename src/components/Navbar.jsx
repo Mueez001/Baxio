@@ -15,9 +15,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-ink-100/80 bg-white/85 backdrop-blur-md">
       <div className="container-x flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-ink-900 text-white font-display font-bold">B</span>
-          <span className="font-display text-lg font-bold text-ink-900">Baxio</span>
+        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
+          <img src="/Baxio.jfif" alt="Baxio logo" className="h-9 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

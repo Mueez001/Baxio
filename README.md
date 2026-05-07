@@ -34,54 +34,6 @@ npm run build
 npm run preview
 ```
 
-## Chatbot backend sync
-
-The chatbot always stores compiled intake docs in browser local storage. You can also send each intake to your backend webhook.
-
-1. Create a `.env` file in the project root.
-  (You can copy `.env.example` as a starting point.)
-2. Add:
-
-```bash
-VITE_CHATBOT_WEBHOOK_URL=https://your-api.example.com/chatbot-intakes
-```
-
-3. Restart dev/build so Vite loads the env var.
-
-When configured, each completed discovery intake is POSTed as JSON.
-
-```json
-{
-  "id": "1715111111111_ab12cd",
-  "createdAt": "2026-05-07T11:20:03.554Z",
-  "source": "chatbot",
-  "fields": {
-    "fullName": "Jane Doe",
-    "workEmail": "jane@company.com",
-    "company": "Company Inc"
-  },
-  "summary": "# Discovery Intake\n...",
-  "transcript": [],
-  "syncStatus": "pending"
-}
-```
-
-The Docs page displays sync status per entry: `Local only`, `Backend synced`, or `Sync failed`.
-
-## Deployable webhook backend
-
-A ready-to-deploy Vercel receiver is included at:
-
-- backend/vercel
-
-Deploy it and use this endpoint in your website env:
-
-- https://your-vercel-project.vercel.app/api/chatbot-intakes
-
-Backend deployment instructions are in:
-
-- backend/vercel/README.md
-
 ## Project structure
 
 ```

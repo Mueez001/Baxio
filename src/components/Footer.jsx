@@ -41,8 +41,8 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-white">Get in touch</h4>
           <ul className="mt-4 space-y-3 text-sm text-ink-300">
-            <li>hello@baxio.co</li>
-            <li>+1 (302) 555-0148</li>
+              <li>peet@go2baxio.com</li>
+              <li>+1 800 300 7417</li>
             <li>Mon–Fri · 8am–8pm ET coverage</li>
           </ul>
           <Link to="/contact" className="btn-accent mt-6">Book a Consultation</Link>

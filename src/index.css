@@ -4,58 +4,166 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    font-size: 17px;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
   body {
-    @apply font-sans bg-white text-ink-800 antialiased;
+    @apply font-sans stretch-100 bg-paper text-ink text-body;
   }
-  h1, h2, h3, h4 {
-    @apply font-display tracking-tight text-ink-900;
+  ::selection {
+    @apply bg-crimson-tint text-ink;
+  }
+  h1, h2, h3, h4 { @apply font-sans text-ink balance; }
+  p + p { margin-top: 1em; }
+  strong { @apply font-medium; }
+  em { font-style: normal; @apply font-medium; } /* no italics for emphasis */
+  img { @apply max-w-full h-auto; }
+  button, input, select, textarea { font: inherit; letter-spacing: inherit; }
+
+  /* Focus: one ring, everywhere, keyboard only. */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 2px solid theme('colors.crimson.DEFAULT');
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px theme('colors.crimson.tint');
+    border-radius: 2px;
+  }
+  .rounded-full:focus-visible, .rounded-lg:focus-visible { border-radius: inherit; }
+  .on-black :focus-visible {
+    outline-color: theme('colors.crimson.on-black');
+    box-shadow: none;
+  }
+
+  /* Reduced motion: global, not per component. Nothing slips through. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      animation-delay: 0ms !important;
+      transition-duration: 1ms !important;
+      scroll-behavior: auto !important;
+    }
+    html { scroll-behavior: auto; }
   }
 }
 
 @layer components {
-  .container-x {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
-  }
+  /* ---- Containers and rhythm ---- */
+  .container-page      { @apply mx-auto w-full max-w-page px-6 sm:px-12 xl:px-0; }
+  .container-statement { @apply mx-auto w-full max-w-statement px-6 sm:px-12; }
+  .container-prose     { @apply w-full max-w-prose; }             /* left-aligned, no auto margins */
+  .container-prose-centred { @apply mx-auto w-full max-w-hero px-6 sm:px-0 text-center; }
 
+  .section         { @apply py-16 md:py-20 lg:py-32; }              /* 64 / 80 / 128 */
+  .section-hero    { @apply pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-40 lg:pb-32; } /* 64/64 mobile, 160/128 desktop */
+  .section-cta     { @apply py-20 md:py-24 lg:py-40; }              /* 80 / 96 / 160 */
+  .section-air     { @apply mt-10 md:mt-12 lg:mt-16; }              /* statement -> content: 40 / 48 / 64 */
+  .ground-paper    { @apply bg-paper text-ink; }
+  .ground-paper-2  { @apply bg-paper-2 text-ink; }
+  .ground-black    { @apply bg-black text-paper on-black; }
+  .on-black        { color-scheme: dark; }
+
+  .grid-12 { @apply grid grid-cols-4 gap-x-6 md:grid-cols-12; }   /* 24px gutters everywhere */
+
+  /* ---- Headline levels ---- */
+  .display-xl { @apply text-display-xl-xs sm:text-display-xl-sm lg:text-display-xl-md xl:text-display-xl stretch-92 text-ink balance; }
+  .display-l  { @apply text-display-l-xs md:text-display-l stretch-92 text-ink balance; }
+  .h2         { @apply text-h2-xs md:text-h2 stretch-95 text-ink balance; }
+  .h3         { @apply text-h3-xs md:text-h3 stretch-100 text-ink; }
+  .numeral    { @apply text-numeral-xs md:text-numeral stretch-95 tnum text-ink; }
+  .numeral-sm { @apply text-numeral-xs md:text-numeral-sm stretch-95 tnum text-ink; }
+  .ladder     { @apply text-ladder-xs md:text-ladder stretch-92 text-paper; }
+  .lead       { @apply text-lead-xs md:text-lead text-ink-2; }
+  .on-black .lead { @apply text-on-black-2; }
+  .body       { @apply text-body text-ink; }
+  .body-sm    { @apply text-body-sm text-ink; }
+  .caption    { @apply text-caption text-ink-2; }
+  .meta       { @apply text-meta stretch-110 text-ink-2; }        /* the label role; sentence case only */
+  .legal      { @apply text-legal text-ink-2; }
+  .on-black .caption, .on-black .meta, .on-black .legal { @apply text-on-black-2; }
+
+  /* ---- Buttons: pill primary (black or white), crimson primary (two uses), text link secondary ---- */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500;
+    @apply inline-flex items-center justify-center rounded-full h-11 md:h-12 px-[22px]
+           text-button whitespace-nowrap select-none
+           transition-colors duration-150 ease-out;
   }
-  .btn-primary {
-    @apply btn bg-ink-900 text-white hover:bg-ink-800 shadow-soft;
-  }
-  .btn-accent {
-    @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-soft;
-  }
-  .btn-ghost {
-    @apply btn bg-white text-ink-800 border border-ink-200 hover:border-ink-300 hover:bg-ink-50;
-  }
-  .btn-link {
-    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-brand-800;
-  }
+  .btn-primary       { @apply btn bg-ink text-paper hover:bg-neutral-700; }
+  .on-black .btn-primary { @apply bg-paper text-ink hover:bg-neutral-100; }
+  .btn-crimson       { @apply btn bg-crimson text-paper hover:bg-crimson-press; } /* CTA band + form submit only */
+  .btn-sm            { @apply h-8 px-4 text-button-sm; }                          /* nav pill */
+  .btn[aria-disabled="true"], .btn:disabled { @apply bg-neutral-100 text-neutral-400 pointer-events-none; }
 
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink-600;
+  .link-quiet {                                                                    /* secondary action */
+    @apply inline text-body text-crimson no-underline hover:underline underline-offset-4 decoration-1
+           transition-colors duration-150;
   }
+  .on-black .link-quiet { @apply text-crimson-on-black; }
+  .link-nav {
+    @apply text-nav text-ink no-underline hover:opacity-70 transition-opacity duration-150;
+  }
+  .link-nav[aria-current="page"] { @apply font-medium; }                           /* weight, not colour */
+  .prose-link { @apply text-crimson no-underline hover:underline underline-offset-4 decoration-1; }
 
-  .card {
-    @apply rounded-2xl border border-ink-100 bg-white shadow-card;
-  }
+  /* ---- Rules: the rule grammar ---- */
+  .rule          { @apply border-0 border-t border-rule; }         /* 1px: boundary between siblings */
+  .rule-strong   { @apply border-0 border-t-2 border-ink; }        /* 2px ink: table header, table total */
+  .on-black .rule        { @apply border-neutral-600; }
+  .on-black .rule-strong { @apply border-paper; }
+  .rule-flag     { @apply border-0 border-t-2 border-crimson; }    /* 2px crimson: under the flagged row only */
 
-  .section {
-    @apply py-20 sm:py-24;
-  }
+  /* ---- Ruled rows (the replacement for cards) ---- */
+  .rows          { @apply border-t border-rule; }
+  .row           { @apply grid-12 border-b border-rule py-6 md:py-8 lg:py-10 items-start; }
+  .row-sm        { @apply grid-12 border-b border-rule py-5 lg:py-6 items-start; }
+  .row-link      { @apply block -mx-6 px-6 hover:bg-paper-2 transition-colors duration-150 no-underline text-inherit; }
+  .on-black .rows, .on-black .row, .on-black .row-sm { @apply border-neutral-600; }
 
-  .h-display {
-    @apply font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-ink-900;
+  /* ---- Tables ---- */
+  .table         { @apply w-full border-collapse text-body-sm tnum; }
+  .table th      { @apply meta text-left font-medium pb-3 align-bottom; }
+  .table thead   { @apply border-b-2 border-ink; }
+  .table td      { @apply py-3.5 align-top border-b border-rule; }
+  .table td.num, .table th.num { @apply text-right; }
+  .table tr.total td { @apply border-b-0 border-t-2 border-ink pt-4 text-[20px] font-semibold; }
+  .table td.emph { @apply font-medium; }
+  .table-scroll  { @apply -mx-6 px-6 overflow-x-auto sm:mx-0 sm:px-0; }
+
+  /* ---- The flag: crimson usage in content ---- */
+  .flag          { @apply relative bg-crimson-tint -mx-4 px-4; }   /* the flagged row wash, one per page */
+  .flag::after   {                                                 /* the 2px rule that draws on load */
+    content: '';
+    @apply absolute left-0 right-0 bottom-0 h-0.5 bg-crimson origin-left animate-draw;
   }
-  .h-section {
-    @apply font-display text-3xl sm:text-4xl lg:text-[2.75rem] leading-tight tracking-tight text-ink-900;
-  }
-  .lead {
-    @apply text-lg text-ink-500 leading-relaxed;
-  }
+  .flag-word     { @apply text-crimson font-medium; }              /* "Most engagements start here" */
+
+  /* ---- The sheet (status report) ---- */
+  .sheet         { @apply bg-paper rounded-lg shadow-sheet p-6 md:p-10 text-ink w-full max-w-sheet mx-auto; }
+  .sheet-meta    { @apply meta; }
+  .sheet-kpi     { @apply numeral-sm; }
+  .sheet-head    { @apply text-body-sm font-medium text-ink mt-6 mb-2; }
+  .sheet-line    { @apply text-body-sm text-ink; }
+  .sheet-sign    { @apply text-caption font-medium text-ink text-right mt-8; }
+
+  /* ---- Forms ---- */
+  .field         { @apply block w-full h-[52px] rounded-lg border border-rule bg-paper px-4 text-body text-ink
+                          placeholder:text-neutral-400 transition-colors duration-150 focus:border-crimson; }
+  .field-area    { @apply field h-auto min-h-[160px] py-3.5 resize-y; }
+  .field-label   { @apply block text-caption text-ink mb-2; }
+  .field-error   { @apply text-caption text-crimson mt-2; }
+  .field[aria-invalid="true"] { @apply border-crimson; }
+
+  /* ---- Nav ---- */
+  .nav-bar       { @apply sticky top-0 z-40 h-nav bg-paper/[.92] supports-[backdrop-filter]:bg-paper/[.72]
+                          supports-[backdrop-filter]:backdrop-saturate-[1.8] supports-[backdrop-filter]:backdrop-blur-[20px]
+                          transition-shadow duration-150; }
+  .nav-bar[data-scrolled="true"] { box-shadow: inset 0 -1px 0 theme('colors.rule'); }
+
+  /* ---- Chat pill ---- */
+  .chat-pill     { @apply fixed bottom-4 right-4 md:bottom-6 md:right-6 z-30 h-11 rounded-full px-5
+                          bg-ink text-paper text-button-sm shadow-pill transition-colors duration-150; }
+  .chat-pill[data-inverted="true"] { @apply bg-paper text-ink; }
 }

@@ -108,12 +108,10 @@ export default {
         statement: '900px', // centred statements
         prose: '720px',   // leads under left-aligned H2s, FAQ, body prose, the sheet
         hero: '640px',    // centred lead under Display XL / L
-        sheet: '720px',
         'sheet-sm': '560px',
         panel: '360px',   // chat panel
       },
       boxShadow: {
-        sheet: '0 40px 80px -24px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04)',
         pill:  '0 8px 24px rgba(0,0,0,.16)',
         none: 'none',
       },

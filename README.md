@@ -1,6 +1,6 @@
 # Baxio website
 
-Marketing site for Baxio: offshore execution for US mid-market businesses (finance, support, operations and analytics), run with documented process and weekly reporting. The site is a short sequence of quiet statements on white, grey and black grounds, built the way a weekly status report is built: paper, near-black type, one type family and one crimson mark.
+Marketing site for Baxio: offshore execution for US mid-market businesses (finance, support, operations, analytics and ERP implementation), run with documented process and weekly reporting. The site is a short sequence of quiet statements on white, grey and black grounds, built the way a weekly status report is built: paper, near-black type, one type family and one crimson mark.
 
 ## Stack
 
@@ -35,7 +35,7 @@ Copy `.env.example` to `.env` and adjust as needed. Both variables have working 
 
 ```
 src/
-  components/   Layout, Navbar, Footer, CTASection, FAQ, LogoCloud, Sheet, CoverageRule, ChatbotWidget
+  components/   Layout, Navbar, Footer, CTASection, FAQ, LogoCloud, CoverageRule, ChatbotWidget
   content/      site.js, the single source of truth for copy
   hooks/        usePageMeta
   pages/        Home, Services, HowWeWork, Pricing, About, Contact, NotFound

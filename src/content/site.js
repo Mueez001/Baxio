@@ -6,7 +6,7 @@ export const contact = {
   phone: '+1 800 300 7417',
   phoneHref: 'tel:+18003007417',
   hours: 'Monday to Friday, 8am to 8pm ET',
-  legalName: 'Baxio Operations Inc.',
+  legalName: 'Baxio Inc.',
 }
 
 export const timeline = {
@@ -32,8 +32,7 @@ export const practices = [
       'Management reporting packs',
       'Audit and tax preparation support',
     ],
-    measuredBy: ['DSO', 'Close day', 'Accuracy'],
-    tools: ['QuickBooks', 'NetSuite', 'Xero', 'Sage Intacct'],
+    tools: ['QuickBooks', 'Xero', 'Zoho Books', 'Odoo'],
   },
   {
     id: 'support',
@@ -48,7 +47,6 @@ export const practices = [
       'Weekly QA scoring',
       'After-hours and weekend coverage on request',
     ],
-    measuredBy: ['CSAT', 'First reply', 'QA score'],
     tools: ['Zendesk', 'Intercom', 'Freshdesk', 'HubSpot'],
   },
   {
@@ -64,7 +62,6 @@ export const practices = [
       'Document processing and data entry',
       'Workflow documentation (SOPs)',
     ],
-    measuredBy: ['Cycle time', 'Error rate'],
     tools: ['NetSuite', 'ShipStation', 'HubSpot', 'Salesforce', 'Notion'],
   },
   {
@@ -80,8 +77,22 @@ export const practices = [
       'Ad-hoc analyst capacity',
       'SQL, Python and Excel modelling',
     ],
-    measuredBy: ['Refresh SLA', 'Adoption'],
     tools: ['Looker', 'Power BI', 'Google Sheets', 'BigQuery', 'Excel'],
+  },
+  {
+    id: 'erp',
+    name: 'ERP Implementation',
+    short: 'Requirements, configuration, data migration, testing and go-live, run as a scoped project with a named lead.',
+    lead: 'Whatever accounting or ERP system you run, or plan to move to, the implementation is taken care of end to end and documented so your own team can run it afterwards.',
+    covers: [
+      'Requirements and process mapping',
+      'System configuration and workflow setup',
+      'Data cleansing and migration',
+      'Integrations with your existing systems',
+      'User acceptance testing and training',
+      'Go-live support and hypercare',
+    ],
+    engagement: 'Scoped and priced as a project, separately from the monthly plans.',
   },
 ]
 
@@ -144,7 +155,7 @@ export const principles = [
 
 export const coverage = {
   rows: [
-    ['Delivery centres', 'South Asia'],
+    ['Delivery centres', 'Pakistan'],
     ['Account teams', 'United States'],
     ['Coverage', 'US Eastern to Pacific business hours'],
   ],
@@ -208,6 +219,8 @@ export const plans = [
 
 export const plansNote = 'Every engagement includes onboarding, SOP documentation and a 30-day pilot.'
 
+export const erpNote = 'ERP implementations are scoped and priced as a project, separately from the monthly plans.'
+
 // Like-for-like cost of one full-time role. Every figure is a year unless the label says otherwise.
 // Baxio annual = 12 x the Dedicated Resource monthly range ($2,800-4,500), so the two columns reconcile
 // with the plan prices above. In-house total = 72,000 + 18,000 + (8,000-15,000) + 2,500 + 12,000.
@@ -261,16 +274,12 @@ export const values = [
   ['Long engagements', 'We optimise for clients who stay for years, not for headcount we can churn through.'],
 ]
 
+// Listed alphabetically. No ranking is implied by order or title.
 export const leadership = [
   {
-    name: 'Shahid Latif Khan',
-    title: 'Chairman of the board',
-    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
-  },
-  {
-    name: 'Peet Van Der Schyff',
-    title: 'Chief Executive Officer',
-    bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
+    name: 'Mohsin Abbasi',
+    title: 'Operations and Client Support Lead',
+    bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
   },
   {
     name: 'Mueez Ur Rehman',
@@ -278,14 +287,19 @@ export const leadership = [
     bio: 'Leads FP&A, pricing, reporting and analytics. Turns financial planning into documented processes the delivery teams run.',
   },
   {
-    name: 'Mohsin Abbasi',
-    title: 'Operations and Client Support Lead',
-    bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
+    name: 'Peet Van Der Schyff',
+    title: 'Chief Executive Officer',
+    bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
+  },
+  {
+    name: 'Shahid Latif Khan',
+    title: 'Chairman of the board',
+    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
   },
   {
     name: 'Zeeshan Ali',
-    title: 'IT Support',
-    bio: 'IT support for client systems, access provisioning and secure connectivity.',
+    title: 'Chief Technology Officer',
+    bio: 'Technology, client systems, access provisioning and secure connectivity.',
   },
 ]
 

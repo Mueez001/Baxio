@@ -1,23 +1,12 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
-import Sheet from '../components/Sheet'
 import LogoCloud from '../components/LogoCloud'
 import FAQ from '../components/FAQ'
 import CTASection from '../components/CTASection'
 import { practices, cadence, homeProcess, plans } from '../content/site'
 
 const description =
-  'Finance, support, operations and analytics for US mid-market companies, run by a named team and reported to you every week.'
-
-// "Close day" becomes "close day"; acronyms such as "DSO", "CSAT" and "QA score" keep their capitals.
-function lowerFirst(text) {
-  if (text.length > 1 && text[1] === text[1].toUpperCase() && text[1] !== text[1].toLowerCase()) return text
-  return text.charAt(0).toLowerCase() + text.slice(1)
-}
-
-function measuredSentence(items) {
-  return items.map((item, i) => (i === 0 ? item : lowerFirst(item))).join(', ')
-}
+  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run by a named team and reported to you every week.'
 
 export default function Home() {
   usePageMeta({ title: 'Baxio', description })
@@ -27,7 +16,7 @@ export default function Home() {
       <section className="section-hero ground-paper-2" aria-labelledby="hero-title">
         <div className="container-statement text-center">
           <h1 id="hero-title" className="display-xl animate-fade">
-            Execution,<br className="sm:hidden" /> not headcount.
+            The team you never<br className="sm:hidden" /> have to chase.
           </h1>
           <div className="container-prose-centred mt-6">
             <p className="lead animate-fade">{description}</p>
@@ -35,10 +24,6 @@ export default function Home() {
           <Link to="/contact" className="btn-primary mt-8 animate-fade">
             Book a consultation
           </Link>
-          <div className="mt-12 lg:mt-16 animate-rise">
-            <Sheet />
-          </div>
-          <p className="caption text-center mt-4">Illustrative figures from a Finance &amp; Accounting engagement.</p>
         </div>
       </section>
 
@@ -47,7 +32,7 @@ export default function Home() {
       <section className="ground-paper section" aria-labelledby="practices-title">
         <div className="container-page">
           <h2 id="practices-title" className="h2 md:max-w-[66%]">
-            Four practices. One operating model.
+            Five practices. One operating model.
           </h2>
           <p className="lead container-prose mt-6">
             Every practice runs on the same discipline: documented SOPs, a named lead, weekly written status and a
@@ -58,18 +43,7 @@ export default function Home() {
               <Link key={p.id} to={'/services#' + p.id} className="row-link">
                 <article className="row">
                   <h3 className="h3 col-span-4">{p.name}</h3>
-                  <p className="body col-span-4 mt-2 md:mt-0 md:col-span-4 md:col-start-5">{p.short}</p>
-                  <div className="hidden lg:block lg:col-span-3 lg:col-start-10">
-                    <p className="meta">Measured by</p>
-                    {p.measuredBy.map((m) => (
-                      <span key={m} className="caption block">
-                        {m}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="caption col-span-4 mt-3 md:col-span-4 md:col-start-5 lg:hidden">
-                    Measured by {measuredSentence(p.measuredBy)}
-                  </p>
+                  <p className="body col-span-4 mt-2 md:mt-0 md:col-span-7 md:col-start-5">{p.short}</p>
                 </article>
               </Link>
             ))}

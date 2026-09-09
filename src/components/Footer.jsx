@@ -20,8 +20,8 @@ export default function Footer() {
               <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[18px] w-auto" />
             </Link>
             <p className="caption mt-4 max-w-prose">
-              Offshore execution for US mid-market businesses: finance, support, operations and analytics, run with
-              documented process and weekly reporting.
+              Offshore execution for US mid-market businesses: finance, support, operations, analytics and ERP
+              implementation, run with documented process and weekly reporting.
             </p>
           </div>
 

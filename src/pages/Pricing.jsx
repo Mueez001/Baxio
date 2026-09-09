@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta.js'
 import CTASection from '../components/CTASection.jsx'
 import FAQ from '../components/FAQ.jsx'
-import { plans, plansNote, tco, timeline } from '../content/site.js'
+import { plans, plansNote, erpNote, tco, timeline } from '../content/site.js'
 
 const planIds = plans.map((p) => p.id)
 const defaultPlan = 'dedicated'
@@ -149,6 +149,7 @@ export default function Pricing() {
           </div>
 
           <p className="caption text-center mt-8">{plansNote}</p>
+          <p className="caption text-center mt-2">{erpNote}</p>
         </div>
       </section>
 

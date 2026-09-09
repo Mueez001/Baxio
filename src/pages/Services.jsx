@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import CTASection from '../components/CTASection'
-import { practices, sopContents, plans } from '../content/site'
+import { practices, sopContents, plans, erpNote } from '../content/site'
 
 // Full literal class strings so the Tailwind scanner sees every name.
 const grounds = [
@@ -9,13 +9,14 @@ const grounds = [
   'ground-paper-2 section scroll-mt-16',
   'ground-paper section scroll-mt-16',
   'ground-paper-2 section scroll-mt-16',
+  'ground-paper section scroll-mt-16',
 ]
 
 export default function Services() {
   usePageMeta({
     title: 'Services | Baxio',
     description:
-      'Finance, customer support, operations and analytics, each run by a named lead, documented in your systems and measured against KPIs you sign off on.',
+      'Finance, customer support, operations, analytics and ERP implementation, each run by a named lead, documented in your systems and measured against KPIs you sign off on.',
   })
 
   return (
@@ -23,7 +24,7 @@ export default function Services() {
       <section className="section-hero ground-paper pb-0 lg:pb-0" aria-labelledby="services-title">
         <div className="container-page">
           <h1 id="services-title" className="display-l md:max-w-[75%]">
-            Four practices. One operating model.
+            Five practices. One operating model.
           </h1>
           <p className="lead container-prose mt-6">
             Each practice is run by a named lead, documented in your systems and measured against KPIs
@@ -36,7 +37,7 @@ export default function Services() {
         <PracticeBlock key={p.id} practice={p} ground={grounds[i % grounds.length]} />
       ))}
 
-      <section className="ground-paper section" aria-labelledby="sop-title">
+      <section className="ground-paper-2 section" aria-labelledby="sop-title">
         <div className="container-page">
           <h2 id="sop-title" className="h2">
             What a documented SOP contains.
@@ -51,10 +52,10 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="ground-paper-2 section" aria-labelledby="delivery-title">
+      <section className="ground-paper section" aria-labelledby="delivery-title">
         <div className="container-page">
           <h2 id="delivery-title" className="h2">
-            Every practice can be delivered three ways.
+            Ongoing work is delivered three ways.
           </h2>
           <div className="section-air grid border-t border-rule md:border-t-0 md:grid-cols-3 md:divide-x md:divide-rule">
             {plans.map((plan) => (
@@ -72,6 +73,7 @@ export default function Services() {
               See pricing
             </Link>
           </p>
+          <p className="caption mt-8">{erpNote}</p>
         </div>
       </section>
 
@@ -103,14 +105,18 @@ function PracticeBlock({ practice: p, ground }) {
           </ul>
 
           <dl className="mt-8 rows">
-            <div className="grid grid-cols-4 md:grid-cols-8 gap-x-6 border-b border-rule py-5 lg:py-6">
-              <dt className="meta col-span-4 md:col-span-2">Measured by</dt>
-              <dd className="caption col-span-4 md:col-span-6">{p.measuredBy.join(', ')}</dd>
-            </div>
-            <div className="grid grid-cols-4 md:grid-cols-8 gap-x-6 border-b border-rule py-5 lg:py-6">
-              <dt className="meta col-span-4 md:col-span-2">Tools</dt>
-              <dd className="caption col-span-4 md:col-span-6">{p.tools.join(', ')}</dd>
-            </div>
+            {p.tools && (
+              <div className="grid grid-cols-4 md:grid-cols-8 gap-x-6 border-b border-rule py-5 lg:py-6">
+                <dt className="meta col-span-4 md:col-span-2">Tools</dt>
+                <dd className="caption col-span-4 md:col-span-6">{p.tools.join(', ')}</dd>
+              </div>
+            )}
+            {p.engagement && (
+              <div className="grid grid-cols-4 md:grid-cols-8 gap-x-6 border-b border-rule py-5 lg:py-6">
+                <dt className="meta col-span-4 md:col-span-2">Engagement</dt>
+                <dd className="caption col-span-4 md:col-span-6">{p.engagement}</dd>
+              </div>
+            )}
           </dl>
 
           <p className="mt-8">

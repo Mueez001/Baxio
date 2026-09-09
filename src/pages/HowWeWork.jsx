@@ -1,7 +1,6 @@
 import usePageMeta from '../hooks/usePageMeta.js'
 import CTASection from '../components/CTASection.jsx'
 import CoverageRule from '../components/CoverageRule.jsx'
-import Sheet from '../components/Sheet.jsx'
 import { stages, coverage, cadence, principles, timeline } from '../content/site.js'
 
 export default function HowWeWork() {
@@ -86,17 +85,13 @@ export default function HowWeWork() {
             Every engagement reports on a fixed rhythm. Nothing waits for you to chase it.
           </p>
           <div className="section-air grid-12 gap-y-12">
-            <div className="col-span-4 md:col-span-5 rows">
+            <div className="col-span-4 md:col-span-8 rows">
               {cadence.map(([label, line]) => (
                 <div key={label} className="row-sm block">
                   <h3 className="h3">{label}</h3>
                   <p className="body-sm text-ink-2 mt-2">{line}</p>
                 </div>
               ))}
-            </div>
-            <div className="col-span-4 md:col-span-7">
-              <Sheet size="sm" />
-              <p className="caption text-center mt-4">Illustrative figures from a Finance &amp; Accounting engagement.</p>
             </div>
           </div>
         </div>

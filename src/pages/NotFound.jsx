@@ -1,13 +1,27 @@
 import { Link } from 'react-router-dom'
+import usePageMeta from '../hooks/usePageMeta.js'
 
 export default function NotFound() {
+  usePageMeta({
+    title: 'Page not found | Baxio',
+    description: 'There is nothing posted at this address. Go to the Baxio home page, services or contact.',
+  })
+
   return (
-    <section className="section">
-      <div className="container-x text-center max-w-xl mx-auto">
-        <span className="eyebrow">404</span>
-        <h1 className="mt-5 h-display">Page not found.</h1>
-        <p className="mt-5 lead">The page you’re looking for doesn’t exist or has moved.</p>
-        <Link to="/" className="btn-accent mt-8 inline-flex">Back to home</Link>
+    <section className="ground-paper flex min-h-[60vh] items-center">
+      <div className="container-statement text-center">
+        <h1 className="display-l">There is nothing posted at this address.</h1>
+        <div className="mt-8 flex justify-center gap-8">
+          <Link to="/" className="link-quiet">
+            Home
+          </Link>
+          <Link to="/services" className="link-quiet">
+            Services
+          </Link>
+          <Link to="/contact" className="link-quiet">
+            Contact
+          </Link>
+        </div>
       </div>
     </section>
   )

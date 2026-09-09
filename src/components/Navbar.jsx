@@ -1,94 +1,162 @@
-import { NavLink, Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
-const links = [
+const pages = [
   { to: '/services', label: 'Services' },
-  { to: '/how-we-work', label: 'How We Work' },
+  { to: '/how-we-work', label: 'How we work' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
 ]
 
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const logoSrc = `${import.meta.env.BASE_URL}Baxio.jfif`
+  const buttonRef = useRef(null)
+  const sheetRef = useRef(null)
+  const { pathname, hash } = useLocation()
+  const wordmark = `${import.meta.env.BASE_URL}wordmark.png`
+
+  // Bottom hairline after 8px of scroll.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // The menu closes on any route change.
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname, hash])
+
+  const close = useCallback(() => {
+    setOpen(false)
+    if (buttonRef.current) buttonRef.current.focus()
+  }, [])
+
+  // While open: lock body scroll, move focus into the sheet, trap Tab, close on Escape.
+  useEffect(() => {
+    if (!open) return undefined
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const frame = window.requestAnimationFrame(() => {
+      const first = sheetRef.current ? sheetRef.current.querySelector(FOCUSABLE) : null
+      if (first) first.focus()
+    })
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        close()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const inside = sheetRef.current ? Array.from(sheetRef.current.querySelectorAll(FOCUSABLE)) : []
+      const cycle = [buttonRef.current, ...inside].filter(Boolean)
+      if (cycle.length === 0) return
+      const first = cycle[0]
+      const last = cycle[cycle.length - 1]
+      const active = document.activeElement
+      if (event.shiftKey) {
+        if (active === first || !cycle.includes(active)) {
+          event.preventDefault()
+          last.focus()
+        }
+      } else if (active === last || !cycle.includes(active)) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open, close])
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-ink-100/80 bg-white/85 backdrop-blur-md">
-      <div className="container-x flex h-[4.5rem] items-center justify-between sm:h-20">
-        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
-          <img src={logoSrc} alt="Baxio logo" className="h-11 w-auto rounded-sm sm:h-12" />
-        </Link>
-
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
-                  isActive ? 'text-ink-900' : 'text-ink-500 hover:text-ink-900'
-                }`
-              }
-            >
-              {l.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="hidden md:flex items-center gap-3">
-          <Link to="/contact" className="text-sm font-medium text-ink-600 hover:text-ink-900">
-            Contact
+    <>
+      {/* The bar itself is the sticky element. The sheet lives outside it because backdrop-filter
+          turns the bar into the containing block for fixed descendants. */}
+      <header className="nav-bar" data-scrolled={scrolled ? 'true' : 'false'}>
+        <nav aria-label="Main" className="container-page flex h-nav items-center justify-between">
+          <Link to="/" className="flex items-center">
+            <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[22px] w-auto" />
           </Link>
-          <Link to="/contact" className="btn-accent">
-            Book a Consultation
-          </Link>
-        </div>
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Menu"
-          className="md:hidden grid h-10 w-10 place-items-center rounded-lg border border-ink-200 text-ink-700"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            {open ? (
-              <>
-                <line x1="6" y1="6" x2="18" y2="18" />
-                <line x1="18" y1="6" x2="6" y2="18" />
-              </>
-            ) : (
-              <>
-                <line x1="4" y1="7" x2="20" y2="7" />
-                <line x1="4" y1="12" x2="20" y2="12" />
-                <line x1="4" y1="17" x2="20" y2="17" />
-              </>
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {open && (
-        <div className="md:hidden border-t border-ink-100 bg-white">
-          <div className="container-x py-4 flex flex-col gap-1">
-            {[...links, { to: '/contact', label: 'Contact' }].map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `rounded-lg px-3 py-2.5 text-sm font-medium ${
-                    isActive ? 'bg-ink-50 text-ink-900' : 'text-ink-600 hover:bg-ink-50'
-                  }`
-                }
-              >
-                {l.label}
+          <div className="hidden items-center gap-8 lg:flex">
+            {pages.map((page) => (
+              <NavLink key={page.to} to={page.to} className="link-nav">
+                {page.label}
               </NavLink>
             ))}
-            <Link to="/contact" onClick={() => setOpen(false)} className="btn-accent mt-2 w-full">
-              Book a Consultation
+          </div>
+
+          <div className="hidden items-center gap-8 lg:flex">
+            <NavLink to="/contact" className="link-nav">
+              Contact
+            </NavLink>
+            <Link to="/contact" className="btn-primary btn-sm">
+              Book a consultation
+            </Link>
+          </div>
+
+          <button
+            ref={buttonRef}
+            type="button"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => (open ? close() : setOpen(true))}
+            className="link-nav -mr-2 h-11 px-2 font-medium lg:hidden"
+          >
+            {open ? 'Close' : 'Menu'}
+          </button>
+        </nav>
+      </header>
+
+      {/* Full-screen paper sheet below the bar. Stays mounted; visibility flips after the 200ms fade.
+          z-[35]: above the chat pill (z-30), below the bar (z-40). */}
+      <div
+        id="mobile-menu"
+        ref={sheetRef}
+        data-open={open ? 'true' : 'false'}
+        aria-hidden={!open}
+        className={
+          open
+            ? 'fixed inset-x-0 bottom-0 top-nav z-[35] overflow-y-auto bg-paper transition-[opacity,visibility] duration-200 visible opacity-100 lg:hidden'
+            : 'fixed inset-x-0 bottom-0 top-nav z-[35] overflow-y-auto bg-paper transition-[opacity,visibility] duration-200 invisible opacity-0 lg:hidden'
+        }
+      >
+        <div className="flex min-h-full flex-col">
+          <nav aria-label="Menu" className="container-page pt-2">
+            <ul>
+              {pages.map((page) => (
+                <li key={page.to}>
+                  <NavLink to={page.to} className="block border-b border-rule py-5 text-menu text-ink no-underline">
+                    {page.label}
+                  </NavLink>
+                </li>
+              ))}
+              <li>
+                <NavLink to="/contact" className="block border-b border-rule py-5 text-menu text-ink no-underline">
+                  Contact
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <div className="mt-auto p-6">
+            <Link to="/contact" className="btn-primary flex w-full">
+              Book a consultation
             </Link>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   )
 }

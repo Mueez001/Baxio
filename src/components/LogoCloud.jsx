@@ -1,34 +1,49 @@
-import baramiLogo from '../../TrustedClients/barami.png'
-import ddcLogo from '../../TrustedClients/ddc.png'
-import mwdPremierLogo from '../../TrustedClients/mwd-premier.avif'
-import mwdLogo from '../../TrustedClients/mwd.avif'
-import patriziaLucaLogo from '../../TrustedClients/patrizialuca.png'
+import barami from '../../TrustedClients/barami.png'
+import ddc from '../../TrustedClients/ddc.png'
+import mwd from '../../TrustedClients/mwd.avif'
+import mwdPremier from '../../TrustedClients/mwd-premier.avif'
+import patrizialuca from '../../TrustedClients/patrizialuca.png'
+import { clientLogos } from '../content/site.js'
 
+const files = {
+  'barami.png': barami,
+  'ddc.png': ddc,
+  'mwd.avif': mwd,
+  'mwd-premier.avif': mwdPremier,
+  'patrizialuca.png': patrizialuca,
+}
+
+// The strip is always on paper: the source logos are raster files with white grounds.
+// Below sm it is a single scroll row (the row scrolls, never the page); from sm up it is
+// five equal cells separated by 1px rules, with no outer border and no top or bottom rule.
 export default function LogoCloud() {
-  const logos = [
-    { name: 'Barami', src: baramiLogo },
-    { name: 'DDC', src: ddcLogo },
-    { name: 'MWD Premier', src: mwdPremierLogo },
-    { name: 'MWD', src: mwdLogo },
-    { name: 'Patrizia Luca Milano', src: patriziaLucaLogo },
-  ]
   return (
-    <div className="container-x py-12">
-      <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-ink-400">
-        Trusted by US operators across finance, ecommerce, healthcare, and SaaS
-      </p>
-      <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-8 items-center">
-        {logos.map((logo) => (
-          <div key={logo.name} className="flex items-center justify-center rounded-xl border border-ink-100 bg-white/80 px-4 py-3">
-            <img
-              src={logo.src}
-              alt={`${logo.name} logo`}
-              className="h-10 w-auto max-w-full object-contain sm:h-12"
-              loading="lazy"
-            />
-          </div>
-        ))}
+    <section className="ground-paper py-12 lg:py-24" aria-labelledby="logos-title">
+      <div className="container-page">
+        <h2 id="logos-title" className="meta">
+          Working with operators at
+        </h2>
+
+        <ul className="mt-8 -mx-6 flex overflow-x-auto px-6 snap-x snap-proximity divide-x divide-rule [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-5 sm:overflow-visible sm:px-0">
+          {clientLogos.map((logo) => (
+            <li
+              key={logo.file}
+              className="group flex h-[88px] min-w-[160px] shrink-0 snap-start items-center justify-center px-4 sm:min-w-0 sm:shrink"
+            >
+              <img
+                src={files[logo.file]}
+                alt={logo.name}
+                loading="lazy"
+                className={
+                  logo.tall
+                    ? 'w-auto max-h-9 grayscale opacity-60 transition duration-150 group-hover:grayscale-0 group-hover:opacity-100'
+                    : 'w-auto max-h-7 grayscale opacity-60 transition duration-150 group-hover:grayscale-0 group-hover:opacity-100'
+                }
+              />
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
   )
 }

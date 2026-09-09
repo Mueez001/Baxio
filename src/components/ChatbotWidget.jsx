@@ -1,49 +1,54 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { contact, timeline, practices, plans, plansNote, coverage } from '../content/site.js'
+
+const wordmark = import.meta.env.BASE_URL + 'wordmark.png'
 
 const discoveryQuestions = [
   { key: 'fullName', label: 'Full name', prompt: 'What is your full name?', required: true },
   { key: 'workEmail', label: 'Work email', prompt: 'What is your work email?', required: true, kind: 'email' },
   { key: 'company', label: 'Company', prompt: 'What is your company name?', required: true },
-  { key: 'role', label: 'Role', prompt: 'What is your role/title?', required: false },
-  { key: 'service', label: 'Service need', prompt: 'Which service are you interested in? (finance, support, ops, analytics)', required: true },
-  { key: 'teamSize', label: 'Current team size', prompt: 'How many people are currently handling this workload?', required: false },
-  { key: 'volume', label: 'Monthly volume', prompt: 'What monthly volume should we expect? (tickets, invoices, orders, etc.)', required: false },
-  { key: 'tools', label: 'Tools', prompt: 'Which tools/systems are in your current workflow?', required: false },
+  { key: 'role', label: 'Role', prompt: 'What is your role or title?', required: false },
+  { key: 'service', label: 'Service need', prompt: 'Which service are you interested in: finance, support, operations or analytics?', required: true },
+  { key: 'teamSize', label: 'Current team size', prompt: 'How many people currently handle this workload?', required: false },
+  { key: 'volume', label: 'Monthly volume', prompt: 'What monthly volume should we expect (tickets, invoices, orders)?', required: false },
+  { key: 'tools', label: 'Tools', prompt: 'Which tools or systems are in your current workflow?', required: false },
   { key: 'timeline', label: 'Timeline', prompt: 'When do you want to go live?', required: true },
   { key: 'budget', label: 'Budget range', prompt: 'Do you have a monthly budget range in mind?', required: false },
   { key: 'painPoints', label: 'Pain points', prompt: 'What are the top pain points you want fixed first?', required: true },
   { key: 'successMetric', label: 'Success metric', prompt: 'What result would make this engagement a clear win in 90 days?', required: true },
 ]
 
+const starter = plans.find((p) => p.id === 'starter')
+const dedicated = plans.find((p) => p.id === 'dedicated')
+const managed = plans.find((p) => p.id === 'managed')
+const coverageMap = Object.fromEntries(coverage.rows)
+
 const botKnowledge = [
   {
-    keywords: ['services', 'service', 'offer', 'what do you do'],
-    answer:
-      'We support Finance and Accounting, Customer Support, Operations Support, and Data and Analytics for US businesses.',
+    keywords: ['services', 'service', 'offer', 'what do you do', 'practice'],
+    answer: `We run four practices for US businesses: ${practices.map((p) => p.name).join(', ')}.`,
   },
   {
-    keywords: ['pricing', 'cost', 'price', 'budget'],
-    answer:
-      'Pricing depends on role mix, coverage hours, and reporting scope. If you want, I can collect your requirements and email a discovery summary privately to our team.',
+    keywords: ['pricing', 'cost', 'price', 'budget', 'how much'],
+    answer: `${starter.name} is ${starter.price} ${starter.priceNote}. ${dedicated.name} is ${dedicated.price} ${dedicated.priceNote}. ${managed.name} pricing is ${managed.priceNote}. ${plansNote}`,
   },
   {
-    keywords: ['timeline', 'onboarding', 'start', 'go live'],
-    answer:
-      'Typical onboarding starts with discovery, then pilot design, then implementation. Many teams are operational within a few weeks.',
+    keywords: ['timeline', 'onboarding', 'start', 'go live', 'how long', 'how quickly', 'how fast', 'proposal', 'pilot'],
+    answer: `We reply within ${timeline.reply} and send a written proposal within ${timeline.proposal}. Onboarding takes ${timeline.onboarding}, then a ${timeline.pilot} runs against KPIs you sign off on.`,
   },
   {
-    keywords: ['location', 'timezone', 'hours', 'coverage'],
-    answer:
-      'Baxio supports US time-zone coverage with structured reporting cadence and managed delivery.',
+    keywords: ['location', 'timezone', 'time zone', 'hours', 'coverage', 'where'],
+    answer: `Coverage is ${coverageMap['Coverage']}, ${contact.hours}. Delivery centres are in ${coverageMap['Delivery centres']} and account teams are in the ${coverageMap['Account teams']}.`,
   },
   {
-    keywords: ['contact', 'consultation', 'book'],
-    answer:
-      'You can use the Contact page for a consultation, or I can gather your scope right now and send it privately to our team.',
+    keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],
+    answer: `Email ${contact.email} or call ${contact.phone}. You can also book a consultation on the Contact page, or type start and I will take your details here.`,
   },
 ]
 
 const DEFAULT_WEBHOOK_URL = 'https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes'
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 function makeId() {
   return `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
@@ -53,49 +58,231 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
+function questionPrompt(index) {
+  const q = discoveryQuestions[index]
+  return q.required ? q.prompt : `${q.prompt} Type skip to leave this blank.`
+}
+
 export default function ChatbotWidget() {
+  const location = useLocation()
+
   const [isOpen, setIsOpen] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+  const [isShown, setIsShown] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState(() => [
     {
       id: makeId(),
       role: 'bot',
-      text:
-        'Hi, I am the Baxio assistant. I can answer basic questions and collect your project details for a private discovery summary sent to our team.',
+      text: `Hello. I can answer basic questions about Baxio and take your project details privately for our team. Type start to begin.`,
     },
   ])
+  // -1: no intake running; 0..n-1: current question; n: answers complete, awaiting a successful send.
   const [stepIndex, setStepIndex] = useState(-1)
   const [draft, setDraft] = useState({})
+  const [isSending, setIsSending] = useState(false)
+  const [isInverted, setIsInverted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isNarrow, setIsNarrow] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
+
   const listRef = useRef(null)
+  const panelRef = useRef(null)
+  const inputRef = useRef(null)
+  const pillRef = useRef(null)
+  const finalizingRef = useRef(false)
+  const closeTimerRef = useRef(null)
+
+  const endpoint = (import.meta.env.VITE_CHATBOT_WEBHOOK_URL || DEFAULT_WEBHOOK_URL).trim()
+  const inDiscovery = stepIndex >= 0
+  const awaitingSend = stepIndex >= discoveryQuestions.length
+  const isContactNarrow = location.pathname === '/contact' && isNarrow
+  const pillVisible = !isContactNarrow && (!isMobile || hasScrolled)
+
+  // Viewport breakpoints.
+  useEffect(() => {
+    const mobile = window.matchMedia('(max-width: 767px)')
+    const narrow = window.matchMedia('(max-width: 1023px)')
+    const update = () => {
+      setIsMobile(mobile.matches)
+      setIsNarrow(narrow.matches)
+    }
+    update()
+    mobile.addEventListener('change', update)
+    narrow.addEventListener('change', update)
+    return () => {
+      mobile.removeEventListener('change', update)
+      narrow.removeEventListener('change', update)
+    }
+  }, [])
+
+  // Mobile: the pill appears after 600px of scroll.
+  useEffect(() => {
+    const onScroll = () => setHasScrolled(window.scrollY > 600)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Close the panel if the pill is hidden away from under it.
+  useEffect(() => {
+    if (!pillVisible && isOpen) {
+      setIsOpen(false)
+    }
+  }, [pillVisible, isOpen])
+
+  // Invert the pill while it overlaps a black section.
+  useEffect(() => {
+    if (!pillVisible || typeof IntersectionObserver === 'undefined') {
+      setIsInverted(false)
+      return undefined
+    }
+
+    let observer = null
+    let frame = null
+    const overlapping = new Set()
+
+    const connect = () => {
+      if (observer) {
+        observer.disconnect()
+      }
+      overlapping.clear()
+      setIsInverted(false)
+
+      const pill = pillRef.current
+      if (!pill) {
+        return
+      }
+      const rect = pill.getBoundingClientRect()
+      if (rect.height === 0) {
+        return
+      }
+      const top = Math.max(0, Math.round(rect.top))
+      const bottom = Math.max(0, Math.round(window.innerHeight - rect.bottom))
+      const left = Math.max(0, Math.round(rect.left))
+      const right = Math.max(0, Math.round(window.innerWidth - rect.right))
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              overlapping.add(entry.target)
+            } else {
+              overlapping.delete(entry.target)
+            }
+          })
+          setIsInverted(overlapping.size > 0)
+        },
+        { threshold: 0, rootMargin: `-${top}px -${right}px -${bottom}px -${left}px` },
+      )
+
+      document.querySelectorAll('.ground-black').forEach((el) => observer.observe(el))
+    }
+
+    const schedule = () => {
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+      frame = requestAnimationFrame(connect)
+    }
+
+    schedule()
+    window.addEventListener('resize', schedule)
+    return () => {
+      window.removeEventListener('resize', schedule)
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+      if (observer) {
+        observer.disconnect()
+      }
+    }
+  }, [location.pathname, pillVisible])
+
+  // Mount and transition the panel: 200ms opacity and 8px translate.
+  useEffect(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+    if (isOpen) {
+      setIsMounted(true)
+      const frame = requestAnimationFrame(() => setIsShown(true))
+      return () => cancelAnimationFrame(frame)
+    }
+    setIsShown(false)
+    closeTimerRef.current = setTimeout(() => {
+      setIsMounted(false)
+      closeTimerRef.current = null
+    }, 200)
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current)
+        closeTimerRef.current = null
+      }
+    }
+  }, [isOpen])
+
+  // Focus moves into the input on open.
+  useEffect(() => {
+    if (isMounted && isOpen && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isMounted, isOpen])
 
   useEffect(() => {
-    if (!listRef.current) {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight
+    }
+  }, [messages, isMounted])
+
+  function closePanel({ returnFocus = false } = {}) {
+    setIsOpen(false)
+    if (returnFocus && pillRef.current) {
+      pillRef.current.focus()
+    }
+  }
+
+  function handlePanelKeyDown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault()
+      closePanel({ returnFocus: true })
       return
     }
-    listRef.current.scrollTop = listRef.current.scrollHeight
-  }, [messages, isOpen])
-
-  const inDiscovery = stepIndex >= 0
-  const endpoint = (import.meta.env.VITE_CHATBOT_WEBHOOK_URL || DEFAULT_WEBHOOK_URL).trim()
-
-  const helperLabel = useMemo(() => {
-    if (!inDiscovery) {
-      return 'Ask a question or type: start'
+    if (e.key !== 'Tab' || !panelRef.current) {
+      return
     }
-
-    const q = discoveryQuestions[stepIndex]
-    return q?.required ? 'This question is required' : 'Type skip to leave this blank'
-  }, [inDiscovery, stepIndex])
+    const focusable = Array.from(panelRef.current.querySelectorAll(FOCUSABLE))
+    if (focusable.length === 0) {
+      e.preventDefault()
+      return
+    }
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    const active = document.activeElement
+    if (e.shiftKey && (active === first || !panelRef.current.contains(active))) {
+      e.preventDefault()
+      last.focus()
+    } else if (!e.shiftKey && (active === last || !panelRef.current.contains(active))) {
+      e.preventDefault()
+      first.focus()
+    }
+  }
 
   function pushBot(text) {
     setMessages((prev) => [...prev, { id: makeId(), role: 'bot', text }])
   }
 
+  function resetDiscovery() {
+    setStepIndex(-1)
+    setDraft({})
+  }
+
   function startDiscovery() {
     setDraft({})
     setStepIndex(0)
-    pushBot('Perfect. I will ask a few focused questions and send the result privately to our team.')
-    pushBot(discoveryQuestions[0].prompt)
+    pushBot('I will ask twelve short questions and send your answers privately to our team. Type cancel at any point to stop.')
+    pushBot(questionPrompt(0))
   }
 
   async function syncToBackend(payload) {
@@ -106,9 +293,7 @@ export default function ChatbotWidget() {
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
 
@@ -137,9 +322,17 @@ export default function ChatbotWidget() {
   }
 
   async function finalizeDiscovery(finalDraft, transcript) {
+    if (finalizingRef.current) {
+      return
+    }
+    finalizingRef.current = true
+    setIsSending(true)
+    setDraft(finalDraft)
+    setStepIndex(discoveryQuestions.length)
+
     const createdAt = new Date().toISOString()
     const summaryLines = discoveryQuestions.map((q) => `- ${q.label}: ${finalDraft[q.key] || 'Not provided'}`)
-    const summary = ['# Discovery Intake', '', ...summaryLines].join('\n')
+    const summary = ['# Discovery intake', '', ...summaryLines].join('\n')
 
     const compiledEntry = {
       id: makeId(),
@@ -151,24 +344,26 @@ export default function ChatbotWidget() {
       syncStatus: endpoint ? 'pending' : 'failed',
     }
 
-    const syncResult = await syncToBackend(compiledEntry)
+    try {
+      const syncResult = await syncToBackend(compiledEntry)
 
-    if (syncResult.status === 'synced') {
-      pushBot('Done. I sent your discovery summary and transcript privately to our team.')
-    } else if (syncResult.status === 'failed') {
-      pushBot('I could not send your discovery summary right now. Please use the Contact page or try again shortly.')
-    } else {
-      pushBot('Done. I sent your discovery summary privately to our team.')
+      if (syncResult.status !== 'synced') {
+        pushBot(`I could not send your details just now. Your answers are kept here: type send to try again, or email ${contact.email}.`)
+        return
+      }
+
+      pushBot(`Done. Your details are with our team. We reply within ${timeline.reply}.`)
+      resetDiscovery()
+    } finally {
+      finalizingRef.current = false
+      setIsSending(false)
     }
-
-    setStepIndex(-1)
-    setDraft({})
   }
 
   function answerBasicQuestion(text) {
     const lowered = text.toLowerCase()
 
-    if (['start', 'quote', 'proposal', 'scope', 'discovery'].some((w) => lowered.includes(w))) {
+    if (lowered === 'start' || /\b(quote|scope|discovery|intake|get started)\b/.test(lowered)) {
       startDiscovery()
       return
     }
@@ -177,144 +372,147 @@ export default function ChatbotWidget() {
     if (hit) {
       pushBot(hit.answer)
       if (hit.keywords.includes('pricing')) {
-        pushBot('Type start when you want me to gather your scope.')
+        pushBot('Type start when you want me to take your scope for a written proposal.')
       }
       return
     }
 
-    pushBot('I can help with services, pricing, onboarding, timeline, and contact details. I can also gather your full project intake. Type start to begin.')
+    pushBot('I can answer questions about services, pricing, timelines, coverage hours and contact details. Type start and I will take your project details for our team.')
   }
 
   function handleSend(e) {
     e.preventDefault()
     const text = input.trim()
-    if (!text) {
+    if (!text || isSending) {
       return
     }
 
-    setMessages((prev) => [...prev, { id: makeId(), role: 'user', text }])
+    const userMessage = { id: makeId(), role: 'user', text }
+    setMessages((prev) => [...prev, userMessage])
     setInput('')
 
-    if (inDiscovery) {
-      const current = discoveryQuestions[stepIndex]
-      const normalized = text.toLowerCase()
-
-      if (normalized === 'cancel') {
-        pushBot('Discovery canceled. Type start whenever you want to restart.')
-        setStepIndex(-1)
-        setDraft({})
-        return
-      }
-
-      if (normalized === 'skip' && !current.required) {
-        const nextIndex = stepIndex + 1
-        if (nextIndex >= discoveryQuestions.length) {
-          const transcript = [...messages, { id: makeId(), role: 'user', text }]
-          void finalizeDiscovery({ ...draft, [current.key]: '' }, transcript)
-          return
-        }
-        setDraft((prev) => ({ ...prev, [current.key]: '' }))
-        setStepIndex(nextIndex)
-        pushBot(discoveryQuestions[nextIndex].prompt)
-        return
-      }
-
-      if (!text && current.required) {
-        pushBot('That answer is required. Please provide it.')
-        return
-      }
-
-      if (current.kind === 'email' && !isValidEmail(text)) {
-        pushBot('Please provide a valid work email address.')
-        return
-      }
-
-      const nextDraft = { ...draft, [current.key]: text }
-      const nextIndex = stepIndex + 1
-
-      if (nextIndex >= discoveryQuestions.length) {
-        const transcript = [...messages, { id: makeId(), role: 'user', text }]
-        void finalizeDiscovery(nextDraft, transcript)
-        return
-      }
-
-      setDraft(nextDraft)
-    pushBot('I can help with services, pricing, onboarding, timeline, and contact details. I can also gather your full project intake and send it privately to our team. Type start to begin.')
-      pushBot(discoveryQuestions[nextIndex].prompt)
+    if (!inDiscovery) {
+      answerBasicQuestion(text)
       return
     }
 
-    answerBasicQuestion(text)
+    const normalized = text.toLowerCase()
+
+    if (normalized === 'cancel') {
+      pushBot('Discovery cancelled. Type start whenever you want to begin again.')
+      resetDiscovery()
+      return
+    }
+
+    if (awaitingSend) {
+      void finalizeDiscovery(draft, [...messages, userMessage])
+      return
+    }
+
+    const current = discoveryQuestions[stepIndex]
+    const nextIndex = stepIndex + 1
+
+    if (normalized === 'skip') {
+      if (current.required) {
+        pushBot('That answer is required: type it to continue.')
+        return
+      }
+      const nextDraft = { ...draft, [current.key]: '' }
+      if (nextIndex >= discoveryQuestions.length) {
+        void finalizeDiscovery(nextDraft, [...messages, userMessage])
+        return
+      }
+      setDraft(nextDraft)
+      setStepIndex(nextIndex)
+      pushBot(questionPrompt(nextIndex))
+      return
+    }
+
+    if (current.kind === 'email' && !isValidEmail(text)) {
+      pushBot('Enter a work email address.')
+      return
+    }
+
+    const nextDraft = { ...draft, [current.key]: text }
+
+    if (nextIndex >= discoveryQuestions.length) {
+      void finalizeDiscovery(nextDraft, [...messages, userMessage])
+      return
+    }
+
+    setDraft(nextDraft)
+    setStepIndex(nextIndex)
+    pushBot(questionPrompt(nextIndex))
   }
 
   return (
     <>
-      {isOpen && (
-        <section className="fixed bottom-24 right-4 z-50 w-[calc(100%-2rem)] max-w-sm overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-2xl sm:right-6">
-          <header className="flex items-center justify-between border-b border-ink-100 bg-ink-950 px-4 py-3 text-white">
-            <div>
-              <p className="font-display text-sm font-semibold">Baxio Assistant</p>
-              <p className="text-xs text-ink-200">Basic Q&A + discovery intake</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="grid h-8 w-8 place-items-center rounded-md bg-white/10 text-white hover:bg-white/20"
-              aria-label="Close chatbot"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="6" y1="6" x2="18" y2="18" />
-                <line x1="18" y1="6" x2="6" y2="18" />
-              </svg>
-            </button>
-          </header>
+      {isMounted && (
+        <section
+          id="chat-panel"
+          ref={panelRef}
+          role="dialog"
+          aria-modal="false"
+          aria-label="Chat with Baxio"
+          onKeyDown={handlePanelKeyDown}
+          className={`fixed z-30 bottom-[76px] right-4 md:bottom-[84px] md:right-6 w-[calc(100%-2rem)] sm:w-[360px] h-[520px] max-h-[80vh] rounded-lg border border-rule bg-paper shadow-pill flex flex-col transition-[opacity,transform] duration-200 ease-out ${
+            isShown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+        >
+          <div className="px-4 pt-4 pb-3 border-b border-rule">
+            <img src={wordmark} alt="Baxio" className="h-4 w-auto" />
+            <p className="caption mt-2">Answers basic questions and takes your project details privately for our team.</p>
+          </div>
 
-          <div ref={listRef} className="max-h-[380px] space-y-3 overflow-y-auto bg-ink-50/60 px-4 py-4">
-            {messages.map((m) => (
-              <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <p
-                  className={`max-w-[90%] rounded-2xl px-3 py-2 text-sm leading-relaxed ${
-                    m.role === 'user'
-                      ? 'rounded-br-md bg-brand-600 text-white'
-                      : 'rounded-bl-md border border-ink-100 bg-white text-ink-700'
-                  }`}
-                >
+          <div ref={listRef} aria-live="polite" className="flex-1 min-h-0 flex flex-col gap-3 overflow-y-auto px-4 py-4">
+            {messages.map((m) =>
+              m.role === 'user' ? (
+                <p key={m.id} className="text-body-sm text-paper bg-ink rounded-lg px-4 py-3 max-w-[85%] self-end">
                   {m.text}
                 </p>
-              </div>
-            ))}
+              ) : (
+                <p key={m.id} className="body-sm bg-paper-2 rounded-lg px-4 py-3 max-w-[85%] self-start">
+                  {m.text}
+                </p>
+              ),
+            )}
           </div>
 
-          <div className="border-t border-ink-100 bg-white px-4 py-3">
-            <form onSubmit={handleSend} className="space-y-2">
-              <p className="text-xs text-ink-400">{helperLabel}</p>
-              <div className="flex items-center gap-2">
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your message"
-                  className="h-10 w-full rounded-lg border border-ink-200 px-3 text-sm text-ink-800 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10"
-                />
-                <button type="submit" className="btn-accent h-10 px-4 py-0 text-xs">
-                  Send
-                </button>
-              </div>
-            </form>
-          </div>
+          <form onSubmit={handleSend} className="flex items-center gap-2 px-4 py-3 border-t border-rule">
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="field h-11"
+              aria-label="Message"
+              placeholder="Ask a question or type start"
+              autoComplete="off"
+            />
+            <button type="submit" className="btn-primary btn-sm" disabled={isSending}>
+              {isSending ? 'Sending…' : 'Send'}
+            </button>
+          </form>
         </section>
       )}
 
       <button
         type="button"
+        ref={pillRef}
         onClick={() => setIsOpen((v) => !v)}
-        className="fixed bottom-6 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-ink-900 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-ink-800 sm:right-6"
+        onKeyDown={(e) => {
+          if (e.key === 'Escape' && isOpen) {
+            e.preventDefault()
+            closePanel({ returnFocus: true })
+          }
+        }}
+        className="chat-pill"
+        aria-expanded={isOpen}
+        aria-controls="chat-panel"
+        aria-label={isOpen ? 'Close assistant' : 'Chat with us'}
+        data-inverted={isInverted ? 'true' : 'false'}
+        hidden={!pillVisible}
       >
-        <span className="grid h-6 w-6 place-items-center rounded-full bg-white/15">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        </span>
-        {isOpen ? 'Close assistant' : 'Chat with us'}
+        {isOpen ? 'Close' : 'Chat with us'}
       </button>
     </>
   )

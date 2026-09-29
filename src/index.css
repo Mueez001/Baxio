@@ -192,3 +192,50 @@
   ::view-transition-old(*),
   ::view-transition-new(*) { animation: none !important; }
 }
+
+/* ---- Redesign 29 Sep 2026: hero sequence, status note, steps ----
+   One orchestrated moment on first load (the hero), nothing else animates on scroll.
+   Reduced motion is handled by the global rule in @layer base. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.hero-rise   { animation: hero-rise 640ms cubic-bezier(.2, .8, .2, 1) both; }
+.hero-rise-1 { animation-delay: 40ms; }
+.hero-rise-2 { animation-delay: 140ms; }
+.hero-rise-3 { animation-delay: 240ms; }
+.hero-rise-4 { animation-delay: 360ms; }
+
+@layer components {
+  /* The accent: a 3px crimson rule above the hero headline. The only crimson in the hero. */
+  .accent-rule { @apply block h-[3px] w-12 bg-crimson; }
+
+  .status-note-sheet {
+    @apply rounded-lg border border-rule bg-paper p-5 sm:p-7;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 24px 48px -24px rgba(0, 0, 0, .18);
+  }
+  .status-bar {
+    @apply block h-2 rounded-full origin-left;
+    animation: bar-grow 700ms cubic-bezier(.2, .8, .2, 1) both;
+  }
+
+  /* Numbered steps. Phones: a vertical rule down the left. md+: one horizontal rule through the dots. */
+  .steps { @apply relative grid gap-y-10 md:grid-cols-4 md:gap-x-6; }
+  .steps::before {
+    content: '';
+    @apply absolute left-[15px] top-4 bottom-4 w-px bg-rule md:left-0 md:right-0 md:top-[15px] md:bottom-auto md:h-px md:w-auto;
+  }
+  .step { @apply relative grid grid-cols-[32px_1fr] gap-x-5 md:block; }
+  .step-dot {
+    @apply relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-ink text-paper
+           text-caption font-semibold tnum ring-8 ring-paper-2;
+  }
+  .step-body { @apply md:mt-6 md:pr-4; }
+
+  /* Footer links: a taller hit area (32px) without changing the visual rhythm. */
+  .footer-link { @apply inline-flex min-h-[32px] items-center text-caption text-ink hover:opacity-70 transition-opacity duration-150; }
+}

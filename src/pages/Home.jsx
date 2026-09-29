@@ -1,55 +1,94 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import LogoCloud from '../components/LogoCloud'
+import StatusNote from '../components/StatusNote'
+import HowItWorks from '../components/HowItWorks'
+import TrustSection from '../components/TrustSection'
 import FAQ from '../components/FAQ'
 import CTASection from '../components/CTASection'
-import { practices, cadence, homeProcess } from '../content/site'
+import { practices, cadence, ctaLabel, heroLead, heroFacts } from '../content/site'
 
 const description =
   'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run by a named team and reported to you every week.'
 
 export default function Home() {
-  usePageMeta({ title: 'Baxio', description })
+  usePageMeta({ title: 'Baxio | Offshore finance, support and operations teams for US companies', description })
 
   return (
     <>
-      <section className="section-hero ground-paper-2" aria-labelledby="hero-title">
-        <div className="container-statement text-center">
-          <h1 id="hero-title" className="display-xl animate-fade">
-            The team you never<br className="sm:hidden" /> have to chase.
-          </h1>
-          <div className="container-prose-centred mt-6">
-            <p className="lead animate-fade">{description}</p>
+      {/* Hero: the promise on the left, the weekly status it produces on the right. */}
+      <section className="ground-paper-2 pt-12 pb-16 md:pt-20 md:pb-20 lg:pt-28 lg:pb-24" aria-labelledby="hero-title">
+        <div className="container-page">
+          <div className="grid-12 gap-y-12 lg:items-center">
+            <div className="col-span-4 md:col-span-12 lg:col-span-7">
+              <span className="accent-rule hero-rise hero-rise-1" aria-hidden="true" />
+              <h1 id="hero-title" className="display-xl mt-6 hero-rise hero-rise-1">
+                The team you never have to chase.
+              </h1>
+              <p className="lead mt-6 max-w-[36rem] hero-rise hero-rise-2">{heroLead}</p>
+              <div className="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-8 hero-rise hero-rise-3">
+                <Link to="/contact" className="btn-primary">
+                  {ctaLabel}
+                </Link>
+                <Link to="/#how-it-works" className="link-quiet text-center sm:text-left">
+                  See how it works
+                </Link>
+              </div>
+            </div>
+            <div className="col-span-4 md:col-span-8 md:col-start-3 lg:col-span-5 lg:col-start-8 hero-rise hero-rise-4">
+              <StatusNote />
+            </div>
           </div>
-          <Link to="/contact" className="btn-primary mt-8 animate-fade">
-            Book a consultation
-          </Link>
+
+          <dl className="mt-14 grid grid-cols-1 gap-y-5 border-t border-rule pt-8 sm:grid-cols-2 sm:gap-x-6 lg:mt-20 lg:grid-cols-4">
+            {heroFacts.map(([term, detail]) => (
+              <div key={term}>
+                <dt className="meta">{term}</dt>
+                <dd className="body-sm mt-1 text-ink">{detail}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
       <LogoCloud />
 
-      <section className="ground-paper section" aria-labelledby="practices-title">
+      <section className="ground-paper section pt-0 md:pt-0 lg:pt-8" aria-labelledby="practices-title">
         <div className="container-page">
-          <h2 id="practices-title" className="h2 md:max-w-[66%]">
-            Five practices. One operating model.
-          </h2>
-          <p className="lead container-prose mt-6">
-            Every practice runs on the same discipline: documented SOPs, a named person accountable for your work,
-            a weekly written status and a monthly business review.
-          </p>
+          <div className="grid-12 gap-y-6 items-end">
+            <h2 id="practices-title" className="h2 col-span-4 md:col-span-7">
+              Five practices. One operating model.
+            </h2>
+            <p className="lead col-span-4 md:col-span-5">
+              Every practice runs on the same discipline: documented SOPs, a named person accountable for your
+              work, a weekly written status and a monthly business review.
+            </p>
+          </div>
           <div className="section-air rows">
             {practices.map((p) => (
-              <Link key={p.id} to={'/services#' + p.id} className="row-link">
+              <Link key={p.id} to={'/services#' + p.id} className="row-link group">
                 <article className="row">
-                  <h3 className="h3 col-span-4">{p.name}</h3>
-                  <p className="body col-span-4 mt-2 md:mt-0 md:col-span-7 md:col-start-5">{p.short}</p>
+                  <h3 className="h3 col-span-4 group-hover:text-crimson transition-colors duration-150">{p.name}</h3>
+                  <div className="col-span-4 mt-2 md:mt-0 md:col-span-7 md:col-start-6">
+                    <p className="body">{p.short}</p>
+                    {p.tools && <p className="caption mt-2">{p.tools.join(', ')}</p>}
+                  </div>
                 </article>
               </Link>
             ))}
           </div>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-8">
+            <Link to="/services" className="link-quiet">
+              Explore services
+            </Link>
+            <Link to="/pricing" className="link-quiet">
+              See starting prices
+            </Link>
+          </div>
         </div>
       </section>
+
+      <HowItWorks />
 
       <section className="ground-black section" aria-labelledby="cadence-title">
         <div className="container-page">
@@ -70,31 +109,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="ground-paper section" aria-labelledby="process-title">
-        <div className="container-page">
-          <h2 id="process-title" className="h2">
-            From first call to steady state.
-          </h2>
-          <div className="section-air rule-strong">
-            <div className="grid sm:grid-cols-4 gap-x-6">
-              {homeProcess.map((step) => (
-                <div key={step.when} className="pt-6 border-b border-rule pb-8 sm:border-b-0">
-                  <p className="meta">{step.when}</p>
-                  <h3 className="h3 mt-3">{step.name}</h3>
-                  <p className="body-sm mt-3">{step.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="text-right mt-8">
-            <Link to="/how-we-work" className="link-quiet">
-              How we work
-            </Link>
-          </div>
-        </div>
-      </section>
+      <TrustSection />
 
-      <FAQ />
+      <FAQ ground="ground-paper-2" />
 
       <CTASection />
     </>

@@ -18,12 +18,12 @@ function Plus({ open }) {
   )
 }
 
-export default function FAQ({ items = faqItems, title = 'Questions operators ask.', id = 'faq' }) {
+export default function FAQ({ items = faqItems, title = 'Questions operators ask.', id = 'faq', ground = 'ground-paper' }) {
   const [openIndex, setOpenIndex] = useState(0)
   const titleId = `${id}-title`
 
   return (
-    <section className="ground-paper section scroll-mt-16" id={id} aria-labelledby={titleId}>
+    <section className={ground + ' section scroll-mt-16'} id={id} aria-labelledby={titleId}>
       <div className="container-page">
         <h2 className="h2" id={titleId}>
           {title}

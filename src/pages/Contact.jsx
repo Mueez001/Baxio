@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
-import { contact, plans, timeline } from '../content/site'
+import { contact, practices, timeline } from '../content/site'
 
 const ENDPOINT =
-  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/mueez.rehman@gomwd.com'
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/Peet@go2baxio.com'
 
 const NOT_SURE = 'Not sure yet'
+const SOMETHING_ELSE = 'Something else'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const ERRORS = {
@@ -16,7 +17,7 @@ const ERRORS = {
 }
 
 const NEXT_STEPS = [
-  ['Within ' + timeline.reply, 'An account owner replies to arrange a ' + timeline.call + '.'],
+  ['Within ' + timeline.reply, 'We reply to arrange a ' + timeline.call + '.'],
   ['On the call', 'We map workflows, volume, tools and reporting needs.'],
   ['Within ' + timeline.proposal, 'You receive the written proposal.'],
 ]
@@ -28,11 +29,11 @@ const LEAD =
   timeline.proposal +
   '.'
 
-// Accepts a plan id ("starter") or a plan name ("Starter Support"), case-insensitively.
-function planFromParam(value) {
+// Accepts a service id ("accounting") or a service name, case-insensitively.
+function serviceFromParam(value) {
   if (!value) return NOT_SURE
   const key = value.trim().toLowerCase()
-  const match = plans.find((p) => p.id === key || p.name.toLowerCase() === key)
+  const match = practices.find((p) => p.id === key || p.name.toLowerCase() === key)
   return match ? match.name : NOT_SURE
 }
 
@@ -40,7 +41,7 @@ function nextBusinessDay(from = new Date()) {
   const d = new Date(from)
   d.setDate(d.getDate() + 1)
   while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1)
-  return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
+  return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' })
 }
 
 function validate(values) {
@@ -63,7 +64,7 @@ export default function Contact() {
   })
 
   const [searchParams] = useSearchParams()
-  const planParam = searchParams.get('plan') || searchParams.get('tier')
+  const serviceParam = searchParams.get('service')
   const intent = searchParams.get('intent')
   const isProposal = intent === 'proposal'
 
@@ -72,7 +73,7 @@ export default function Contact() {
     email: '',
     company: '',
     role: '',
-    plan: planFromParam(planParam),
+    service: serviceFromParam(serviceParam),
     scope: '',
   }))
   const [errors, setErrors] = useState({})
@@ -124,12 +125,11 @@ export default function Contact() {
           email: values.email.trim(),
           company: values.company.trim(),
           role: values.role.trim(),
-          plan: values.plan,
+          service: values.service,
           scope: values.scope.trim(),
           intent: isProposal ? 'proposal' : 'consultation',
           _subject: 'Baxio consultation request: ' + values.name.trim(),
           _template: 'table',
-          _captcha: 'false',
         }),
       })
       if (!res.ok) throw new Error('Request failed')
@@ -169,7 +169,6 @@ export default function Contact() {
                   Within {timeline.proposal} you receive a written proposal: roles, hours, KPIs,
                   cadence and pricing.
                 </p>
-                <p className="row-sm block body mt-0">If anything is urgent, call {contact.phone}.</p>
               </div>
             ) : (
               <form noValidate onSubmit={onSubmit} className="flex flex-col gap-6">
@@ -256,22 +255,22 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="field-label" htmlFor="plan">
-                    Engagement interest
+                  <label className="field-label" htmlFor="service">
+                    What do you need help with?
                   </label>
                   <select
-                    id="plan"
-                    name="plan"
+                    id="service"
+                    name="service"
                     className="field appearance-none pr-10"
-                    value={values.plan}
-                    onChange={set('plan')}
+                    value={values.service}
+                    onChange={set('service')}
                   >
-                    {plans.map((p) => (
+                    {practices.map((p) => (
                       <option key={p.id} value={p.name}>
                         {p.name}
                       </option>
                     ))}
-                    <option value="ERP Implementation">ERP Implementation (project)</option>
+                    <option value={SOMETHING_ELSE}>{SOMETHING_ELSE}</option>
                     <option value={NOT_SURE}>{NOT_SURE}</option>
                   </select>
                 </div>
@@ -306,7 +305,7 @@ export default function Contact() {
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <p className="caption">
-                    We do not share your details. Submitting agrees to our privacy policy.
+                    We use your details only to reply to you.
                   </p>
                   <button type="submit" className="btn-crimson" disabled={sending}>
                     {sending ? 'Sending…' : 'Send request'}
@@ -315,7 +314,7 @@ export default function Contact() {
 
                 {failed && (
                   <p className="field-error" role="alert">
-                    We could not send your request. Email {contact.email} or call {contact.phone}.
+                    We could not send your request. Email {contact.email}.
                   </p>
                 )}
               </form>
@@ -342,18 +341,6 @@ export default function Contact() {
                     {contact.email}
                   </a>
                 </dd>
-              </div>
-              <div className="row-sm block">
-                <dt className="meta">Phone</dt>
-                <dd className="body-sm mt-1">
-                  <a className="text-ink hover:opacity-70 transition-opacity duration-150" href={contact.phoneHref}>
-                    {contact.phone}
-                  </a>
-                </dd>
-              </div>
-              <div className="row-sm block">
-                <dt className="meta">Hours</dt>
-                <dd className="body-sm mt-1">{contact.hours}</dd>
               </div>
             </dl>
           </div>

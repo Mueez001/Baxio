@@ -4,7 +4,7 @@ const ALLOWED_ORIGINS = [
   'http://127.0.0.1:5173',
 ]
 
-const DEFAULT_CHATBOT_EMAIL_ENDPOINT = 'https://formsubmit.co/ajax/mueez.rehman@gomwd.com'
+const DEFAULT_CHATBOT_EMAIL_ENDPOINT = 'https://formsubmit.co/ajax/Peet@go2baxio.com'
 
 function getCorsOrigin(requestOrigin) {
   if (!requestOrigin) {
@@ -84,7 +84,6 @@ async function forwardIntakeEmail(payload) {
   const emailPayload = {
     _subject: `Baxio Chatbot Intake - ${fields.company || fields.fullName || payload.id}`,
     _template: 'table',
-    _captcha: 'false',
     intakeId: payload.id,
     source: payload.source,
     createdAt: payload.createdAt,

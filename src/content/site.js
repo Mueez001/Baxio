@@ -2,10 +2,7 @@
 // Pages and components import from here; nothing below is duplicated elsewhere.
 
 export const contact = {
-  email: 'peet@go2baxio.com',
-  phone: '+1 800 300 7417',
-  phoneHref: 'tel:+18003007417',
-  hours: 'Monday to Friday, 8am to 8pm ET',
+  email: 'Peet@go2baxio.com',
   legalName: 'Baxio Inc.',
 }
 
@@ -18,89 +15,52 @@ export const timeline = {
   scaleNotice: 'two weeks',
 }
 
+// The three services that are open today. Nothing else is offered on the site.
 export const practices = [
   {
-    id: 'finance',
-    name: 'Finance & Accounting',
-    short: 'AR and AP, reconciliations, month-end close and reporting packs, run by US-GAAP-trained staff.',
-    lead: 'Senior bookkeepers and AR/AP specialists trained on US-GAAP basics, built around your close calendar, not ours.',
+    id: 'accounting',
+    name: 'Accounting',
+    short: 'Payables, receivables, reconciliations, month-end close and management reports, done by experienced accountants.',
+    lead: 'Experienced accountants who work in your QuickBooks Online, to your close calendar.',
     covers: [
-      'Accounts receivable and collections',
-      'Accounts payable and vendor reconciliation',
+      'Accounts payable',
+      'Accounts receivable',
       'Bank and credit card reconciliations',
-      'Month-end close support',
-      'Management reporting packs',
-      'Audit and tax preparation support',
+      'Month-end close',
+      'Management reports',
     ],
-    tools: ['QuickBooks', 'Xero', 'Zoho Books', 'Odoo'],
+    tools: ['QuickBooks Online'],
   },
   {
-    id: 'support',
-    name: 'Customer Support',
-    short: 'Email, chat and voice with QA scoring, SLAs and CSAT reporting built in.',
-    lead: 'Email, chat and voice teams that work to your tone of voice and SLAs, with weekly QA scoring built in.',
+    id: 'systems',
+    name: 'Accounting system set-up',
+    short: 'QuickBooks Online set-up and clean-up. Odoo by quote.',
+    lead: 'QuickBooks Online set up or cleaned up, so your books are ready to run. Odoo work is quoted per project.',
     covers: [
-      'Tier 1 and Tier 2 support',
-      'Order, returns and account inquiries',
-      'CSAT and CES reporting',
-      'Knowledge-base and macro management',
-      'Weekly QA scoring',
-      'After-hours and weekend coverage on request',
+      'QuickBooks Online set-up',
+      'QuickBooks Online clean-up',
     ],
-    tools: ['Zendesk', 'Intercom', 'Freshdesk', 'HubSpot'],
-  },
-  {
-    id: 'operations',
-    name: 'Operations Support',
-    short: 'Order processing, vendor and PO management, SOP documentation.',
-    lead: 'The repeatable back-office work that decides whether your business runs cleanly each week.',
-    covers: [
-      'Order processing and fulfilment operations',
-      'Vendor onboarding and PO management',
-      'Inventory and SKU maintenance',
-      'CRM hygiene and lead enrichment',
-      'Document processing and data entry',
-      'Workflow documentation (SOPs)',
-    ],
-    tools: ['NetSuite', 'ShipStation', 'HubSpot', 'Salesforce', 'Notion'],
+    tools: ['QuickBooks Online'],
+    engagement: 'Priced per project. Odoo by quote.',
   },
   {
     id: 'analytics',
-    name: 'Data & Analytics',
-    short: 'KPI dashboards in Looker, Power BI and Sheets, with analyst support.',
-    lead: 'Analysts who take messy operational data and return clean dashboards your leadership team will open.',
+    name: 'Data analytics and reporting',
+    short: 'Dashboards and recurring reports in Power BI and Excel.',
+    lead: 'Dashboards and recurring reports your leadership team will open.',
     covers: [
-      'KPI dashboards',
-      'Recurring reporting automation',
-      'Data cleanup and enrichment',
-      'Cohort, funnel and retention analysis',
-      'Ad-hoc analyst capacity',
-      'SQL, Python and Excel modelling',
+      'Dashboards',
+      'Recurring reports',
     ],
-    tools: ['Looker', 'Power BI', 'Google Sheets', 'BigQuery', 'Excel'],
-  },
-  {
-    id: 'erp',
-    name: 'ERP Implementation',
-    short: 'Requirements, configuration, data migration, testing and go-live, run as a scoped project with a named lead.',
-    lead: 'Whatever accounting or ERP system you run, or plan to move to, the implementation is taken care of end to end and documented so your own team can run it afterwards.',
-    covers: [
-      'Requirements and process mapping',
-      'System configuration and workflow setup',
-      'Data cleansing and migration',
-      'Integrations with your existing systems',
-      'User acceptance testing and training',
-      'Go-live support and hypercare',
-    ],
-    engagement: 'Scoped and priced as a project, separately from the monthly plans.',
+    tools: ['Power BI', 'Excel'],
   },
 ]
 
 export const cadence = [
   ['Daily', 'Internal stand-up. Blockers escalated the same day.'],
   ['Weekly', 'Written status: throughput, KPIs, exceptions, next week’s plan.'],
-  ['Monthly', 'Business review with your team lead and account owner.'],
-  ['Quarterly', 'Process optimisation plan and capacity recommendations.'],
+  ['Monthly', 'Business review with you.'],
+  ['Quarterly', 'Process improvement plan and capacity recommendations.'],
 ]
 
 // Five stages on How We Work. Home collapses the first two into "Week 0".
@@ -120,8 +80,8 @@ export const stages = [
   {
     when: 'Weeks 1–2',
     name: 'Onboarding',
-    body: 'We document SOPs, provision access through your security model, and your team lead runs a structured kick-off with your stakeholders.',
-    receive: ['SOPs in your knowledge base', 'Access and tooling configured', 'Team lead introductions'],
+    body: 'We document SOPs, provision access through your security model, and run a structured kick-off with your stakeholders.',
+    receive: ['SOPs in your knowledge base', 'Access and tooling configured', 'Introductions to your team'],
   },
   {
     when: 'Days 1–30',
@@ -133,7 +93,7 @@ export const stages = [
     when: 'Ongoing',
     name: 'Steady state',
     body: 'Predictable execution with monthly business reviews. Each quarter we propose process improvements and capacity changes, up or down.',
-    receive: ['Monthly business review', 'Quarterly optimisation plan', 'Single point of escalation'],
+    receive: ['Monthly business review', 'Quarterly improvement plan', 'Single point of escalation'],
   },
 ]
 
@@ -141,109 +101,33 @@ export const homeProcess = [
   { when: 'Week 0', name: 'Discovery and proposal', body: '45-minute session and a written proposal within three business days.' },
   { when: 'Weeks 1–2', name: 'Onboarding', body: 'SOPs documented, access provisioned, kick-off with your stakeholders.' },
   { when: 'Days 1–30', name: '30-day pilot', body: 'Live work against agreed KPIs, weekly status, pilot review on day 30.' },
-  { when: 'Ongoing', name: 'Steady state', body: 'Monthly business review, quarterly optimisation plan, scale within two weeks.' },
+  { when: 'Ongoing', name: 'Steady state', body: 'Monthly business review, quarterly improvement plan, scale within two weeks.' },
 ]
 
 export const principles = [
-  ['Process ownership', 'A named team lead is accountable for the work end to end, not a pool of anonymous agents.'],
+  ['Process ownership', 'A named person is accountable for your work, and you get a written status every week.'],
   ['Reporting discipline', 'You receive a written status every week and a structured business review every month.'],
   ['Documented SOPs', 'Every workflow we run is documented in your system. If a person leaves, the process does not.'],
   ['KPI accountability', 'Pilots and steady-state engagements are measured against KPIs you sign off on in writing.'],
-  ['Security by design', 'Role-based access, MFA, device controls and signed NDAs across every engagement.'],
+  ['Security', 'Each person has their own login with multi-factor sign-in, and works on a company laptop.'],
   ['Scale without re-hiring', 'Add or reduce capacity within two weeks. No re-recruiting, no re-onboarding from scratch.'],
 ]
 
 export const coverage = {
   rows: [
-    ['Delivery centres', 'Pakistan'],
-    ['Account teams', 'United States'],
-    ['Coverage', 'US Eastern to Pacific business hours'],
+    ['Team', 'Islamabad, Pakistan'],
+    ['Hours', 'Your business hours, in your time zone.'],
   ],
 }
 
-export const plans = [
-  {
-    id: 'starter',
-    name: 'Starter Support',
-    price: '$1,500–2,500',
-    priceNote: 'per month',
-    short: 'Shared resources for repeatable work.',
-    body: 'Shared resources for repeatable, low-volume work.',
-    includes: [
-      'Shared resource pool',
-      '40–80 hours a month',
-      'Weekly written status',
-      'Single point of contact',
-      'Business-hours coverage',
-    ],
-    roles: 'Typical roles: data entry, AR/AP support',
-  },
-  {
-    id: 'dedicated',
-    name: 'Dedicated Resource',
-    flag: 'Most engagements start here',
-    price: '$2,800–4,500',
-    priceNote: 'per month',
-    short: 'A specialist who owns a function and reports weekly.',
-    body: 'A full- or part-time specialist who owns a function and reports to you weekly.',
-    includes: [
-      'Named specialist',
-      'Full or part time',
-      'Documented SOPs in your stack',
-      'Weekly KPI report',
-      'Monthly business review',
-      'US time-zone coverage',
-      'Backup resource',
-    ],
-    roles: 'Typical roles: AR specialist, support agent, data analyst',
-  },
-  {
-    id: 'managed',
-    name: 'Managed Team',
-    price: 'Custom',
-    priceNote: 'scoped with you',
-    short: 'Several specialists under a Baxio lead and QA.',
-    body: 'Several specialists under a Baxio team lead with QA and a single SLA.',
-    includes: [
-      'Team lead and QA',
-      'Process management',
-      'KPI dashboards',
-      'Monthly business review',
-      'Quarterly reviews',
-      'Single SLA',
-      'Scale within two weeks',
-    ],
-    roles: 'Typical roles: full finance team, service team, reporting team',
-  },
-]
-
-export const plansNote = 'Every engagement includes onboarding, SOP documentation and a 30-day pilot.'
-
-export const erpNote = 'ERP implementations are scoped and priced as a project, separately from the monthly plans.'
-
-// Like-for-like cost of one full-time role. Every figure is a year unless the label says otherwise.
-// Baxio annual = 12 x the Dedicated Resource monthly range ($2,800-4,500), so the two columns reconcile
-// with the plan prices above. In-house total = 72,000 + 18,000 + (8,000-15,000) + 2,500 + 12,000.
-export const tco = {
-  columns: ['Cost component', 'In-house US hire', 'Baxio Dedicated'],
-  rows: [
-    ['Base salary, a year', '$72,000', '$33,600–54,000'],
-    ['Benefits and payroll tax, a year', '$18,000', 'Included'],
-    ['Recruiting and onboarding, one-off', '$8,000–15,000', 'Included'],
-    ['Equipment and software, a year', '$2,500', 'Included'],
-    ['Management overhead, a year', '~$12,000', 'Reduced; team lead included'],
-    ['Time to productive', '8–12 weeks', '2 weeks'],
-  ],
-  total: ['Estimated cost, first year', '$112,500–119,500', '$33,600–54,000'],
-  monthly: ['Equivalent per month', '$9,400–10,000', '$2,800–4,500'],
-  caption:
-    'Illustrative. Based on a US metro mid-level operations role at a $72,000 base. Baxio figures are twelve times the Dedicated Resource monthly range; final pricing is confirmed in writing before the pilot.',
-}
+// No prices on the site. Quotes go in proposals.
+export const pricingLine =
+  'Monthly work is priced by role, at or below one third of what the same role costs a US employer. Projects are priced per project. Book a call for a quote.'
 
 export const faqItems = [
   {
     q: 'How quickly can we start?',
-    a: 'We reply within one business day and send a written proposal within three business days of the scoping call. Onboarding takes two weeks, and the 30-day pilot starts straight after. Managed Teams can take a further one to two weeks to reach full capacity.',
+    a: 'We reply within one business day and send a written proposal within three business days of the scoping call. Onboarding takes two weeks, and the 30-day pilot starts straight after.',
   },
   {
     q: 'Can we scale up or down?',
@@ -255,46 +139,41 @@ export const faqItems = [
   },
   {
     q: 'How do you manage quality?',
-    a: 'Each function has documented SOPs, weekly QA scoring and a team lead responsible for output. QA results are part of your weekly status, so quality is visible rather than assumed.',
+    a: 'Each function has documented SOPs and a named person accountable for the output. Quality checks are part of your weekly status, so quality is visible rather than assumed.',
   },
   {
     q: 'What time zones do you support?',
-    a: 'US Eastern to Pacific business hours, Monday to Friday, 8am to 8pm ET, on every plan. After-hours and weekend coverage is available on Dedicated Resource and Managed Team engagements.',
+    a: 'Your team works your business hours, in your time zone. We follow your holiday calendar.',
   },
   {
     q: 'Do you provide reporting?',
-    a: 'Every engagement includes a weekly written status. Dedicated Resource and Managed Team engagements add a monthly business review; Managed Teams also receive KPI dashboards and quarterly reviews.',
+    a: 'Every engagement includes a weekly written status. Ongoing work adds a monthly business review.',
   },
 ]
 
 export const values = [
   ['Operator-led', 'Founded by people who ran offshore teams inside a US company, not a recruiting agency that pivoted.'],
-  ['Process before people', 'We document the work first. The right person is hired against a clearly defined role, not the other way around.'],
+  ['Process before people', 'We document the work first. Then the right person is assigned to a clearly defined role, not the other way around.'],
   ['Honest reporting', 'You hear the bad news first. Misses are surfaced with a fix attached.'],
-  ['Long engagements', 'We optimise for clients who stay for years, not for headcount we can churn through.'],
+  ['Long engagements', 'We aim for clients who stay for years, not for headcount we can churn through.'],
 ]
 
 // Listed alphabetically. No ranking is implied by order or title.
 export const leadership = [
   {
-    name: 'Mohsin Abbasi',
-    title: 'Operations and Client Support Lead',
-    bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
-  },
-  {
     name: 'Mueez Ur Rehman',
-    title: 'Head of Offshore Operations',
+    title: 'Chief Operating Officer',
     bio: 'Leads FP&A, pricing, reporting and analytics. Turns financial planning into documented processes the delivery teams run.',
   },
   {
     name: 'Peet Van Der Schyff',
     title: 'Chief Executive Officer',
-    bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
+    bio: 'Leads Baxio. Senior finance and logistics-finance leadership; also Chief Financial Officer of MWD.',
   },
   {
     name: 'Shahid Latif Khan',
     title: 'Chairman of the board',
-    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
+    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Brings the discipline of running a US operating business to Baxio.',
   },
   {
     name: 'Zeeshan Ali',
@@ -312,12 +191,4 @@ export const sopContents = [
   'Service levels',
   'Version history',
   'Review date',
-]
-
-export const clientLogos = [
-  { file: 'barami.png', name: 'Barami' },
-  { file: 'ddc.png', name: 'DDC' },
-  { file: 'mwd.avif', name: 'Metropolitan Warehouse & Delivery', tall: true },
-  { file: 'mwd-premier.avif', name: 'MWD Premier', tall: true },
-  { file: 'patrizialuca.png', name: 'Patrizia Luca' },
 ]

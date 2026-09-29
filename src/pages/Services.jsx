@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import CTASection from '../components/CTASection'
-import { practices, sopContents, plans, erpNote } from '../content/site'
+import { practices, sopContents, pricingLine } from '../content/site'
 
 // Full literal class strings so the Tailwind scanner sees every name.
 const grounds = [
@@ -16,7 +16,7 @@ export default function Services() {
   usePageMeta({
     title: 'Services | Baxio',
     description:
-      'Finance, customer support, operations, analytics and ERP implementation, each run by a named lead, documented in your systems and measured against KPIs you sign off on.',
+      'Accounting, accounting system set-up and data analytics, done by our team in Islamabad, Pakistan, documented in your systems and measured against KPIs you sign off on.',
   })
 
   return (
@@ -24,11 +24,10 @@ export default function Services() {
       <section className="section-hero ground-paper pb-0 lg:pb-0" aria-labelledby="services-title">
         <div className="container-page">
           <h1 id="services-title" className="display-l md:max-w-[75%]">
-            Five practices. One operating model.
+            Accounting first, and the work around it.
           </h1>
           <p className="lead container-prose mt-6">
-            Each practice is run by a named lead, documented in your systems and measured against KPIs
-            you sign off on.
+            A named person is accountable for your work, and you get a written status every week.
           </p>
         </div>
       </section>
@@ -52,28 +51,12 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="ground-paper section" aria-labelledby="delivery-title">
+      <section className="ground-paper section" aria-labelledby="pricing-title">
         <div className="container-page">
-          <h2 id="delivery-title" className="h2">
-            Ongoing work is delivered three ways.
+          <h2 id="pricing-title" className="h2">
+            How pricing works.
           </h2>
-          <div className="section-air grid border-t border-rule md:border-t-0 md:grid-cols-3 md:divide-x md:divide-rule">
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                className="py-6 border-b border-rule md:border-b-0 md:px-8 md:first:pl-0 md:last:pr-0"
-              >
-                <h3 className="h3">{plan.name}</h3>
-                <p className="body-sm mt-3">{plan.short}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-8">
-            <Link to="/pricing" className="link-quiet">
-              See pricing
-            </Link>
-          </p>
-          <p className="caption mt-8">{erpNote}</p>
+          <p className="lead container-prose mt-6">{pricingLine}</p>
         </div>
       </section>
 

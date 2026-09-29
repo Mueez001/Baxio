@@ -4,7 +4,6 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 const pages = [
   { to: '/services', label: 'Services' },
   { to: '/how-we-work', label: 'How we work' },
-  { to: '/pricing', label: 'Pricing' },
   { to: '/about', label: 'About' },
 ]
 

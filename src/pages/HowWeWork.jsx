@@ -1,13 +1,12 @@
 import usePageMeta from '../hooks/usePageMeta.js'
 import CTASection from '../components/CTASection.jsx'
-import CoverageRule from '../components/CoverageRule.jsx'
 import { stages, coverage, cadence, principles, timeline } from '../content/site.js'
 
 export default function HowWeWork() {
   usePageMeta({
     title: 'How we work | Baxio',
     description:
-      'A managed engagement, not a staffing agency: a named lead, documented SOPs, a ' +
+      'A managed engagement, not a staffing agency: a named person accountable, documented SOPs, a ' +
       timeline.pilot +
       ' and a written status every week.',
   })
@@ -21,8 +20,8 @@ export default function HowWeWork() {
             A managed engagement, not a staffing agency.
           </h1>
           <p className="lead container-prose mt-6">
-            We sell ownership of work, not hours. Every engagement is structured around a clear scope, a named lead and
-            reporting you can put in front of leadership without rewriting it.
+            You get named people who own the work, not a bank of hours. A named person is accountable for your work,
+            and you get a written status every week.
           </p>
         </div>
       </section>
@@ -59,12 +58,9 @@ export default function HowWeWork() {
       <section className="ground-paper-2 section" aria-labelledby="coverage-title">
         <div className="container-page">
           <h2 className="h2" id="coverage-title">
-            Coverage without the handover gap.
+            Your hours, your time zone.
           </h2>
-          <div className="section-air">
-            <CoverageRule />
-          </div>
-          <dl className="rows mt-12 container-prose">
+          <dl className="rows section-air container-prose">
             {coverage.rows.map(([term, detail]) => (
               <div key={term} className="grid grid-cols-4 gap-x-6 border-b border-rule py-4">
                 <dt className="meta col-span-2 sm:col-span-1">{term}</dt>

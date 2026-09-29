@@ -4,7 +4,6 @@ import { contact, practices } from '../content/site.js'
 const company = [
   { to: '/about', label: 'About' },
   { to: '/how-we-work', label: 'How we work' },
-  { to: '/pricing', label: 'Pricing' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -20,8 +19,7 @@ export default function Footer() {
               <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[18px] w-auto" />
             </Link>
             <p className="caption mt-4 max-w-prose">
-              Offshore execution for US mid-market businesses: finance, support, operations, analytics and ERP
-              implementation, run with documented process and weekly reporting.
+              Accounting and back-office work for US businesses, done by our team in Islamabad.
             </p>
           </div>
 
@@ -59,12 +57,6 @@ export default function Footer() {
                   {contact.email}
                 </a>
               </li>
-              <li>
-                <a href={contact.phoneHref} className="text-caption text-ink hover:opacity-70">
-                  {contact.phone}
-                </a>
-              </li>
-              <li className="text-caption text-ink">{contact.hours}</li>
             </ul>
           </div>
         </div>

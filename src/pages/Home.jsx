@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
-import LogoCloud from '../components/LogoCloud'
 import FAQ from '../components/FAQ'
 import CTASection from '../components/CTASection'
-import { practices, cadence, homeProcess, plans } from '../content/site'
+import { practices, cadence, homeProcess } from '../content/site'
 
 const description =
-  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run by a named team and reported to you every week.'
+  'Accounting, accounting system set-up and data analytics for US businesses, done by our team in Islamabad, Pakistan, and reported to you every week.'
 
 export default function Home() {
   usePageMeta({ title: 'Baxio', description })
@@ -27,16 +26,14 @@ export default function Home() {
         </div>
       </section>
 
-      <LogoCloud />
-
       <section className="ground-paper section" aria-labelledby="practices-title">
         <div className="container-page">
           <h2 id="practices-title" className="h2 md:max-w-[66%]">
-            Five practices. One operating model.
+            Accounting first, and the work around it.
           </h2>
           <p className="lead container-prose mt-6">
-            Every practice runs on the same discipline: documented SOPs, a named lead, weekly written status and a
-            monthly business review.
+            Every service runs on the same discipline: documented SOPs, a named person accountable for your work,
+            a weekly written status and a monthly business review.
           </p>
           <div className="section-air rows">
             {practices.map((p) => (
@@ -89,37 +86,6 @@ export default function Home() {
           <div className="text-right mt-8">
             <Link to="/how-we-work" className="link-quiet">
               How we work
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="ground-paper-2 section" aria-labelledby="teaser-title">
-        <div className="container-page">
-          <h2 id="teaser-title" className="h2">
-            Three ways to engage.
-          </h2>
-          <div className="section-air grid md:grid-cols-3 md:divide-x md:divide-rule">
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                className={
-                  plan.id === 'dedicated'
-                    ? 'order-first md:order-none md:px-8 md:first:pl-0 md:last:pr-0 py-8 border-b border-rule md:border-b-0'
-                    : 'md:px-8 md:first:pl-0 md:last:pr-0 py-8 border-b border-rule md:border-b-0'
-                }
-              >
-                <h3 className="h3">{plan.name}</h3>
-                <p className="numeral mt-4">{plan.price}</p>
-                <p className="meta mt-2">{plan.priceNote}</p>
-                {plan.flag ? <p className="flag-word text-body-sm mt-4">{plan.flag}</p> : null}
-                <p className="body-sm mt-3">{plan.short}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <Link to="/pricing" className="link-quiet">
-              See pricing
             </Link>
           </div>
         </div>

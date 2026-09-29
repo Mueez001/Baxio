@@ -155,7 +155,6 @@ export const principles = [
 export const coverage = {
   rows: [
     ['Delivery centres', 'Pakistan'],
-    ['Account teams', 'United States'],
     ['Coverage', 'US Eastern to Pacific business hours'],
   ],
 }
@@ -266,27 +265,27 @@ export const values = [
 export const leadership = [
   {
     name: 'Mohsin Abbasi',
-    title: 'Operations and Client Support Lead',
+    title: 'Partner',
     bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
   },
   {
     name: 'Mueez Ur Rehman',
-    title: 'Head of Offshore Operations',
+    title: 'Chief Operating Officer',
     bio: 'Leads FP&A, pricing, reporting and analytics. Turns financial planning into documented processes the delivery teams run.',
   },
   {
     name: 'Peet Van Der Schyff',
-    title: 'Chief Executive Officer',
+    title: 'Chief Financial Officer',
     bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
   },
   {
     name: 'Shahid Latif Khan',
-    title: 'Chairman of the board',
+    title: 'President and Chief Executive Officer',
     bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
   },
   {
     name: 'Zeeshan Ali',
-    title: 'Chief Technology Officer',
+    title: 'Partner',
     bio: 'Technology, client systems, access provisioning and secure connectivity.',
   },
 ]

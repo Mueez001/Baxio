@@ -36,7 +36,7 @@ const botKnowledge = [
   },
   {
     keywords: ['location', 'timezone', 'time zone', 'hours', 'coverage', 'where'],
-    answer: `Coverage is ${coverageMap['Coverage']}. Delivery centres are in ${coverageMap['Delivery centres']} and account teams are in the ${coverageMap['Account teams']}.`,
+    answer: `Coverage is ${coverageMap['Coverage']}. Delivery centres are in ${coverageMap['Delivery centres']}.`,
   },
   {
     keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],

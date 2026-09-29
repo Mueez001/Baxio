@@ -5,6 +5,7 @@ const company = [
   { to: '/about', label: 'About' },
   { to: '/how-we-work', label: 'How we work' },
   { to: '/contact', label: 'Contact' },
+  { to: '/privacy', label: 'Privacy' },
 ]
 
 export default function Footer() {
@@ -55,6 +56,11 @@ export default function Footer() {
               <li>
                 <a href={`mailto:${contact.email}`} className="text-caption text-ink hover:opacity-70">
                   {contact.email}
+                </a>
+              </li>
+              <li>
+                <a href={contact.phoneHref} className="text-caption text-ink hover:opacity-70">
+                  {contact.phone}
                 </a>
               </li>
             </ul>

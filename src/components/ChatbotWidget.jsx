@@ -39,7 +39,7 @@ const botKnowledge = [
   },
   {
     keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],
-    answer: `Email ${contact.email} or book a call on the Contact page. You can also type start and I will take your details here.`,
+    answer: `Email ${contact.email}, call ${contact.phone}, or book a call on the Contact page. You can also type start and I will take your details here.`,
   },
 ]
 

@@ -3,6 +3,8 @@
 
 export const contact = {
   email: 'Peet@go2baxio.com',
+  phone: '+1 229 265 2892',
+  phoneHref: 'tel:+12292652892',
   legalName: 'Baxio Inc.',
 }
 
@@ -34,13 +36,14 @@ export const practices = [
   {
     id: 'systems',
     name: 'Accounting system set-up',
-    short: 'QuickBooks Online set-up and clean-up. Odoo by quote.',
-    lead: 'QuickBooks Online set up or cleaned up, so your books are ready to run. Odoo work is quoted per project.',
+    short: 'QuickBooks Online and Odoo ERP set-up and clean-up. Odoo by quote.',
+    lead: 'QuickBooks Online or Odoo ERP set up or cleaned up, so your books are ready to run. Odoo work is quoted per project.',
     covers: [
       'QuickBooks Online set-up',
       'QuickBooks Online clean-up',
+      'Odoo ERP set-up',
     ],
-    tools: ['QuickBooks Online'],
+    tools: ['QuickBooks Online', 'Odoo'],
     engagement: 'Priced per project. Odoo by quote.',
   },
   {
@@ -161,19 +164,24 @@ export const values = [
 // Listed alphabetically. No ranking is implied by order or title.
 export const leadership = [
   {
+    name: 'Mohsin Abbasi',
+    title: 'Operations and Client Support Lead',
+    bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
+  },
+  {
     name: 'Mueez Ur Rehman',
-    title: 'Chief Operating Officer',
+    title: 'Head of Offshore Operations',
     bio: 'Leads FP&A, pricing, reporting and analytics. Turns financial planning into documented processes the delivery teams run.',
   },
   {
     name: 'Peet Van Der Schyff',
     title: 'Chief Executive Officer',
-    bio: 'Leads Baxio. Senior finance and logistics-finance leadership; also Chief Financial Officer of MWD.',
+    bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
   },
   {
     name: 'Shahid Latif Khan',
     title: 'Chairman of the board',
-    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Brings the discipline of running a US operating business to Baxio.',
+    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
   },
   {
     name: 'Zeeshan Ali',

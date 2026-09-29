@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { ctaLabel } from '../content/site.js'
 
 const pages = [
   { to: '/services', label: 'Services' },
@@ -103,7 +104,7 @@ export default function Navbar() {
               Contact
             </NavLink>
             <Link to="/contact" className="btn-primary btn-sm">
-              Book a consultation
+              {ctaLabel}
             </Link>
           </div>
 
@@ -152,7 +153,7 @@ export default function Navbar() {
           </nav>
           <div className="mt-auto p-6">
             <Link to="/contact" className="btn-primary flex w-full">
-              Book a consultation
+              {ctaLabel}
             </Link>
           </div>
         </div>

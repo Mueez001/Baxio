@@ -308,3 +308,47 @@ export const clientLogos = [
   { file: 'mwd-premier.avif', name: 'MWD Premier', tall: true },
   { file: 'patrizialuca.png', name: 'Patrizia Luca' },
 ]
+
+// ---- Redesign 29 Sep 2026 ----
+// Every line below restates a fact already on the site (contact, timeline, principles, About).
+// Nothing new is claimed here.
+
+// The one primary action, used on every button that leads to /contact.
+export const ctaLabel = 'Book a scoping call'
+
+// Hero value proposition. Restates the Home meta line and the coverage rows.
+export const heroLead =
+  'Finance, support, operations, analytics and ERP work for US companies. A named team in Pakistan works your business hours and reports to you in writing every week.'
+
+// The fact strip under the hero. Sources: About (New Jersey, Islamabad), coverage, timeline.
+export const heroFacts = [
+  ['Company', 'Baxio Inc., registered in New Jersey'],
+  ['Team', 'Islamabad, Pakistan'],
+  ['Hours', 'US Eastern to Pacific business hours'],
+  ['First step', 'A 30-day pilot against written KPIs'],
+]
+
+// The trust section on Home. Each line is taken from `principles` above.
+export const trustPoints = [
+  {
+    name: 'Secure access',
+    body: 'Each person has their own login with multi-factor sign-in, and works on a company laptop.',
+  },
+  {
+    name: 'Documented process',
+    body: 'Every workflow we run is documented in your system. If a person leaves, the process does not.',
+  },
+  {
+    name: 'One accountable person',
+    body: 'A named person is accountable for your work, and you get a written status every week.',
+  },
+  {
+    name: 'KPIs in writing',
+    body: 'Pilots and steady-state engagements are measured against KPIs you sign off on in writing.',
+  },
+]
+
+// Footer social links. PLACEHOLDER: add the LinkedIn company page URL when it exists.
+// A link with an empty href is not shown on the live site; in `npm run dev` it shows as a
+// dashed placeholder so it is easy to spot.
+export const social = [{ name: 'LinkedIn', href: '' }]

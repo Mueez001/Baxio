@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
-import { contact, practices, timeline } from '../content/site'
+import { contact, practices, timeline, ctaLabel } from '../content/site'
 
 const ENDPOINT =
   import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/Peet@go2baxio.com'
@@ -56,7 +56,7 @@ export default function Contact() {
   usePageMeta({
     title: 'Contact | Baxio',
     description:
-      'Book a consultation. We respond within ' +
+      ctaLabel + '. We respond within ' +
       timeline.reply +
       ' and send a written proposal within ' +
       timeline.proposal +
@@ -150,7 +150,7 @@ export default function Contact() {
       <section className="section-hero ground-paper pb-0 lg:pb-0" aria-labelledby="contact-title">
         <div className="container-page">
           <h1 className="display-l" id="contact-title">
-            Book a consultation.
+            {ctaLabel}.
           </h1>
           <p className="lead container-prose mt-6">{LEAD}</p>
         </div>

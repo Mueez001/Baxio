@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import CTASection from '../components/CTASection'
-import { practices, sopContents, pricingLine } from '../content/site'
+import { practices, sopContents, pricingLine, ctaLabel } from '../content/site'
 
 // Full literal class strings so the Tailwind scanner sees every name.
 const grounds = [
@@ -109,7 +109,7 @@ function PracticeBlock({ practice: p, ground }) {
 
           <p className="mt-8">
             <Link to="/contact" className="link-quiet">
-              Book a consultation
+              {ctaLabel}
             </Link>
           </p>
         </div>

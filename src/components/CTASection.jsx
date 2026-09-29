@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { timeline } from '../content/site.js'
+import { timeline, ctaLabel } from '../content/site.js'
 
 const DEFAULT_TITLE = 'Get a written proposal in ' + timeline.proposal + '.'
 const DEFAULT_BODY = 'Tell us your workflows and KPIs. We reply within ' + timeline.reply + '.'
@@ -15,7 +15,7 @@ export default function CTASection({ title = DEFAULT_TITLE, body = DEFAULT_BODY 
         <p className="lead mt-6">{body}</p>
         <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
           <Link to="/contact" className="btn-crimson">
-            Book a consultation
+            {ctaLabel}
           </Link>
           <Link to="/contact?intent=proposal" className="link-quiet">
             Request a proposal

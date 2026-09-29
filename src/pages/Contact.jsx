@@ -75,6 +75,7 @@ export default function Contact() {
     role: '',
     service: serviceFromParam(serviceParam),
     scope: '',
+    _honey: '',
   }))
   const [errors, setErrors] = useState({})
   const [sending, setSending] = useState(false)
@@ -130,6 +131,7 @@ export default function Contact() {
           intent: isProposal ? 'proposal' : 'consultation',
           _subject: 'Baxio consultation request: ' + values.name.trim(),
           _template: 'table',
+          _honey: values._honey,
         }),
       })
       if (!res.ok) throw new Error('Request failed')
@@ -172,6 +174,19 @@ export default function Contact() {
               </div>
             ) : (
               <form noValidate onSubmit={onSubmit} className="flex flex-col gap-6">
+                {/* Honeypot: hidden from people, filled by bots. FormSubmit drops any submission where _honey is set. */}
+                <div className="sr-only" aria-hidden="true">
+                  <label htmlFor="_honey">Leave this field empty</label>
+                  <input
+                    id="_honey"
+                    name="_honey"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={values._honey}
+                    onChange={set('_honey')}
+                  />
+                </div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="field-label" htmlFor="name">

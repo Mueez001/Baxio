@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
+import LogoCloud from '../components/LogoCloud'
 import FAQ from '../components/FAQ'
 import CTASection from '../components/CTASection'
 import { practices, cadence, homeProcess } from '../content/site'
 
 const description =
-  'Accounting, accounting system set-up and data analytics for US businesses, done by our team in Islamabad, Pakistan, and reported to you every week.'
+  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run by a named team and reported to you every week.'
 
 export default function Home() {
   usePageMeta({ title: 'Baxio', description })
@@ -26,13 +27,15 @@ export default function Home() {
         </div>
       </section>
 
+      <LogoCloud />
+
       <section className="ground-paper section" aria-labelledby="practices-title">
         <div className="container-page">
           <h2 id="practices-title" className="h2 md:max-w-[66%]">
-            Accounting first, and the work around it.
+            Five practices. One operating model.
           </h2>
           <p className="lead container-prose mt-6">
-            Every service runs on the same discipline: documented SOPs, a named person accountable for your work,
+            Every practice runs on the same discipline: documented SOPs, a named person accountable for your work,
             a weekly written status and a monthly business review.
           </p>
           <div className="section-air rows">

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { contact, timeline, practices, pricingLine } from '../content/site.js'
+import { contact, timeline, practices, pricingLine, coverage } from '../content/site.js'
 
 const wordmark = import.meta.env.BASE_URL + 'wordmark.png'
 
@@ -9,9 +9,9 @@ const discoveryQuestions = [
   { key: 'workEmail', label: 'Work email', prompt: 'What is your work email?', required: true, kind: 'email' },
   { key: 'company', label: 'Company', prompt: 'What is your company name?', required: true },
   { key: 'role', label: 'Role', prompt: 'What is your role or title?', required: false },
-  { key: 'service', label: 'Service need', prompt: 'Which service are you interested in: accounting, accounting system set-up or data analytics?', required: true },
+  { key: 'service', label: 'Service need', prompt: 'Which service are you interested in: finance, support, operations, analytics or ERP implementation?', required: true },
   { key: 'teamSize', label: 'Current team size', prompt: 'How many people currently handle this workload?', required: false },
-  { key: 'volume', label: 'Monthly volume', prompt: 'What monthly volume should we expect (invoices, bills, transactions)?', required: false },
+  { key: 'volume', label: 'Monthly volume', prompt: 'What monthly volume should we expect (tickets, invoices, orders)?', required: false },
   { key: 'tools', label: 'Tools', prompt: 'Which tools or systems are in your current workflow?', required: false },
   { key: 'timeline', label: 'Timeline', prompt: 'When do you want to go live?', required: true },
   { key: 'budget', label: 'Budget range', prompt: 'Do you have a monthly budget range in mind?', required: false },
@@ -19,11 +19,12 @@ const discoveryQuestions = [
   { key: 'successMetric', label: 'Success metric', prompt: 'What result would make this engagement a clear win in 90 days?', required: true },
 ]
 
+const coverageMap = Object.fromEntries(coverage.rows)
 
 const botKnowledge = [
   {
     keywords: ['services', 'service', 'offer', 'what do you do', 'practice'],
-    answer: `Our services are ${practices.map((p) => p.name).join(', ')}.`,
+    answer: `Our practices are ${practices.map((p) => p.name).join(', ')}.`,
   },
   {
     keywords: ['pricing', 'cost', 'price', 'budget', 'how much'],
@@ -35,7 +36,7 @@ const botKnowledge = [
   },
   {
     keywords: ['location', 'timezone', 'time zone', 'hours', 'coverage', 'where'],
-    answer: 'Our team works in Islamabad, Pakistan, on your US business hours.',
+    answer: `Coverage is ${coverageMap['Coverage']}. Delivery centres are in ${coverageMap['Delivery centres']} and account teams are in the ${coverageMap['Account teams']}.`,
   },
   {
     keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],

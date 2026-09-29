@@ -17,45 +17,81 @@ export const timeline = {
   scaleNotice: 'two weeks',
 }
 
-// The three services that are open today. Nothing else is offered on the site.
 export const practices = [
   {
-    id: 'accounting',
-    name: 'Accounting',
-    short: 'Payables, receivables, reconciliations, month-end close and management reports, done by experienced accountants.',
-    lead: 'Experienced accountants who work in your QuickBooks Online, to your close calendar.',
+    id: 'finance',
+    name: 'Finance & Accounting',
+    short: 'AR and AP, reconciliations, month-end close and reporting packs, run by US-GAAP-trained staff.',
+    lead: 'Senior bookkeepers and AR/AP specialists trained on US-GAAP basics, built around your close calendar, not ours.',
     covers: [
-      'Accounts payable',
-      'Accounts receivable',
+      'Accounts receivable and collections',
+      'Accounts payable and vendor reconciliation',
       'Bank and credit card reconciliations',
-      'Month-end close',
-      'Management reports',
+      'Month-end close support',
+      'Management reporting packs',
+      'Audit and tax preparation support',
     ],
-    tools: ['QuickBooks Online'],
+    tools: ['QuickBooks', 'Xero', 'Zoho Books', 'Odoo'],
   },
   {
-    id: 'systems',
-    name: 'Accounting system set-up',
-    short: 'QuickBooks Online and Odoo ERP set-up and clean-up. Odoo by quote.',
-    lead: 'QuickBooks Online or Odoo ERP set up or cleaned up, so your books are ready to run. Odoo work is quoted per project.',
+    id: 'support',
+    name: 'Customer Support',
+    short: 'Email, chat and voice with QA scoring, SLAs and CSAT reporting built in.',
+    lead: 'Email, chat and voice teams that work to your tone of voice and SLAs, with weekly QA scoring built in.',
     covers: [
-      'QuickBooks Online set-up',
-      'QuickBooks Online clean-up',
-      'Odoo ERP set-up',
+      'Tier 1 and Tier 2 support',
+      'Order, returns and account inquiries',
+      'CSAT and CES reporting',
+      'Knowledge-base and macro management',
+      'Weekly QA scoring',
+      'After-hours and weekend coverage on request',
     ],
-    tools: ['QuickBooks Online', 'Odoo'],
-    engagement: 'Priced per project. Odoo by quote.',
+    tools: ['Zendesk', 'Intercom', 'Freshdesk', 'HubSpot'],
+  },
+  {
+    id: 'operations',
+    name: 'Operations Support',
+    short: 'Order processing, vendor and PO management, SOP documentation.',
+    lead: 'The repeatable back-office work that decides whether your business runs cleanly each week.',
+    covers: [
+      'Order processing and fulfilment operations',
+      'Vendor onboarding and PO management',
+      'Inventory and SKU maintenance',
+      'CRM hygiene and lead enrichment',
+      'Document processing and data entry',
+      'Workflow documentation (SOPs)',
+    ],
+    tools: ['NetSuite', 'ShipStation', 'HubSpot', 'Salesforce', 'Notion'],
   },
   {
     id: 'analytics',
-    name: 'Data analytics and reporting',
-    short: 'Dashboards and recurring reports in Power BI and Excel.',
-    lead: 'Dashboards and recurring reports your leadership team will open.',
+    name: 'Data & Analytics',
+    short: 'KPI dashboards in Looker, Power BI and Sheets, with analyst support.',
+    lead: 'Analysts who take messy operational data and return clean dashboards your leadership team will open.',
     covers: [
-      'Dashboards',
-      'Recurring reports',
+      'KPI dashboards',
+      'Recurring reporting automation',
+      'Data cleanup and enrichment',
+      'Cohort, funnel and retention analysis',
+      'Ad-hoc analyst capacity',
+      'SQL, Python and Excel modelling',
     ],
-    tools: ['Power BI', 'Excel'],
+    tools: ['Looker', 'Power BI', 'Google Sheets', 'BigQuery', 'Excel'],
+  },
+  {
+    id: 'erp',
+    name: 'ERP Implementation',
+    short: 'Requirements, configuration, data migration, testing and go-live, run as a scoped project with a named lead.',
+    lead: 'Whatever accounting or ERP system you run, or plan to move to, the implementation is taken care of end to end and documented so your own team can run it afterwards.',
+    covers: [
+      'Requirements and process mapping',
+      'System configuration and workflow setup',
+      'Data cleansing and migration',
+      'Integrations with your existing systems',
+      'User acceptance testing and training',
+      'Go-live support and hypercare',
+    ],
+    engagement: 'Scoped and priced as a project. Odoo by quote.',
   },
 ]
 
@@ -118,14 +154,79 @@ export const principles = [
 
 export const coverage = {
   rows: [
-    ['Team', 'Islamabad, Pakistan'],
-    ['Hours', 'Your business hours, in your time zone.'],
+    ['Delivery centres', 'Pakistan'],
+    ['Account teams', 'United States'],
+    ['Coverage', 'US Eastern to Pacific business hours'],
   ],
 }
 
-// No prices on the site. Quotes go in proposals.
+// One line used where the full Pricing page is not shown (Services, chatbot).
 export const pricingLine =
-  'Monthly work is priced by role, at or below one third of what the same role costs a US employer. Projects are priced per project. Book a call for a quote.'
+  'Monthly roles start from $1,250 a person, each priced at or below one third of what the same role costs a US employer. Projects are fixed-price. Odoo is priced by quote. See the Pricing page, or ask for a custom quote.'
+
+// Prices by service. Sources: BusinessPlan/drafts/pricing-document.md rate card,
+// drafts/council-review-01.md, proposals/*/notes.md. All "starting from". Ids match practices.
+export const pricingSource =
+  'The one-third comparison uses US employer cost: the BLS OEWS May 2025 median wage for the role, times the BLS ECEC load factor (June 2026 release). Prices are in US dollars, before any 12-month term discount.'
+
+export const pricing = [
+  {
+    id: 'finance',
+    model: 'Monthly, per full-time person',
+    intro: 'One full-time person on one 8-hour shift in your time zone. Employment, office, equipment, security controls, supervision and replacement are included. No set-up fee.',
+    rows: [
+      { item: 'Bookkeeper, AP and AR specialist', price: 'from $1,750', unit: 'a month' },
+      { item: 'Staff accountant', price: 'from $2,450', unit: 'a month' },
+      { item: 'Senior accountant', price: 'from $3,250', unit: 'a month' },
+      { item: 'Managed accounting department: Essentials (AP, AR, reconciliations, month-end close, monthly pack)', price: 'from $5,950', unit: 'a month' },
+      { item: 'Managed accounting department: Controller-led (adds close, controls, audit support, reporting)', price: 'from $9,200', unit: 'a month' },
+    ],
+    notes: ['A 12-month term takes 3% off.', 'Starts with a 30-day pilot.'],
+  },
+  {
+    id: 'support',
+    model: 'Monthly, per full-time person',
+    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee.',
+    rows: [{ item: 'Customer service representative', price: 'from $1,450', unit: 'a month' }],
+    notes: ['Offered alongside at least one accounting or operations role.', 'A 12-month term takes 3% off.'],
+  },
+  {
+    id: 'operations',
+    model: 'Monthly, per full-time person',
+    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee.',
+    rows: [
+      { item: 'Data entry specialist', price: 'from $1,250', unit: 'a month' },
+      { item: 'Administrative assistant', price: 'from $1,650', unit: 'a month' },
+      { item: 'Dispatcher or logistics coordinator', price: 'from $1,750', unit: 'a month' },
+      { item: 'Executive assistant', price: 'from $2,100', unit: 'a month' },
+    ],
+    notes: ['Data entry is offered alongside at least one other role.', 'A 12-month term takes 3% off.'],
+  },
+  {
+    id: 'analytics',
+    model: 'Monthly analyst, or a fixed-price build',
+    intro: 'A dedicated analyst, a one-off reporting build, or a monthly reporting pack on top of your bookkeeping.',
+    rows: [
+      { item: 'Dedicated data analyst, full time', price: 'from $2,800', unit: 'a month' },
+      { item: 'Reporting build: 3 to 5 dashboards, fixed after a free review', price: 'from $4,000', unit: 'per project' },
+      { item: 'Monthly reporting and KPI pack, for clients whose books we keep', price: 'from $700', unit: 'a month' },
+    ],
+    notes: ['Power BI licences are paid by you.', 'A 12-month term takes 3% off the monthly items.'],
+  },
+  {
+    id: 'erp',
+    model: 'Fixed project fees, and Odoo by quote',
+    intro: 'Set-up, clean-up and moves are fixed-price, set after a review of your file. Odoo projects are quoted after discovery.',
+    rows: [
+      { item: 'QuickBooks Online or Xero set-up: one company, up to 5 bank and card accounts, 2 training sessions', price: 'from $600', unit: 'fixed' },
+      { item: 'Clean-up or catch-up, up to 150 transactions a month', price: 'from $150', unit: 'per month of books' },
+      { item: 'Move from QuickBooks Desktop, or between QuickBooks and Xero', price: 'from $1,200', unit: 'fixed' },
+      { item: 'Odoo ERP set-up', price: 'By quote', unit: 'after discovery' },
+      { item: 'Support after go-live, up to 5 hours', price: 'from $200', unit: 'a month' },
+    ],
+    notes: ['Software subscriptions are paid by you.', 'Project fees are not part of the one-third claim.'],
+  },
+]
 
 export const faqItems = [
   {
@@ -199,4 +300,12 @@ export const sopContents = [
   'Service levels',
   'Version history',
   'Review date',
+]
+
+export const clientLogos = [
+  { file: 'barami.png', name: 'Barami' },
+  { file: 'ddc.png', name: 'DDC' },
+  { file: 'mwd.avif', name: 'Metropolitan Warehouse & Delivery', tall: true },
+  { file: 'mwd-premier.avif', name: 'MWD Premier', tall: true },
+  { file: 'patrizialuca.png', name: 'Patrizia Luca' },
 ]

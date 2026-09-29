@@ -16,7 +16,7 @@ export default function Services() {
   usePageMeta({
     title: 'Services | Baxio',
     description:
-      'Accounting, accounting system set-up and data analytics, done by our team in Islamabad, Pakistan, documented in your systems and measured against KPIs you sign off on.',
+      'Finance, customer support, operations, analytics and ERP implementation, each run by a named lead, documented in your systems and measured against KPIs you sign off on.',
   })
 
   return (
@@ -24,7 +24,7 @@ export default function Services() {
       <section className="section-hero ground-paper pb-0 lg:pb-0" aria-labelledby="services-title">
         <div className="container-page">
           <h1 id="services-title" className="display-l md:max-w-[75%]">
-            Accounting first, and the work around it.
+            Five practices. One operating model.
           </h1>
           <p className="lead container-prose mt-6">
             A named person is accountable for your work, and you get a written status every week.
@@ -57,6 +57,11 @@ export default function Services() {
             How pricing works.
           </h2>
           <p className="lead container-prose mt-6">{pricingLine}</p>
+          <p className="mt-8">
+            <Link to="/pricing" className="link-quiet">
+              See pricing by service
+            </Link>
+          </p>
         </div>
       </section>
 

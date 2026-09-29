@@ -84,6 +84,7 @@ async function forwardIntakeEmail(payload) {
   const emailPayload = {
     _subject: `Baxio Chatbot Intake - ${fields.company || fields.fullName || payload.id}`,
     _template: 'table',
+    _honey: payload._honey || '',
     intakeId: payload.id,
     source: payload.source,
     createdAt: payload.createdAt,

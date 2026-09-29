@@ -4,6 +4,7 @@ import { contact, practices } from '../content/site.js'
 const company = [
   { to: '/about', label: 'About' },
   { to: '/how-we-work', label: 'How we work' },
+  { to: '/pricing', label: 'Pricing' },
   { to: '/contact', label: 'Contact' },
   { to: '/privacy', label: 'Privacy' },
 ]
@@ -20,7 +21,8 @@ export default function Footer() {
               <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[18px] w-auto" />
             </Link>
             <p className="caption mt-4 max-w-prose">
-              Accounting and back-office work for US businesses, done by our team in Islamabad.
+              Offshore execution for US mid-market businesses: finance, support, operations, analytics and ERP
+              implementation, run with documented process and weekly reporting.
             </p>
           </div>
 

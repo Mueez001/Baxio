@@ -287,7 +287,7 @@ export const pricing = [
           'Look across the business for trends and problems nobody asked about, and flag them in the weekly status',
           'Prepare your weekly and monthly KPI packs',
         ],
-        price: 'from $2,800',
+        price: 'from $3,500',
         unit: 'a month',
       },
     ],

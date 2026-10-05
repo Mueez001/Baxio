@@ -22,27 +22,58 @@ function PricePanel({ tab }) {
       <h2 className="h3">{tab.name}</h2>
       <p className="meta mt-2">{price.model}</p>
       <p className="body text-ink-2 container-prose mt-4">{price.intro}</p>
-      <ul className="rows mt-8">
-        {price.rows.map((row) => (
-          <li
-            key={row.item}
-            className="border-b border-rule py-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
-          >
-            <span className="body-sm">{row.item}</span>
-            <span className="shrink-0 sm:text-right">
-              <span className="body font-medium text-ink tnum">{row.price}</span>{' '}
-              <span className="caption">{row.unit}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <ul className="mt-6 flex flex-col gap-1">
-        {price.notes.map((note) => (
-          <li key={note} className="caption">
-            {note}
-          </li>
-        ))}
-      </ul>
+      {price.rows.length > 0 && (
+        <ul className="rows mt-8">
+          {price.rows.map((row) => (
+            <li
+              key={row.item}
+              className="border-b border-rule py-5 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-8"
+            >
+              <div className="min-w-0 sm:max-w-[38rem]">
+                <p className="body font-medium text-ink">{row.item}</p>
+                {row.desc && <p className="body-sm text-ink-2 mt-1">{row.desc}</p>}
+                {row.covers && (
+                  <ul className="mt-2 flex flex-col gap-1 list-disc pl-5 body-sm text-ink-2">
+                    {row.covers.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <span className="shrink-0 sm:text-right">
+                <span className="body font-medium text-ink tnum">{row.price}</span>
+                {row.unit && (
+                  <>
+                    {' '}
+                    <span className="caption">{row.unit}</span>
+                  </>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {price.rows.length === 0 && tab.covers && (
+        <>
+          <p className="meta mt-8">What an implementation covers</p>
+          <ul className="rows mt-4">
+            {tab.covers.map((c) => (
+              <li key={c} className="border-b border-rule py-3 body-sm">
+                {c}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {price.notes.length > 0 && (
+        <ul className="mt-6 flex flex-col gap-1">
+          {price.notes.map((note) => (
+            <li key={note} className="caption">
+              {note}
+            </li>
+          ))}
+        </ul>
+      )}
       <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
         <Link to={'/contact?service=' + tab.id} className="btn-primary">
           Get a custom quote
@@ -57,7 +88,7 @@ export default function Pricing() {
   usePageMeta({
     title: 'Pricing | Baxio',
     description:
-      'Starting prices by service. Monthly roles are priced at or below one third of what the same role costs a US employer. Projects are fixed-price. Odoo by quote.',
+      'Starting prices by service: monthly roles in finance, support and operations, fixed-price analytics builds and analysts, and ERP projects by quote.',
   })
 
   const location = useLocation()
@@ -97,8 +128,8 @@ export default function Pricing() {
             Starting prices, by service.
           </h1>
           <p className="lead container-prose-centred mt-6">
-            Monthly roles are priced at or below one third of what the same role costs a US employer. Projects
-            are fixed-price. Every client gets a custom quote.
+            Starting prices for every role and project. Monthly prices cover the person and everything around
+            them: employment, office, equipment, supervision and replacement. Every client gets a custom quote.
           </p>
 
           <div

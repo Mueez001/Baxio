@@ -78,7 +78,7 @@ export default function HowWeWork() {
             You should never have to ask what happened this week.
           </h2>
           <p className="lead container-prose mt-6">
-            Every engagement reports on a fixed rhythm. Nothing waits for you to chase it.
+            Every engagement reports on a fixed rhythm, so you always know where the work stands.
           </p>
           <div className="section-air grid-12 gap-y-12">
             <div className="col-span-4 md:col-span-8 rows">

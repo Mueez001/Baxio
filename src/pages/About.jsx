@@ -30,8 +30,8 @@ export default function About() {
             <h2 className="h2" id="story-title">Our story.</h2>
             <div className="mt-6">
               <p className="body">
-                Baxio itself started in mid-2025. Baxio Inc. is registered in New Jersey. Our team works in
-                Islamabad, Pakistan.
+                Baxio itself started in mid-2025, founded by people who ran offshore teams inside a US company. Baxio
+                Inc. is registered in New Jersey, and our team works in Islamabad, Pakistan.
               </p>
               <p className="body">
                 A named person is accountable for your work, and you get a written status every week.
@@ -53,7 +53,7 @@ export default function About() {
       {/* Principles */}
       <section className="ground-paper-2 section" aria-labelledby="values-title">
         <div className="container-page">
-          <h2 className="h2" id="values-title">Four principles that shape every engagement.</h2>
+          <h2 className="h2" id="values-title">Three principles that shape every engagement.</h2>
           <div className="section-air rows">
             {values.map(([name, line]) => (
               <div key={name} className="row">

@@ -23,7 +23,7 @@ export default function Home() {
             <div className="col-span-4 md:col-span-12 lg:col-span-7">
               <span className="accent-rule hero-rise hero-rise-1" aria-hidden="true" />
               <h1 id="hero-title" className="display-xl mt-6 hero-rise hero-rise-1">
-                The team you never have to chase.
+                Finance and operations teams for US companies.
               </h1>
               <p className="lead mt-6 max-w-[36rem] hero-rise hero-rise-2">{heroLead}</p>
               <div className="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-8 hero-rise hero-rise-3">
@@ -96,7 +96,7 @@ export default function Home() {
             You should never have to ask what happened this week.
           </h2>
           <p className="lead container-prose mt-6">
-            Every engagement reports on a fixed rhythm. Nothing waits for you to chase it.
+            Every engagement reports on a fixed rhythm, so you always know where the work stands.
           </p>
           <div className="section-air">
             {cadence.map(([period, line]) => (

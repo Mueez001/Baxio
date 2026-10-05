@@ -91,7 +91,7 @@ export const practices = [
       'User acceptance testing and training',
       'Go-live support and hypercare',
     ],
-    engagement: 'Scoped and priced as a project. Odoo by quote.',
+    engagement: 'Scoped after a discovery call and quoted as a project.',
   },
 ]
 
@@ -161,69 +161,144 @@ export const coverage = {
 
 // One line used where the full Pricing page is not shown (Services, chatbot).
 export const pricingLine =
-  'Monthly roles start from $1,250 a person, each priced at or below one third of what the same role costs a US employer. Projects are fixed-price. Odoo is priced by quote. See the Pricing page, or ask for a custom quote.'
+  'Monthly roles start from $1,250 a person. Analytics builds are fixed-price after a free review. Managed accounting departments and ERP projects are quoted after a scoping call. See the Pricing page, or ask for a custom quote.'
 
 // Prices by service. Sources: BusinessPlan/drafts/pricing-document.md rate card,
 // drafts/council-review-01.md, proposals/*/notes.md. All "starting from". Ids match practices.
 export const pricingSource =
-  'The one-third comparison uses US employer cost: the BLS OEWS May 2025 median wage for the role, times the BLS ECEC load factor (June 2026 release). Prices are in US dollars, before any 12-month term discount.'
+  'All prices are in US dollars. Software subscriptions and licences stay in your name and are not included.'
 
 export const pricing = [
   {
     id: 'finance',
-    model: 'Monthly, per full-time person',
-    intro: 'One full-time person on one 8-hour shift in your time zone. Employment, office, equipment, security controls, supervision and replacement are included. No set-up fee.',
+    model: 'Monthly, per person',
+    intro: 'Each person works your business hours. Employment, office, equipment, security controls, supervision and replacement are included. No set-up fee.',
     rows: [
-      { item: 'Bookkeeper, AP and AR specialist', price: 'from $1,750', unit: 'a month' },
-      { item: 'Staff accountant', price: 'from $2,450', unit: 'a month' },
-      { item: 'Senior accountant', price: 'from $3,250', unit: 'a month' },
-      { item: 'Managed accounting department: Essentials (AP, AR, reconciliations, month-end close, monthly pack)', price: 'from $5,950', unit: 'a month' },
-      { item: 'Managed accounting department: Controller-led (adds close, controls, audit support, reporting)', price: 'from $9,200', unit: 'a month' },
+      {
+        item: 'Part-time bookkeeper',
+        desc: 'Keeps the books current for a business with lighter volumes: bank and card feeds, coding, reconciliations and a monthly close checklist. Hours are agreed in your quote.',
+        price: 'from $1,750',
+        unit: 'a month',
+      },
+      {
+        item: 'Bookkeeping specialist, full time',
+        desc: 'Runs accounts payable and receivable, bank and card reconciliations and vendor statements every working day.',
+        price: 'from $2,950',
+        unit: 'a month',
+      },
+      {
+        item: 'Staff accountant, full time',
+        desc: 'Owns your month-end close: accruals, prepaids, balance sheet reconciliations and a management reporting pack.',
+        price: 'from $3,250',
+        unit: 'a month',
+      },
+      {
+        item: 'Senior accountant',
+        desc: 'Reviews the close, handles complex reconciliations and supports audit and tax preparation.',
+        price: 'Custom quote',
+        unit: '',
+      },
+      {
+        item: 'Managed accounting department: Essentials',
+        desc: 'AP, AR, reconciliations, month-end close and a monthly pack, staffed and supervised by us.',
+        price: 'Custom quote',
+        unit: '',
+      },
+      {
+        item: 'Managed accounting department: Controller-led',
+        desc: 'Adds controller oversight of the close, controls, audit support and reporting.',
+        price: 'Custom quote',
+        unit: '',
+      },
     ],
-    notes: ['A 12-month term takes 3% off.', 'Starts with a 30-day pilot.'],
+    notes: ['Managed departments are quoted after we review your volumes and close calendar.', 'Starts with a 30-day pilot.'],
   },
   {
     id: 'support',
     model: 'Monthly, per full-time person',
     intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee.',
-    rows: [{ item: 'Customer service representative', price: 'from $1,450', unit: 'a month' }],
-    notes: ['Offered alongside at least one accounting or operations role.', 'A 12-month term takes 3% off.'],
+    rows: [
+      {
+        item: 'Customer service representative',
+        desc: 'Answers email, chat and voice in your tone of voice and to your SLAs, with weekly QA scoring.',
+        price: 'from $1,450',
+        unit: 'a month',
+      },
+    ],
+    notes: ['Offered alongside at least one accounting or operations role.'],
   },
   {
     id: 'operations',
     model: 'Monthly, per full-time person',
-    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee.',
+    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee. The three roles differ by scope: records, a team’s processes, or one executive’s day.',
     rows: [
-      { item: 'Data entry specialist', price: 'from $1,250', unit: 'a month' },
-      { item: 'Administrative assistant', price: 'from $1,650', unit: 'a month' },
-      { item: 'Dispatcher or logistics coordinator', price: 'from $1,750', unit: 'a month' },
-      { item: 'Executive assistant', price: 'from $2,100', unit: 'a month' },
+      {
+        item: 'Data entry specialist',
+        desc: 'Keys, checks and updates records to a written procedure: orders, invoices, product and CRM data. High volume, no judgement calls.',
+        price: 'from $1,250',
+        unit: 'a month',
+      },
+      {
+        item: 'Administrative assistant',
+        desc: 'Runs back-office processes for a team: order processing, purchase orders and vendor follow-up, inventory and CRM upkeep, documents and shared inboxes.',
+        price: 'from $1,650',
+        unit: 'a month',
+      },
+      {
+        item: 'Executive assistant',
+        desc: 'Works for one named executive: calendar, inbox, travel, meeting preparation and follow-ups, including confidential matters.',
+        price: 'from $2,100',
+        unit: 'a month',
+      },
     ],
-    notes: ['Data entry is offered alongside at least one other role.', 'A 12-month term takes 3% off.'],
+    notes: ['Data entry is offered alongside at least one other role.'],
   },
   {
     id: 'analytics',
-    model: 'Monthly analyst, or a fixed-price build',
-    intro: 'A dedicated analyst, a one-off reporting build, or a monthly reporting pack on top of your bookkeeping.',
+    model: 'Review, build, then run',
+    intro: 'Every analytics engagement starts with a free review of your data and the decisions you need it for. We then build your reporting, and keep it running for you.',
     rows: [
-      { item: 'Dedicated data analyst, full time', price: 'from $2,800', unit: 'a month' },
-      { item: 'Reporting build: 3 to 5 dashboards, fixed after a free review', price: 'from $4,000', unit: 'per project' },
-      { item: 'Monthly reporting and KPI pack, for clients whose books we keep', price: 'from $700', unit: 'a month' },
+      {
+        item: 'Data review',
+        desc: 'We look at your systems, your data and the decisions you need it for, then send a written plan with a fixed price for the build.',
+        price: 'Free',
+        unit: '',
+      },
+      {
+        item: 'Reporting build',
+        desc: 'Agreed definitions for every metric, a clean data model and 3 to 5 dashboards, built in your own workspace and handed over with documentation.',
+        price: 'from $4,000',
+        unit: 'per project',
+      },
+      {
+        item: 'Monthly reporting and KPI pack',
+        desc: 'Your KPIs every month with written commentary, for clients whose books we keep.',
+        price: 'from $700',
+        unit: 'a month',
+      },
+      {
+        item: 'Dedicated data analyst, full time',
+        desc: 'Your own analyst, working your business hours. They:',
+        covers: [
+          'Keep your dashboards and scheduled reports current and correct',
+          'Build new reports and answer ad-hoc questions from your team',
+          'Clean and join data across your systems: accounting, CRM, orders and support',
+          'Check reported totals against your books after each month-end',
+          'Look across the business for trends and problems nobody asked about, and flag them in the weekly status',
+          'Prepare your weekly and monthly KPI packs',
+        ],
+        price: 'from $2,800',
+        unit: 'a month',
+      },
     ],
-    notes: ['Power BI licences are paid by you.', 'A 12-month term takes 3% off the monthly items.'],
+    notes: ['Built in your own workspace, in the tool you already use or the one we recommend.'],
   },
   {
     id: 'erp',
-    model: 'Fixed project fees, and Odoo by quote',
-    intro: 'Set-up, clean-up and moves are fixed-price, set after a review of your file. Odoo projects are quoted after discovery.',
-    rows: [
-      { item: 'QuickBooks Online or Xero set-up: one company, up to 5 bank and card accounts, 2 training sessions', price: 'from $600', unit: 'fixed' },
-      { item: 'Clean-up or catch-up, up to 150 transactions a month', price: 'from $150', unit: 'per month of books' },
-      { item: 'Move from QuickBooks Desktop, or between QuickBooks and Xero', price: 'from $1,200', unit: 'fixed' },
-      { item: 'Odoo ERP set-up', price: 'By quote', unit: 'after discovery' },
-      { item: 'Support after go-live, up to 5 hours', price: 'from $200', unit: 'a month' },
-    ],
-    notes: ['Software subscriptions are paid by you.', 'Project fees are not part of the one-third claim.'],
+    model: 'Scoped and quoted as a project',
+    intro: 'Every implementation starts with a discovery call. We map your processes, systems and data, then send a written scope and quote before any work starts.',
+    rows: [],
+    notes: [],
   },
 ]
 
@@ -255,7 +330,6 @@ export const faqItems = [
 ]
 
 export const values = [
-  ['Operator-led', 'Founded by people who ran offshore teams inside a US company, not a recruiting agency that pivoted.'],
   ['Process before people', 'We document the work first. Then the right person is assigned to a clearly defined role, not the other way around.'],
   ['Honest reporting', 'You hear the bad news first. Misses are surfaced with a fix attached.'],
   ['Long engagements', 'We aim for clients who stay for years, not for headcount we can churn through.'],
@@ -307,6 +381,7 @@ export const clientLogos = [
   { file: 'mwd.avif', name: 'Metropolitan Warehouse & Delivery', tall: true },
   { file: 'mwd-premier.avif', name: 'MWD Premier', tall: true },
   { file: 'patrizialuca.png', name: 'Patrizia Luca' },
+  { name: 'Wendover' },
 ]
 
 // ---- Redesign 29 Sep 2026 ----
@@ -318,7 +393,7 @@ export const ctaLabel = 'Book a scoping call'
 
 // Hero value proposition. Restates the Home meta line and the coverage rows.
 export const heroLead =
-  'Finance, support, operations, analytics and ERP work for US companies. A named team in Pakistan works your business hours and reports to you in writing every week.'
+  'Accounting, customer support, operations, analytics and ERP work, done by a named team in Pakistan that works your business hours and reports to you in writing every week.'
 
 // The fact strip under the hero. Sources: About (New Jersey, Islamabad), coverage, timeline.
 export const heroFacts = [

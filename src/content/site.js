@@ -176,7 +176,7 @@ export const pricing = [
     rows: [
       {
         item: 'Part-time bookkeeper',
-        desc: 'Keeps the books current for a business with lighter volumes: bank and card feeds, coding, reconciliations and a monthly close checklist. Hours are agreed in your quote.',
+        desc: 'Keeps the books current for a business with lighter volumes: bank and card feeds, coding, reconciliations and a monthly close checklist. Minimum 40 hours a month.',
         price: 'from $1,750',
         unit: 'a month',
       },
@@ -272,7 +272,7 @@ export const pricing = [
       },
       {
         item: 'Monthly reporting and KPI pack',
-        desc: 'Your KPIs every month with written commentary, for clients whose books we keep.',
+        desc: 'Your KPIs every month, with written commentary.',
         price: 'from $700',
         unit: 'a month',
       },
@@ -298,7 +298,7 @@ export const pricing = [
     model: 'Scoped and quoted as a project',
     intro: 'Every implementation starts with a discovery call. We map your processes, systems and data, then send a written scope and quote before any work starts.',
     rows: [],
-    notes: [],
+    notes: ['Discovery and the written quote are free.'],
   },
 ]
 

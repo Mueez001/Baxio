@@ -9,7 +9,7 @@ import CTASection from '../components/CTASection'
 import { practices, cadence, ctaLabel, heroLead, heroFacts } from '../content/site'
 
 const description =
-  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run by a named team and reported to you every week.'
+  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run from written procedures and reported to you every week.'
 
 export default function Home() {
   usePageMeta({ title: 'Baxio | Offshore finance, support and operations teams for US companies', description })
@@ -60,8 +60,8 @@ export default function Home() {
               Five practices. One operating model.
             </h2>
             <p className="lead col-span-4 md:col-span-5">
-              Every practice runs on the same discipline: documented SOPs, a named person accountable for your
-              work, a weekly written status and a monthly business review.
+              Every practice runs on the same discipline: documented SOPs, work reviewed before it reaches you, a
+              weekly written status and a monthly business review.
             </p>
           </div>
           <div className="section-air rows">

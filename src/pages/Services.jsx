@@ -16,7 +16,7 @@ export default function Services() {
   usePageMeta({
     title: 'Services | Baxio',
     description:
-      'Finance, customer support, operations, analytics and ERP implementation, each run by a named lead, documented in your systems and measured against KPIs you sign off on.',
+      'Finance, customer support, operations, analytics and ERP implementation, each run from written procedures, documented in your systems and measured against KPIs you sign off on.',
   })
 
   return (
@@ -27,7 +27,7 @@ export default function Services() {
             Five practices. One operating model.
           </h1>
           <p className="lead container-prose mt-6">
-            A named person is accountable for your work, and you get a written status every week.
+            Every task runs from a written procedure and is reviewed before it reaches you. You get a written status every week.
           </p>
         </div>
       </section>

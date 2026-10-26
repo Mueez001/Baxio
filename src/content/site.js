@@ -81,7 +81,7 @@ export const practices = [
   {
     id: 'erp',
     name: 'ERP Implementation',
-    short: 'Requirements, configuration, data migration, testing and go-live, run as a scoped project with a named lead.',
+    short: 'Requirements, configuration, data migration, testing and go-live, run as a scoped project with a trained lead and written procedures.',
     lead: 'Whatever accounting or ERP system you run, or plan to move to, the implementation is taken care of end to end and documented so your own team can run it afterwards.',
     covers: [
       'Requirements and process mapping',
@@ -144,7 +144,7 @@ export const homeProcess = [
 ]
 
 export const principles = [
-  ['Process ownership', 'A named person is accountable for your work, and you get a written status every week.'],
+  ['Process ownership', 'Every task runs from a written procedure and is reviewed before it reaches you, so the work never depends on one person.'],
   ['Reporting discipline', 'You receive a written status every week and a structured business review every month.'],
   ['Documented SOPs', 'Every workflow we run is documented in your system. If a person leaves, the process does not.'],
   ['KPI accountability', 'Pilots and steady-state engagements are measured against KPIs you sign off on in writing.'],
@@ -304,6 +304,10 @@ export const pricing = [
 
 export const faqItems = [
   {
+    q: 'Where is Baxio, and where does the work happen?',
+    a: 'Baxio Inc. is a New Jersey company. Our finance team works in Pakistan on US business hours. Each person works on a company laptop with their own login and multi-factor sign-in, every task runs from a written procedure, and you get a written status every week.',
+  },
+  {
     q: 'How quickly can we start?',
     a: 'We reply within one business day and send a written proposal within three business days of the scoping call. Onboarding takes two weeks, and the 30-day pilot starts straight after.',
   },
@@ -317,7 +321,7 @@ export const faqItems = [
   },
   {
     q: 'How do you manage quality?',
-    a: 'Each function has documented SOPs and a named person accountable for the output. Quality checks are part of your weekly status, so quality is visible rather than assumed.',
+    a: 'Each function runs from documented SOPs, and the work is reviewed before it reaches you. Quality checks are part of your weekly status, so quality is visible rather than assumed.',
   },
   {
     q: 'What time zones do you support?',
@@ -335,32 +339,64 @@ export const values = [
   ['Long engagements', 'We aim for clients who stay for years, not for headcount we can churn through.'],
 ]
 
-// Listed alphabetically. No ranking is implied by order or title.
+// Vision, mission, positioning, goals and objectives (About page). Added 7 Oct 2026.
+// Objectives are service standards we already run, so nothing here is a new claim.
+export const purpose = {
+  vision:
+    'Every growing US company should be able to run its back office as well as a large enterprise does, with a team that works from written procedures and reports every week.',
+  mission:
+    'We run the finance and operations work of US companies from Pakistan, on US business hours, with written procedures, a reviewed close and a written status every week, at a cost a growing business can carry.',
+  statement: 'We’ve run a US company’s back office for 20 years. Now we run yours.',
+  goals: [
+    ['The team US operators recommend', 'Be the offshore finance and operations team that logistics, furniture and home-goods companies recommend to each other.'],
+    ['Careers worth staying for', 'Build finance and operations careers in Pakistan that people keep for years, because continuity is what our clients pay for.'],
+    ['Automation with review', 'We automate the repetitive part, and an accountant reviews every number.'],
+  ],
+  objectives: [
+    'Every new client starts with a 30-day pilot against KPIs agreed in writing.',
+    'Every recurring task is written up as a procedure within the first 30 days.',
+    'Every client gets a written status every week.',
+    'Every team member works on a company laptop with their own login and multi-factor sign-in.',
+    'Every task is reviewed before it reaches the client, so no account depends on one person.',
+  ],
+}
+
+// Baxio's leadership. Entries with `pending: true` are hidden until their details are confirmed.
 export const leadership = [
   {
-    name: 'Mohsin Abbasi',
-    title: 'Partner',
-    bio: 'Runs day-to-day delivery, client follow-up and escalations across accounts.',
-  },
-  {
-    name: 'Mueez Ur Rehman',
-    title: 'Chief Operating Officer',
-    bio: 'Leads FP&A, pricing, reporting and analytics. Turns financial planning into documented processes the delivery teams run.',
+    name: 'Shawn Khan',
+    title: 'President & CEO',
+    bio: 'Also President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform.',
   },
   {
     name: 'Peet Van Der Schyff',
-    title: 'Chief Financial Officer',
-    bio: 'Chief Financial Officer of MWD. Senior finance and logistics-finance leadership; the discipline behind Baxio’s finance, accounting and reporting work.',
+    title: 'CFO',
+    bio: 'Also Chief Financial Officer of Metropolitan Warehouse & Delivery.',
   },
   {
-    name: 'Shahid Latif Khan',
-    title: 'President and Chief Executive Officer',
-    bio: 'President and CEO of Metropolitan Warehouse & Delivery, a nationwide furniture logistics platform. Connects Baxio’s finance, operations and support practices to execution at scale.',
+    name: 'Mueez Ur Rehman',
+    title: 'COO',
+    bio: 'Runs day-to-day client operations and leads business development.',
   },
   {
     name: 'Zeeshan Ali',
-    title: 'Partner',
-    bio: 'Technology, client systems, access provisioning and secure connectivity.',
+    title: 'CTO',
+  },
+  {
+    name: 'Mohsin Abbasi',
+    title: 'Head of Administration',
+  },
+  {
+    name: 'Afaq Ali',
+    title: 'TBC',
+    bio: 'TBC',
+    pending: true,
+  },
+  {
+    name: 'Babar',
+    title: 'TBC',
+    bio: 'TBC',
+    pending: true,
   },
 ]
 
@@ -393,12 +429,14 @@ export const ctaLabel = 'Book a scoping call'
 
 // Hero value proposition. Restates the Home meta line and the coverage rows.
 export const heroLead =
-  'Accounting, customer support, operations, analytics and ERP work, done by a named team in Pakistan that works your business hours and reports to you in writing every week.'
+  'Accounting, customer support, operations, analytics and ERP work, done by our team on your business hours, from written procedures, with a written report every week.'
 
-// The fact strip under the hero. Sources: About (New Jersey, Islamabad), coverage, timeline.
+// The fact strip under the hero. Sources: About (New Jersey), principles, coverage, timeline.
+// No country or city here (Marketing_Assets/06_Voice/location-and-leadership.md, surface a).
+// The team's location is stated on About, How we work and the FAQ.
 export const heroFacts = [
   ['Company', 'Baxio Inc., registered in New Jersey'],
-  ['Team', 'Islamabad, Pakistan'],
+  ['Team', 'Our own team, on written procedures'],
   ['Hours', 'US Eastern to Pacific business hours'],
   ['First step', 'A 30-day pilot against written KPIs'],
 ]
@@ -414,8 +452,8 @@ export const trustPoints = [
     body: 'Every workflow we run is documented in your system. If a person leaves, the process does not.',
   },
   {
-    name: 'One accountable person',
-    body: 'A named person is accountable for your work, and you get a written status every week.',
+    name: 'Reviewed work',
+    body: 'Every task runs from a written procedure and is reviewed before it reaches you, so the work never depends on one person.',
   },
   {
     name: 'KPIs in writing',

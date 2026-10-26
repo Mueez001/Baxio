@@ -44,7 +44,7 @@ export default function StatusNote() {
             <span className="block h-2 w-24 rounded-full bg-neutral-200" />
             <span className="block h-2 w-16 rounded-full bg-neutral-100" />
           </span>
-          <span className="ml-auto text-meta stretch-110 text-ink-2">Your named lead</span>
+          <span className="ml-auto text-meta stretch-110 text-ink-2">Reviewed weekly</span>
         </div>
       </div>
       <figcaption className="caption mt-4 max-w-[34rem]">

@@ -6,7 +6,7 @@ export default function HowWeWork() {
   usePageMeta({
     title: 'How we work | Baxio',
     description:
-      'A managed engagement, not a staffing agency: a named person accountable, documented SOPs, a ' +
+      'A managed engagement: documented SOPs, work reviewed before it reaches you, a ' +
       timeline.pilot +
       ' and a written status every week.',
   })
@@ -20,8 +20,8 @@ export default function HowWeWork() {
             A managed engagement, not a staffing agency.
           </h1>
           <p className="lead container-prose mt-6">
-            You get named people who own the work, not a bank of hours. A named person is accountable for your work,
-            and you get a written status every week.
+            Every task runs from a written procedure and is reviewed before it reaches you, so the work never depends
+            on one person. You get a written status every week.
           </p>
         </div>
       </section>

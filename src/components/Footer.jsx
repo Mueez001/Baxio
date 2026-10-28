@@ -10,7 +10,7 @@ const company = [
 ]
 
 export default function Footer() {
-  const wordmark = `${import.meta.env.BASE_URL}wordmark.png`
+  const wordmark = `${import.meta.env.BASE_URL}baxio-wordmark.svg`
 
   return (
     <footer className="ground-paper-2 pt-16 md:pt-24 pb-12">
@@ -18,11 +18,11 @@ export default function Footer() {
         <div className="grid-12 gap-y-8">
           <div className="col-span-4 md:col-span-4">
             <Link to="/" className="inline-flex items-center">
-              <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[18px] w-auto" />
+              <img src={wordmark} alt="Baxio" width="562" height="242" className="h-9 w-auto" />
             </Link>
             <p className="caption mt-4 max-w-prose">
-              Offshore execution for US mid-market businesses: finance, support, operations, analytics and ERP
-              implementation, run with documented process and weekly reporting.
+              Baxio Inc. is a New Jersey company that runs finance, support, operations, analytics and ERP work
+              for US companies, from written procedures, with a written status every week.
             </p>
           </div>
 

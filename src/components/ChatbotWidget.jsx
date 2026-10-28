@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { contact, timeline, practices, pricingLine, coverage } from '../content/site.js'
 
-const wordmark = import.meta.env.BASE_URL + 'wordmark.png'
+const wordmark = import.meta.env.BASE_URL + 'baxio-wordmark.svg'
 
 const discoveryQuestions = [
   { key: 'fullName', label: 'Full name', prompt: 'What is your full name?', required: true },
@@ -35,8 +35,8 @@ const botKnowledge = [
     answer: `We reply within ${timeline.reply} and send a written proposal within ${timeline.proposal}. Onboarding takes ${timeline.onboarding}, then a ${timeline.pilot} runs against KPIs you sign off on.`,
   },
   {
-    keywords: ['location', 'timezone', 'time zone', 'hours', 'coverage', 'where'],
-    answer: `Coverage is ${coverageMap['Coverage']}. Delivery centres are in ${coverageMap['Delivery centres']}.`,
+    keywords: ['location', 'based', 'country', 'where'],
+    answer: `${coverageMap['Company']}. ${coverageMap['Team']}.`,
   },
   {
     keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],
@@ -374,7 +374,7 @@ export default function ChatbotWidget() {
       return
     }
 
-    pushBot('I can answer questions about services, pricing, timelines, coverage hours and contact details. Type start and I will take your project details for our team.')
+    pushBot('I can answer questions about services, pricing, timelines, where we work and contact details. Type start and I will take your project details for our team.')
   }
 
   function handleSend(e) {
@@ -457,7 +457,7 @@ export default function ChatbotWidget() {
           }`}
         >
           <div className="px-4 pt-4 pb-3 border-b border-rule">
-            <img src={wordmark} alt="Baxio" className="h-4 w-auto" />
+            <img src={wordmark} alt="Baxio" width="562" height="242" className="h-9 w-auto" />
             <p className="caption mt-2">Answers basic questions and takes your project details privately for our team.</p>
           </div>
 

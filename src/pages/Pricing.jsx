@@ -4,7 +4,8 @@ import usePageMeta from '../hooks/usePageMeta.js'
 import CTASection from '../components/CTASection.jsx'
 import { practices, pricing, pricingSource } from '../content/site.js'
 
-// One tab per service. Tab order and names come from practices; prices from pricing.
+// One tab per service. Tab order and names come from practices; pricing models from pricing.
+// No figures anywhere on the site (Marketing_Assets/BRAND-BRIEF.md, banned list).
 const tabs = practices
   .map((p) => ({ ...p, price: pricing.find((x) => x.id === p.id) }))
   .filter((t) => t.price)
@@ -41,13 +42,7 @@ function PricePanel({ tab }) {
                 )}
               </div>
               <span className="shrink-0 sm:text-right">
-                <span className="body font-medium text-ink tnum">{row.price}</span>
-                {row.unit && (
-                  <>
-                    {' '}
-                    <span className="caption">{row.unit}</span>
-                  </>
-                )}
+                {row.unit && <span className="meta">{row.unit}</span>}
               </span>
             </li>
           ))}
@@ -76,9 +71,9 @@ function PricePanel({ tab }) {
       )}
       <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
         <Link to={'/contact?service=' + tab.id} className="btn-primary">
-          Get a custom quote
+          Book a scoping call
         </Link>
-        <span className="caption">Final prices depend on your volumes and are confirmed in writing.</span>
+        <span className="caption">Your price depends on your volumes and is confirmed in a written proposal.</span>
       </div>
     </>
   )
@@ -88,7 +83,7 @@ export default function Pricing() {
   usePageMeta({
     title: 'Pricing | Baxio',
     description:
-      'Starting prices by service: monthly roles in finance, support and operations, fixed-price analytics builds and analysts, and ERP projects by quote.',
+      'How engagements are priced: monthly roles in finance, support and operations, fixed-price analytics builds after a free review, and ERP projects by quote.',
   })
 
   const location = useLocation()
@@ -125,11 +120,11 @@ export default function Pricing() {
       <section className="section-hero ground-paper" aria-labelledby="pricing-title">
         <div className="container-page">
           <h1 id="pricing-title" className="display-l text-center mx-auto max-w-statement">
-            Starting prices, by service.
+            How engagements are priced.
           </h1>
           <p className="lead container-prose-centred mt-6">
-            Starting prices for every role and project. Monthly prices cover the person and everything around
-            them: employment, office, equipment, supervision and replacement. Every client gets a custom quote.
+            Monthly roles cover the person and everything around them: employment, equipment, security
+            controls, supervision and replacement. Every client gets a written price after a scoping call.
           </p>
 
           <div

@@ -15,6 +15,7 @@ const grounds = [
 export default function Services() {
   usePageMeta({
     title: 'Services | Baxio',
+    image: 'og-services.png',
     description:
       'Finance, customer support, operations, analytics and ERP implementation, each run from written procedures, documented in your systems and measured against KPIs you sign off on.',
   })
@@ -59,7 +60,7 @@ export default function Services() {
           <p className="lead container-prose mt-6">{pricingLine}</p>
           <p className="mt-8">
             <Link to="/pricing" className="link-quiet">
-              See pricing by service
+              How engagements are priced
             </Link>
           </p>
         </div>

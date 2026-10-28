@@ -1,10 +1,11 @@
 import usePageMeta from '../hooks/usePageMeta.js'
 import CTASection from '../components/CTASection.jsx'
-import { stages, coverage, cadence, principles, timeline } from '../content/site.js'
+import { stages, coverage, proofLine, cadence, principles, timeline } from '../content/site.js'
 
 export default function HowWeWork() {
   usePageMeta({
     title: 'How we work | Baxio',
+    image: 'og-how-it-works.png',
     description:
       'A managed engagement: documented SOPs, work reviewed before it reaches you, a ' +
       timeline.pilot +
@@ -17,7 +18,7 @@ export default function HowWeWork() {
       <section className="section-hero ground-paper pb-0 lg:pb-0" aria-labelledby="how-title">
         <div className="container-page">
           <h1 className="display-l md:max-w-[75%]" id="how-title">
-            A managed engagement, not a staffing agency.
+            A managed engagement, run from written procedures.
           </h1>
           <p className="lead container-prose mt-6">
             Every task runs from a written procedure and is reviewed before it reaches you, so the work never depends
@@ -54,12 +55,13 @@ export default function HowWeWork() {
         </div>
       </section>
 
-      {/* Coverage */}
+      {/* Where the work is done (surface b: location stated plainly, never hours) */}
       <section className="ground-paper-2 section" aria-labelledby="coverage-title">
         <div className="container-page">
           <h2 className="h2" id="coverage-title">
-            Your hours, your time zone.
+            Who does the work, and where.
           </h2>
+          <p className="lead container-prose mt-6">{proofLine}</p>
           <dl className="rows section-air container-prose">
             {coverage.rows.map(([term, detail]) => (
               <div key={term} className="grid grid-cols-4 gap-x-6 border-b border-rule py-4">

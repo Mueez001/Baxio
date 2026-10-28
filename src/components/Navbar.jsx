@@ -18,7 +18,7 @@ export default function Navbar() {
   const buttonRef = useRef(null)
   const sheetRef = useRef(null)
   const { pathname, hash } = useLocation()
-  const wordmark = `${import.meta.env.BASE_URL}wordmark.png`
+  const wordmark = `${import.meta.env.BASE_URL}baxio-wordmark.svg`
 
   // Bottom hairline after 8px of scroll.
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function Navbar() {
       <header className="nav-bar" data-scrolled={scrolled ? 'true' : 'false'}>
         <nav aria-label="Main" className="container-page flex h-nav items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src={wordmark} alt="Baxio" width="840" height="280" className="h-[22px] w-auto" />
+            <img src={wordmark} alt="Baxio" width="562" height="242" className="h-9 w-auto" />
           </Link>
 
           <div className="hidden items-center gap-8 lg:flex">

@@ -6,7 +6,8 @@ export default function About() {
   usePageMeta({
     title: 'About | Baxio',
     description:
-      'Baxio Inc. is a New Jersey company. Our finance team works in Pakistan on US business hours.',
+      'Baxio Inc. is a New Jersey company. Our finance team works in Pakistan, inside each client’s own systems.',
+    image: 'og-about.png',
   })
 
   return (
@@ -18,7 +19,7 @@ export default function About() {
             Where Baxio comes from.
           </h1>
           <p className="lead container-prose mt-6">
-            Baxio Inc. is a New Jersey company. Our finance team works in Pakistan on US business hours. Each person works on a company laptop with their own login and multi-factor sign-in, every task runs from a written procedure, and you get a written status every week.
+            Baxio Inc. is a New Jersey company. Our finance team works in Pakistan, inside each client’s own systems. Each person works on a company laptop with their own login and multi-factor sign-in, every task runs from a written procedure, and you get a written status every week.
           </p>
         </div>
       </section>
@@ -33,7 +34,7 @@ export default function About() {
                 Baxio grew out of the Pakistan office of Metropolitan Warehouse & Delivery (MWD), a US logistics company. That office has run MWD’s own Procure-to-Pay, Order-to-Cash, invoicing, customer service and dispatch for about 20 years.
               </p>
               <p className="body">
-                Baxio itself started in mid-2025, founded by people who ran offshore teams inside a US company.
+                Baxio itself started in mid-2025, founded by people who have run a US company’s back office for 20 years.
               </p>
               <p className="body">
                 Every task runs from a written procedure and is reviewed before it reaches you, so the work never depends on one person.
@@ -74,7 +75,7 @@ export default function About() {
               <div className="col-span-4 md:col-span-7 md:col-start-5">
                 {purpose.goals.map(([name, line]) => (
                   <div key={name} className="mb-6 last:mb-0">
-                    <p className="body font-semibold">{name}</p>
+                    <p className="body font-medium">{name}</p>
                     <p className="body mt-1">{line}</p>
                   </div>
                 ))}

@@ -43,7 +43,7 @@ export default function LogoCloud() {
                   }
                 />
               ) : (
-                <span className="text-center text-[17px] font-semibold leading-tight tracking-tight text-ink opacity-60 transition duration-150 group-hover:opacity-100">
+                <span className="text-center font-serif text-[19px] font-medium leading-tight tracking-[-0.015em] text-ink opacity-60 transition duration-150 group-hover:opacity-100">
                   {logo.name}
                 </span>
               )}

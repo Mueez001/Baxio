@@ -44,7 +44,6 @@ export const practices = [
       'CSAT and CES reporting',
       'Knowledge-base and macro management',
       'Weekly QA scoring',
-      'After-hours and weekend coverage on request',
     ],
     tools: ['Zendesk', 'Intercom', 'Freshdesk', 'HubSpot'],
   },
@@ -113,7 +112,7 @@ export const stages = [
   {
     when: 'Week 0, day 3',
     name: 'Proposal and scope',
-    body: 'Within three business days you receive a written proposal: roles, hours, KPIs, reporting cadence, pricing and a 30-day pilot plan.',
+    body: 'Within three business days you receive a written proposal: roles, scope, KPIs, reporting cadence, pricing and a 30-day pilot plan.',
     receive: ['Statement of work', 'Pilot success metrics', 'Pricing range with assumptions'],
   },
   {
@@ -152,63 +151,61 @@ export const principles = [
   ['Scale without re-hiring', 'Add or reduce capacity within two weeks. No re-recruiting, no re-onboarding from scratch.'],
 ]
 
+// Location facts for About, How we work and the FAQ (surface b). Never hours or time zones.
 export const coverage = {
   rows: [
-    ['Delivery centres', 'Pakistan'],
-    ['Coverage', 'US Eastern to Pacific business hours'],
+    ['Company', 'Baxio Inc., a New Jersey company'],
+    ['Team', 'Our finance team works in Pakistan, inside each client’s own systems'],
   ],
 }
 
-// One line used where the full Pricing page is not shown (Services, chatbot).
+// The brand proof line (Marketing_Assets/BRAND-BRIEF.md).
+export const proofLine = 'Written procedures. A reviewed close. A weekly written status. KPIs you sign. A 30-day pilot.'
+
+// One line used where the full Pricing page is not shown (Services, chatbot). No figures: prices are
+// given in the written proposal after a scoping call (Marketing_Assets/BRAND-BRIEF.md, banned list).
 export const pricingLine =
-  'Monthly roles start from $1,250 a person. Analytics builds are fixed-price after a free review. Managed accounting departments and ERP projects are quoted after a scoping call. See the Pricing page, or ask for a custom quote.'
+  'Monthly roles are priced per person. Analytics builds are a fixed price after a free review. Managed accounting departments and ERP projects are quoted as a project. You get a written price in the proposal, within three business days of the scoping call.'
 
-// Prices by service. Sources: BusinessPlan/drafts/pricing-document.md rate card,
-// drafts/council-review-01.md, proposals/*/notes.md. All "starting from". Ids match practices.
 export const pricingSource =
-  'All prices are in US dollars. Software subscriptions and licences stay in your name and are not included.'
+  'Prices are in US dollars and set out in your written proposal. Software subscriptions and licences stay in your name and are not included.'
 
+// How each service is priced. Ids match practices. No figures.
 export const pricing = [
   {
     id: 'finance',
     model: 'Monthly, per person',
-    intro: 'Each person works your business hours. Employment, office, equipment, security controls, supervision and replacement are included. No set-up fee.',
+    intro: 'Each role is a monthly fee per person. Employment, equipment, security controls, supervision and replacement are included. No set-up fee.',
     rows: [
       {
         item: 'Part-time bookkeeper',
-        desc: 'Keeps the books current for a business with lighter volumes: bank and card feeds, coding, reconciliations and a monthly close checklist. Minimum 40 hours a month.',
-        price: 'from $1,750',
-        unit: 'a month',
+        desc: 'Keeps the books current for a business with lighter volumes: bank and card feeds, coding, reconciliations and a monthly close checklist.',
+        unit: 'Monthly fee',
       },
       {
         item: 'Bookkeeping specialist, full time',
         desc: 'Runs accounts payable and receivable, bank and card reconciliations and vendor statements every working day.',
-        price: 'from $2,950',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
       {
         item: 'Staff accountant, full time',
         desc: 'Owns your month-end close: accruals, prepaids, balance sheet reconciliations and a management reporting pack.',
-        price: 'from $3,250',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
       {
         item: 'Senior accountant',
         desc: 'Reviews the close, handles complex reconciliations and supports audit and tax preparation.',
-        price: 'Custom quote',
-        unit: '',
+        unit: 'Quoted',
       },
       {
         item: 'Managed accounting department: Essentials',
         desc: 'AP, AR, reconciliations, month-end close and a monthly pack, staffed and supervised by us.',
-        price: 'Custom quote',
-        unit: '',
+        unit: 'Quoted',
       },
       {
         item: 'Managed accounting department: Controller-led',
         desc: 'Adds controller oversight of the close, controls, audit support and reporting.',
-        price: 'Custom quote',
-        unit: '',
+        unit: 'Quoted',
       },
     ],
     notes: ['Managed departments are quoted after we review your volumes and close calendar.', 'Starts with a 30-day pilot.'],
@@ -216,13 +213,12 @@ export const pricing = [
   {
     id: 'support',
     model: 'Monthly, per full-time person',
-    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee.',
+    intro: 'Each representative is a monthly fee per full-time person. No set-up fee.',
     rows: [
       {
         item: 'Customer service representative',
         desc: 'Answers email, chat and voice in your tone of voice and to your SLAs, with weekly QA scoring.',
-        price: 'from $1,450',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
     ],
     notes: ['Offered alongside at least one accounting or operations role.'],
@@ -230,25 +226,22 @@ export const pricing = [
   {
     id: 'operations',
     model: 'Monthly, per full-time person',
-    intro: 'One full-time person on one 8-hour shift in your time zone. No set-up fee. The three roles differ by scope: records, a team’s processes, or one executive’s day.',
+    intro: 'Each role is a monthly fee per full-time person. No set-up fee. The three roles differ by scope: records, a team’s processes, or one executive’s day.',
     rows: [
       {
         item: 'Data entry specialist',
         desc: 'Keys, checks and updates records to a written procedure: orders, invoices, product and CRM data. High volume, no judgement calls.',
-        price: 'from $1,250',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
       {
         item: 'Administrative assistant',
         desc: 'Runs back-office processes for a team: order processing, purchase orders and vendor follow-up, inventory and CRM upkeep, documents and shared inboxes.',
-        price: 'from $1,650',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
       {
         item: 'Executive assistant',
-        desc: 'Works for one named executive: calendar, inbox, travel, meeting preparation and follow-ups, including confidential matters.',
-        price: 'from $2,100',
-        unit: 'a month',
+        desc: 'Works for one executive: calendar, inbox, travel, meeting preparation and follow-ups, including confidential matters.',
+        unit: 'Monthly fee',
       },
     ],
     notes: ['Data entry is offered alongside at least one other role.'],
@@ -261,24 +254,21 @@ export const pricing = [
       {
         item: 'Data review',
         desc: 'We look at your systems, your data and the decisions you need it for, then send a written plan with a fixed price for the build.',
-        price: 'Free',
-        unit: '',
+        unit: 'No charge',
       },
       {
         item: 'Reporting build',
         desc: 'Agreed definitions for every metric, a clean data model and 3 to 5 dashboards, built in your own workspace and handed over with documentation.',
-        price: 'from $4,000',
-        unit: 'per project',
+        unit: 'Fixed price',
       },
       {
         item: 'Monthly reporting and KPI pack',
         desc: 'Your KPIs every month, with written commentary.',
-        price: 'from $700',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
       {
         item: 'Dedicated data analyst, full time',
-        desc: 'Your own analyst, working your business hours. They:',
+        desc: 'Your own full-time analyst. They:',
         covers: [
           'Keep your dashboards and scheduled reports current and correct',
           'Build new reports and answer ad-hoc questions from your team',
@@ -287,8 +277,7 @@ export const pricing = [
           'Look across the business for trends and problems nobody asked about, and flag them in the weekly status',
           'Prepare your weekly and monthly KPI packs',
         ],
-        price: 'from $3,500',
-        unit: 'a month',
+        unit: 'Monthly fee',
       },
     ],
     notes: ['Built in your own workspace, in the tool you already use or the one we recommend.'],
@@ -305,7 +294,7 @@ export const pricing = [
 export const faqItems = [
   {
     q: 'Where is Baxio, and where does the work happen?',
-    a: 'Baxio Inc. is a New Jersey company. Our finance team works in Pakistan on US business hours. Each person works on a company laptop with their own login and multi-factor sign-in, every task runs from a written procedure, and you get a written status every week.',
+    a: 'Baxio Inc. is a New Jersey company. Our finance team works in Pakistan, inside each client’s own systems. Each person works on a company laptop with their own login and multi-factor sign-in, every task runs from a written procedure, and you get a written status every week.',
   },
   {
     q: 'How quickly can we start?',
@@ -313,7 +302,7 @@ export const faqItems = [
   },
   {
     q: 'Can we scale up or down?',
-    a: 'Yes. Adding hours or people, or reducing them, is handled with two weeks’ notice on either side. There are no volume commitments beyond your current scope.',
+    a: 'Yes. Adding people or scope, or reducing them, is handled with two weeks’ notice on either side. There are no volume commitments beyond your current scope.',
   },
   {
     q: 'What if performance is not satisfactory?',
@@ -324,8 +313,8 @@ export const faqItems = [
     a: 'Each function runs from documented SOPs, and the work is reviewed before it reaches you. Quality checks are part of your weekly status, so quality is visible rather than assumed.',
   },
   {
-    q: 'What time zones do you support?',
-    a: 'Your team works your business hours, in your time zone. We follow your holiday calendar.',
+    q: 'How is Baxio priced?',
+    a: 'Monthly roles are a fee per person, analytics builds are a fixed price after a free review, and managed departments and ERP projects are quoted as a project. You get a written price in the proposal, within three business days of the scoping call.',
   },
   {
     q: 'Do you provide reporting?',
@@ -345,10 +334,10 @@ export const purpose = {
   vision:
     'Every growing US company should be able to run its back office as well as a large enterprise does, with a team that works from written procedures and reports every week.',
   mission:
-    'We run the finance and operations work of US companies from Pakistan, on US business hours, with written procedures, a reviewed close and a written status every week, at a cost a growing business can carry.',
+    'We run the finance and operations work of US companies, with written procedures, a reviewed close and a written status every week, at a cost a growing business can carry.',
   statement: 'We’ve run a US company’s back office for 20 years. Now we run yours.',
   goals: [
-    ['The team US operators recommend', 'Be the offshore finance and operations team that logistics, furniture and home-goods companies recommend to each other.'],
+    ['The team US operators recommend', 'Be the finance and operations team that logistics, furniture and home-goods companies recommend to each other.'],
     ['Careers worth staying for', 'Build finance and operations careers in Pakistan that people keep for years, because continuity is what our clients pay for.'],
     ['Automation with review', 'We automate the repetitive part, and an accountant reviews every number.'],
   ],
@@ -427,17 +416,17 @@ export const clientLogos = [
 // The one primary action, used on every button that leads to /contact.
 export const ctaLabel = 'Book a scoping call'
 
-// Hero value proposition. Restates the Home meta line and the coverage rows.
+// Hero value proposition. Restates the Home meta line. No hours, time zones or location (surface a).
 export const heroLead =
-  'Accounting, customer support, operations, analytics and ERP work, done by our team on your business hours, from written procedures, with a written report every week.'
+  'Accounting, customer support, operations, analytics and ERP work, done by our team from written procedures, reviewed before it reaches you, with a written report every week.'
 
-// The fact strip under the hero. Sources: About (New Jersey), principles, coverage, timeline.
+// The fact strip under the hero. Sources: About (New Jersey), principles, cadence, timeline.
 // No country or city here (Marketing_Assets/06_Voice/location-and-leadership.md, surface a).
 // The team's location is stated on About, How we work and the FAQ.
 export const heroFacts = [
   ['Company', 'Baxio Inc., registered in New Jersey'],
   ['Team', 'Our own team, on written procedures'],
-  ['Hours', 'US Eastern to Pacific business hours'],
+  ['Reporting', 'A written status every week'],
   ['First step', 'A 30-day pilot against written KPIs'],
 ]
 

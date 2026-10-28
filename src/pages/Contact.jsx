@@ -55,6 +55,7 @@ function validate(values) {
 export default function Contact() {
   usePageMeta({
     title: 'Contact | Baxio',
+    image: 'og-contact.png',
     description:
       ctaLabel + '. We respond within ' +
       timeline.reply +
@@ -168,7 +169,7 @@ export default function Contact() {
                   You will hear from us by {done.day} at {done.email}.
                 </p>
                 <p className="row-sm block body mt-0">
-                  Within {timeline.proposal} you receive a written proposal: roles, hours, KPIs,
+                  Within {timeline.proposal} you receive a written proposal: roles, scope, KPIs,
                   cadence and pricing.
                 </p>
               </div>

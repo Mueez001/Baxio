@@ -9,10 +9,10 @@ import CTASection from '../components/CTASection'
 import { practices, cadence, ctaLabel, heroLead, heroFacts } from '../content/site'
 
 const description =
-  'Finance, support, operations, analytics and ERP implementation for US mid-market companies, run from written procedures and reported to you every week.'
+  'Finance, support, operations, analytics and ERP implementation for US companies, run from written procedures and reported to you every week.'
 
 export default function Home() {
-  usePageMeta({ title: 'Baxio | Offshore finance, support and operations teams for US companies', description })
+  usePageMeta({ title: 'Baxio | Finance and operations teams for US companies', description, image: 'og-home.png' })
 
   return (
     <>
@@ -82,7 +82,7 @@ export default function Home() {
               Explore services
             </Link>
             <Link to="/pricing" className="link-quiet">
-              See starting prices
+              How engagements are priced
             </Link>
           </div>
         </div>

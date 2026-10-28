@@ -14,8 +14,8 @@ export default function StatusNote() {
     <figure className="status-note">
       <div className="status-note-sheet" aria-hidden="true">
         <div className="flex items-baseline justify-between gap-4 border-b border-ink pb-4">
-          <p className="text-[18px] font-semibold tracking-[-0.01em] text-ink">Weekly status</p>
-          <p className="text-meta stretch-110 text-ink-2">Sent every week</p>
+          <p className="font-serif text-[20px] font-medium tracking-[-0.015em] text-ink">Weekly status</p>
+          <p className="font-mono text-meta uppercase text-ink-2">Sent every week</p>
         </div>
         <div className="divide-y divide-rule">
           {sections.map((s) => (
@@ -29,7 +29,7 @@ export default function StatusNote() {
                   return (
                     <span
                       key={w + bar}
-                      className={'status-bar ' + w + (s.flag ? ' bg-crimson-200' : ' bg-neutral-200')}
+                      className={'status-bar ' + w + (s.flag ? ' bg-crimson-tint' : ' bg-rule')}
                       style={{ animationDelay: 520 + bar * 70 + 'ms' }}
                     />
                   )
@@ -41,10 +41,10 @@ export default function StatusNote() {
         <div className="flex items-center gap-3 border-t border-rule pt-4">
           <span className="h-7 w-7 shrink-0 rounded-full bg-ink" />
           <span className="flex flex-col gap-1.5">
-            <span className="block h-2 w-24 rounded-full bg-neutral-200" />
-            <span className="block h-2 w-16 rounded-full bg-neutral-100" />
+            <span className="block h-2 w-24 rounded-full bg-rule" />
+            <span className="block h-2 w-16 rounded-full bg-paper-deep" />
           </span>
-          <span className="ml-auto text-meta stretch-110 text-ink-2">Reviewed weekly</span>
+          <span className="ml-auto font-mono text-meta uppercase text-ink-2">Reviewed weekly</span>
         </div>
       </div>
       <figcaption className="caption mt-4 max-w-[34rem]">

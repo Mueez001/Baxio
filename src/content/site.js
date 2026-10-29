@@ -3,8 +3,8 @@
 
 export const contact = {
   // Public addresses, shown in this order. Sentences use emailText.
-  emails: ['Peet@go2baxio.com', 'Mueez@go2baxio.com'],
-  emailText: 'Peet@go2baxio.com or Mueez@go2baxio.com',
+  emails: ['Mueez@go2baxio.com'],
+  emailText: 'Mueez@go2baxio.com',
   phone: '+1 229 265 2892',
   phoneHref: 'tel:+12292652892',
   legalName: 'Baxio Inc.',

@@ -343,7 +343,7 @@ export default function Contact() {
 
                 {failed && (
                   <p className="field-error" role="alert">
-                    We could not send your request. Email {contact.emailText}, or call {contact.phone}.
+                    We could not send your request. Email {contact.emailText} or call {contact.phone}.
                   </p>
                 )}
               </form>

@@ -10,6 +10,7 @@ import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import Privacy from './pages/Privacy.jsx'
 import NotFound from './pages/NotFound.jsx'
+import { trackPage } from './lib/analytics.js'
 
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
@@ -38,6 +39,11 @@ export default function App() {
       flushSync(() => setDisplayed(location))
     })
   }, [location, displayed])
+
+  // Runs after the page's own effects, so usePageMeta has already set the title.
+  useEffect(() => {
+    trackPage(displayed.pathname)
+  }, [displayed.pathname])
 
   return (
     <Routes location={displayed}>

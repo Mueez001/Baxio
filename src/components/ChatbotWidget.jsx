@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { contact, timeline, practices, pricingLine, coverage } from '../content/site.js'
+import { track } from '../lib/analytics.js'
 
 const wordmark = import.meta.env.BASE_URL + 'baxio-wordmark.svg'
 
@@ -278,6 +279,7 @@ export default function ChatbotWidget() {
   function startDiscovery() {
     setDraft({})
     setStepIndex(0)
+    track('chat_intake_start')
     pushBot('I will ask twelve short questions and send your answers privately to our team. Type cancel at any point to stop.')
     pushBot(questionPrompt(0))
   }
@@ -349,6 +351,7 @@ export default function ChatbotWidget() {
         return
       }
 
+      track('generate_lead', { form: 'chat', service: finalDraft.service || '' })
       pushBot(`Done. Your details are with our team. We reply within ${timeline.reply}.`)
       resetDiscovery()
     } finally {
@@ -396,6 +399,7 @@ export default function ChatbotWidget() {
     const normalized = text.toLowerCase()
 
     if (normalized === 'cancel') {
+      track('chat_intake_cancel', { step: stepIndex })
       pushBot('Discovery cancelled. Type start whenever you want to begin again.')
       resetDiscovery()
       return
@@ -408,6 +412,7 @@ export default function ChatbotWidget() {
 
     const current = discoveryQuestions[stepIndex]
     const nextIndex = stepIndex + 1
+    track('chat_intake_step', { step: nextIndex, question: current.key })
 
     if (normalized === 'skip') {
       if (current.required) {
@@ -495,7 +500,10 @@ export default function ChatbotWidget() {
       <button
         type="button"
         ref={pillRef}
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => {
+          if (!isOpen) track('chat_open')
+          setIsOpen((v) => !v)
+        }}
         onKeyDown={(e) => {
           if (e.key === 'Escape' && isOpen) {
             e.preventDefault()

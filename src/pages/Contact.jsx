@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import { contact, practices, timeline, ctaLabel } from '../content/site'
+import { attributionSummary, track } from '../lib/analytics'
 
 const ENDPOINT =
   import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/Peet@go2baxio.com'
@@ -89,6 +90,13 @@ export default function Contact() {
     scope: useRef(null),
   }
   const successRef = useRef(null)
+  const startedRef = useRef(false)
+
+  const onFormFocus = () => {
+    if (startedRef.current) return
+    startedRef.current = true
+    track('form_start', { form: 'contact', intent: isProposal ? 'proposal' : 'consultation' })
+  }
 
   useEffect(() => {
     if (done && successRef.current) successRef.current.focus()
@@ -112,6 +120,7 @@ export default function Contact() {
     setErrors(next)
     const first = ['name', 'email', 'scope'].find((k) => next[k])
     if (first) {
+      track('form_error', { form: 'contact', fields: Object.keys(next).join(',') })
       refs[first].current?.focus()
       return
     }
@@ -130,14 +139,17 @@ export default function Contact() {
           service: values.service,
           scope: values.scope.trim(),
           intent: isProposal ? 'proposal' : 'consultation',
+          lead_source: attributionSummary(),
           _subject: 'Baxio consultation request: ' + values.name.trim(),
           _template: 'table',
           _honey: values._honey,
         }),
       })
       if (!res.ok) throw new Error('Request failed')
+      track('generate_lead', { form: 'contact', service: values.service, intent: isProposal ? 'proposal' : 'consultation' })
       setDone({ email: values.email.trim(), day: nextBusinessDay() })
     } catch {
+      track('form_submit_failed', { form: 'contact' })
       setFailed(true)
     } finally {
       setSending(false)
@@ -174,7 +186,7 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form noValidate onSubmit={onSubmit} className="flex flex-col gap-6">
+              <form noValidate onSubmit={onSubmit} onFocus={onFormFocus} className="flex flex-col gap-6">
                 {/* Honeypot: hidden from people, filled by bots. FormSubmit drops any submission where _honey is set. */}
                 <div className="sr-only" aria-hidden="true">
                   <label htmlFor="_honey">Leave this field empty</label>

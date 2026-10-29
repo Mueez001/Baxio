@@ -184,7 +184,7 @@ export default function Contact() {
               </div>
             ) : (
               <form noValidate onSubmit={onSubmit} onFocus={onFormFocus} className="flex flex-col gap-6">
-                {/* Honeypot: hidden from people, filled by bots. FormSubmit drops any submission where _honey is set. */}
+                {/* Honeypot: hidden from people, filled by bots. The lead sender drops any submission where it is set. */}
                 <div className="sr-only" aria-hidden="true">
                   <label htmlFor="_honey">Leave this field empty</label>
                   <input

@@ -343,7 +343,7 @@ export default function Contact() {
 
                 {failed && (
                   <p className="field-error" role="alert">
-                    We could not send your request. Email {contact.email} or call {contact.phone}.
+                    We could not send your request. Email {contact.emailText}, or call {contact.phone}.
                   </p>
                 )}
               </form>
@@ -366,9 +366,11 @@ export default function Contact() {
               <div className="row-sm block">
                 <dt className="meta">Email</dt>
                 <dd className="body-sm mt-1">
-                  <a className="text-ink hover:opacity-70 transition-opacity duration-150" href={'mailto:' + contact.email}>
-                    {contact.email}
-                  </a>
+                  {contact.emails.map((email) => (
+                    <a key={email} className="block text-ink hover:opacity-70 transition-opacity duration-150" href={'mailto:' + email}>
+                      {email}
+                    </a>
+                  ))}
                 </dd>
               </div>
               <div className="row-sm block">

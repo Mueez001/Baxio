@@ -28,7 +28,7 @@ npm run build
 
 Copy `.env.example` to `.env` and adjust as needed. Both variables have working defaults in the code, so the site runs without a `.env` file.
 
-- `VITE_CONTACT_FORM_ENDPOINT`: the FormSubmit AJAX endpoint the contact form posts to. This is the delivery inbox for submissions; the public contact email shown on the site is `contact.email` in `src/content/site.js`.
+- `VITE_CONTACT_FORM_ENDPOINT`: the FormSubmit AJAX endpoint the contact form posts to. This is the delivery inbox for submissions; the public contact email shown on the site is `contact.emails` in `src/content/site.js`.
 - `VITE_CHATBOT_WEBHOOK_URL`: the webhook that receives chatbot intake submissions. The receiver is the Vercel function in `backend/vercel/api/chatbot-intakes.js`; see `backend/vercel/README.md` for deployment.
 
 ## Project structure

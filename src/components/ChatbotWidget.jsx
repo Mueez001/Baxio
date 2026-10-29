@@ -42,7 +42,7 @@ const botKnowledge = [
   },
   {
     keywords: ['contact', 'consultation', 'book', 'email', 'phone', 'call'],
-    answer: `Email ${contact.email}, call ${contact.phone}, or book a call on the Contact page. You can also type start and I will take your details here.`,
+    answer: `Email ${contact.emailText}, call ${contact.phone}, or book a call on the Contact page. You can also type start and I will take your details here.`,
   },
 ]
 
@@ -359,7 +359,7 @@ export default function ChatbotWidget() {
       const syncResult = await syncToBackend(compiledEntry)
 
       if (syncResult.status !== 'synced') {
-        pushBot(`I could not send your details just now. Your answers are kept here: type send to try again, or email ${contact.email}.`)
+        pushBot(`I could not send your details just now. Your answers are kept here: type send to try again, or email ${contact.emailText}.`)
         return
       }
 

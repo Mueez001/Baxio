@@ -2,14 +2,16 @@
 // Pages and components import from here; nothing below is duplicated elsewhere.
 
 export const contact = {
-  email: 'Peet@go2baxio.com',
+  // Public addresses, shown in this order. Sentences use emailText.
+  emails: ['Peet@go2baxio.com', 'Mueez@go2baxio.com'],
+  emailText: 'Peet@go2baxio.com or Mueez@go2baxio.com',
   phone: '+1 229 265 2892',
   phoneHref: 'tel:+12292652892',
   legalName: 'Baxio Inc.',
 }
 
 // Where contact-form and chat-assistant leads are delivered (FormSubmit AJAX endpoint).
-// This is the private lead inbox, not the public contact.email above.
+// This is the private lead inbox, not the public contact.emails above.
 export const leadEndpoint = 'https://formsubmit.co/ajax/mueez@go2baxio.com'
 
 export const timeline = {

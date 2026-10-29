@@ -30,7 +30,7 @@ const sections = [
   ['No sale of data', 'We do not sell your personal information.'],
   [
     'Deletion and questions',
-    'To ask us to delete your details, or to see or correct them, email ' + contact.email + '.',
+    'To ask us to delete your details, or to see or correct them, email ' + contact.emailText + '.',
   ],
   ['Children', 'This site is for businesses. We do not knowingly collect data from children under 13.'],
   ['Changes', 'If we change this policy, we post the new version here and update the date.'],

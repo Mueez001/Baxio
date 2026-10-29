@@ -55,11 +55,13 @@ export default function Footer() {
           <div className="col-span-4 md:col-span-3 md:col-start-10">
             <h2 className="meta">Contact</h2>
             <ul className="mt-3 space-y-1">
-              <li>
-                <a href={`mailto:${contact.email}`} className="footer-link">
-                  {contact.email}
-                </a>
-              </li>
+              {contact.emails.map((email) => (
+                <li key={email}>
+                  <a href={`mailto:${email}`} className="footer-link">
+                    {email}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a href={contact.phoneHref} className="footer-link">
                   {contact.phone}

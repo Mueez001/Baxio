@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { contact, timeline, practices, pricingLine, coverage } from '../content/site.js'
-import { track } from '../lib/analytics.js'
+import { contact, timeline, practices, pricingLine, coverage, leadEndpoint } from '../content/site.js'
+import { attributionSummary, track } from '../lib/analytics.js'
 
 const wordmark = import.meta.env.BASE_URL + 'baxio-wordmark.svg'
 
@@ -45,7 +45,6 @@ const botKnowledge = [
   },
 ]
 
-const DEFAULT_WEBHOOK_URL = 'https://vercel-lake-kappa-40.vercel.app/api/chatbot-intakes'
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 function makeId() {
@@ -91,7 +90,7 @@ export default function ChatbotWidget() {
   const finalizingRef = useRef(false)
   const closeTimerRef = useRef(null)
 
-  const endpoint = (import.meta.env.VITE_CHATBOT_WEBHOOK_URL || DEFAULT_WEBHOOK_URL).trim()
+  const endpoint = (import.meta.env.VITE_CHATBOT_ENDPOINT || leadEndpoint).trim()
   const inDiscovery = stepIndex >= 0
   const awaitingSend = stepIndex >= discoveryQuestions.length
   const isContactNarrow = location.pathname === '/contact' && isNarrow
@@ -290,10 +289,30 @@ export default function ChatbotWidget() {
     }
 
     try {
+      // Posts straight to FormSubmit, in the table layout the old Vercel relay sent.
+      const fields = payload.fields || {}
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `Baxio chat intake: ${fields.company || fields.fullName || payload.id}`,
+          _template: 'table',
+          _honey: '',
+          intakeId: payload.id,
+          createdAt: payload.createdAt,
+          fullName: fields.fullName || 'N/A',
+          workEmail: fields.workEmail || 'N/A',
+          company: fields.company || 'N/A',
+          role: fields.role || 'N/A',
+          serviceNeed: fields.service || 'N/A',
+          timeline: fields.timeline || 'N/A',
+          lead_source: attributionSummary(),
+          summary: payload.summary,
+          transcript: payload.transcript
+            .slice(-40)
+            .map((m) => `${m.role}: ${m.text}`)
+            .join('\n'),
+        }),
       })
 
       if (!response.ok) {

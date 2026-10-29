@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
-import { contact, practices, timeline, ctaLabel } from '../content/site'
+import { contact, practices, timeline, ctaLabel, leadEndpoint } from '../content/site'
 import { attributionSummary, track } from '../lib/analytics'
 
-const ENDPOINT =
-  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/mueez@go2baxio.com'
+const ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || leadEndpoint
 
 const NOT_SURE = 'Not sure yet'
 const SOMETHING_ELSE = 'Something else'

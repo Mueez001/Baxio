@@ -8,6 +8,10 @@ export const contact = {
   legalName: 'Baxio Inc.',
 }
 
+// Where contact-form and chat-assistant leads are delivered (FormSubmit AJAX endpoint).
+// This is the private lead inbox, not the public contact.email above.
+export const leadEndpoint = 'https://formsubmit.co/ajax/mueez@gomwd.com'
+
 export const timeline = {
   reply: 'one business day',
   proposal: 'three business days',

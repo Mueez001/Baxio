@@ -4,7 +4,7 @@ const ALLOWED_ORIGINS = [
   'http://127.0.0.1:5173',
 ]
 
-const DEFAULT_CHATBOT_EMAIL_ENDPOINT = 'https://formsubmit.co/ajax/mueez@gomwd.com'
+const DEFAULT_CHATBOT_EMAIL_ENDPOINT = 'https://formsubmit.co/ajax/mueez@go2baxio.com'
 
 function getCorsOrigin(requestOrigin) {
   if (!requestOrigin) {

@@ -1,9 +1,12 @@
-// Baxio website lead inbox: Google Apps Script web app bound to a Google Sheet.
+// Baxio website lead inbox: Google Apps Script web app that writes to a Google Sheet.
 // The website (src/lib/leads.js) POSTs every contact-form and chat-assistant lead here.
 // Each lead is saved as a row in the "Leads" tab first, then emailed to LEAD_EMAIL, so a lead
 // is kept even if the email fails. Setup steps: SETUP.md in this folder.
 
 const LEAD_EMAIL = 'mueez@go2baxio.com'
+// The "Baxio website leads" sheet in the baxioinc@gmail.com Drive. Leave empty if the script is
+// bound to the sheet (Extensions → Apps Script); set it for a standalone script.
+const SHEET_ID = '14ZGnAQcivwHnXKiHIDRbYEYS5HCQQUDHORXuiDlux0k'
 const SHEET_NAME = 'Leads'
 const FIXED_COLUMNS = ['received_at', 'subject', 'emailed']
 const MAX_VALUE_LENGTH = 20000
@@ -74,7 +77,7 @@ function sendLeadEmail(subject, keys, values) {
         '</th><td style="padding:6px 0;white-space:pre-wrap">' + escapeHtml(values[k]) + '</td></tr>'
     })
     .join('')
-  const sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl()
+  const sheetUrl = leadsBook().getUrl()
   const options = {
     to: LEAD_EMAIL,
     subject: subject,
@@ -89,8 +92,12 @@ function sendLeadEmail(subject, keys, values) {
   MailApp.sendEmail(options)
 }
 
+function leadsBook() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet()
+}
+
 function leadsSheet() {
-  const book = SpreadsheetApp.getActiveSpreadsheet()
+  const book = leadsBook()
   return book.getSheetByName(SHEET_NAME) || book.insertSheet(SHEET_NAME)
 }
 

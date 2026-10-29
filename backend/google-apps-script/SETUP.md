@@ -9,6 +9,8 @@ mueez@go2baxio.com. The script is `Code.gs` in this folder. It runs under the Go
    that account (Apps Script misbehaves when several Google accounts are signed in), then create a blank sheet
    at https://sheets.new. Name it **Baxio website leads**. Lead emails will be sent from this account.
 2. In the sheet: **Extensions → Apps Script**. Delete what is in the editor, paste in all of `Code.gs`, and click **Save**.
+   Or make a standalone project at https://script.new and set `SHEET_ID` in `Code.gs` to the sheet's ID (the long
+   part of its URL). The live setup is standalone: project and sheet are both named "Baxio website leads" on baxioinc@gmail.com.
 3. In the function dropdown at the top, pick **testLead** and click **Run**. Google asks for permission:
    choose your account, click **Advanced → Go to (project name)**, then **Allow**. The warning appears
    because this is your own unpublished script. Check that a "Leads" tab appeared with a test row and that the

@@ -5,7 +5,9 @@ mueez@go2baxio.com. The script is `Code.gs` in this folder. It runs under the Go
 
 ## One-time setup (about 5 minutes)
 
-1. Sign in to Google and create a blank sheet at https://sheets.new. Name it **Baxio website leads**.
+1. Use the **BaxioINC Gmail account**, not a personal one. Open a private/incognito window, sign in to only
+   that account (Apps Script misbehaves when several Google accounts are signed in), then create a blank sheet
+   at https://sheets.new. Name it **Baxio website leads**. Lead emails will be sent from this account.
 2. In the sheet: **Extensions → Apps Script**. Delete what is in the editor, paste in all of `Code.gs`, and click **Save**.
 3. In the function dropdown at the top, pick **testLead** and click **Run**. Google asks for permission:
    choose your account, click **Advanced → Go to (project name)**, then **Allow**. The warning appears

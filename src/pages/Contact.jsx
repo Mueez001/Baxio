@@ -5,7 +5,7 @@ import { contact, practices, timeline, ctaLabel } from '../content/site'
 import { attributionSummary, track } from '../lib/analytics'
 
 const ENDPOINT =
-  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/Peet@go2baxio.com'
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/mueez@go2baxio.com'
 
 const NOT_SURE = 'Not sure yet'
 const SOMETHING_ELSE = 'Something else'

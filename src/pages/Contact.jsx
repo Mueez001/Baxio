@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from '../hooks/usePageMeta'
 import { contact, practices, timeline, ctaLabel, leadEndpoint } from '../content/site'
+import { sendLead } from '../lib/leads'
 import { attributionSummary, track } from '../lib/analytics'
 
 const ENDPOINT = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || leadEndpoint
@@ -127,10 +128,11 @@ export default function Contact() {
     setSending(true)
     setFailed(false)
     try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
+      await sendLead({
+        endpoint: ENDPOINT,
+        subject: 'Baxio consultation request: ' + values.name.trim(),
+        honey: values._honey,
+        fields: {
           name: values.name.trim(),
           email: values.email.trim(),
           company: values.company.trim(),
@@ -139,12 +141,8 @@ export default function Contact() {
           scope: values.scope.trim(),
           intent: isProposal ? 'proposal' : 'consultation',
           lead_source: attributionSummary(),
-          _subject: 'Baxio consultation request: ' + values.name.trim(),
-          _template: 'table',
-          _honey: values._honey,
-        }),
+        },
       })
-      if (!res.ok) throw new Error('Request failed')
       track('generate_lead', { form: 'contact', service: values.service, intent: isProposal ? 'proposal' : 'consultation' })
       setDone({ email: values.email.trim(), day: nextBusinessDay() })
     } catch {

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { contact, timeline, practices, pricingLine, coverage, leadEndpoint } from '../content/site.js'
 import { attributionSummary, track } from '../lib/analytics.js'
+import { sendLead } from '../lib/leads.js'
 
 const wordmark = import.meta.env.BASE_URL + 'baxio-wordmark.svg'
 
@@ -289,19 +290,15 @@ export default function ChatbotWidget() {
     }
 
     try {
-      // Posts straight to FormSubmit, in the table layout the old Vercel relay sent.
       const fields = payload.fields || {}
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject: `Baxio chat intake: ${fields.company || fields.fullName || payload.id}`,
-          _template: 'table',
-          _honey: '',
+      const response = await sendLead({
+        endpoint,
+        subject: `Baxio chat intake: ${fields.company || fields.fullName || payload.id}`,
+        fields: {
           intakeId: payload.id,
           createdAt: payload.createdAt,
           fullName: fields.fullName || 'N/A',
-          workEmail: fields.workEmail || 'N/A',
+          email: fields.workEmail || 'N/A',
           company: fields.company || 'N/A',
           role: fields.role || 'N/A',
           serviceNeed: fields.service || 'N/A',
@@ -312,12 +309,8 @@ export default function ChatbotWidget() {
             .slice(-40)
             .map((m) => `${m.role}: ${m.text}`)
             .join('\n'),
-        }),
+        },
       })
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`)
-      }
 
       let responseBody = null
       try {
